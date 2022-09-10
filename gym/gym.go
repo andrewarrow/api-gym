@@ -107,3 +107,10 @@ func (g *Gym) AddFieldToStruct(index, name, flavor, random string) {
 	g.Save()
 	g.ListRoutes()
 }
+
+func (g *Gym) AddStruct(name string) {
+	g.Structs = append(g.Structs, NewStruct(name))
+	g.fillStructsByName()
+	g.Save()
+	g.ListRoutes()
+}

@@ -42,6 +42,11 @@ func main() {
 		index := os.Args[2]
 		simulate.Run(index, g)
 	} else if command == "structs" {
+		if os.Args[2] == "add" {
+			name := os.Args[3]
+			g.AddStruct(name)
+			return
+		}
 		index := os.Args[2]
 		name := os.Args[3]
 		flavor := os.Args[4]
