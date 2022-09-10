@@ -11,7 +11,7 @@ func PrintHelp() {
 	fmt.Println("  api-gym rm       [index]              ")
 	fmt.Println("  api-gym response [index]    [response]")
 	fmt.Println("")
-	fmt.Println("  api-gym structs [index] [name] [flavor]")
+	fmt.Println("  api-gym structs [index] [name] [flavor] [random]")
 	fmt.Println("")
 	fmt.Println("  api-gym run [index]")
 	fmt.Println("")

@@ -45,7 +45,8 @@ func main() {
 		index := os.Args[2]
 		name := os.Args[3]
 		flavor := os.Args[4]
-		g.AddFieldToStruct(index, name, flavor)
+		random := os.Args[5]
+		g.AddFieldToStruct(index, name, flavor, random)
 	} else if command == "help" {
 		PrintHelp()
 	}

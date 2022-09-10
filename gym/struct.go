@@ -13,7 +13,7 @@ func NewStruct(name string) *Struct {
 	if strings.HasPrefix(name, "[]") {
 		s.Name = name[2:]
 	}
-	s.Fields = append(s.Fields, NewField("Id", "string"))
-	s.Fields = append(s.Fields, NewField("Name", "string"))
+	s.Fields = append(s.Fields, NewField("Id", "string", "uuid"))
+	s.Fields = append(s.Fields, NewField("Name", "string", "color"))
 	return &s
 }

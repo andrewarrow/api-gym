@@ -100,9 +100,9 @@ func (g *Gym) AddResponseToRoute(index, response string) {
 	g.ListRoutes()
 }
 
-func (g *Gym) AddFieldToStruct(index, name, flavor string) {
+func (g *Gym) AddFieldToStruct(index, name, flavor, random string) {
 	indexAsInt, _ := strconv.Atoi(index)
-	f := NewField(name, flavor)
+	f := NewField(name, flavor, random)
 	g.Structs[indexAsInt].Fields = append(g.Structs[indexAsInt].Fields, f)
 	g.Save()
 	g.ListRoutes()
