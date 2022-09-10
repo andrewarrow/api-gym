@@ -13,7 +13,8 @@ func Run(index string, g *gym.Gym) {
 	structure, flavor := route.ParseResponse()
 
 	if structure == "array" {
-		printItems(flavor, g)
+		s := g.StructsByName[flavor]
+		printItems(s, 9, g)
 		return
 	}
 }
@@ -27,14 +28,13 @@ func makeArrayItems(field *gym.Field, g *gym.Gym) string {
 	return strings.Join(sub, ",")
 }
 
-func printItems(flavor string, g *gym.Gym) {
+func printItems(s *gym.Struct, amount int, g *gym.Gym) {
 	buff := []string{}
 	buff = append(buff, `{"data":`)
 
-	s := g.StructsByName[flavor]
 	buff = append(buff, "[")
 	sub := []string{}
-	for i := 0; i < 9; i++ {
+	for i := 0; i < amount; i++ {
 		sub = append(sub, makeStructJson(s, g))
 	}
 	buff = append(buff, strings.Join(sub, ","))

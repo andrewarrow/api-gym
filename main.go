@@ -1,6 +1,7 @@
 package main
 
 import (
+	"api-gym/files"
 	"api-gym/gym"
 	"api-gym/simulate"
 	"fmt"
@@ -20,6 +21,7 @@ func main() {
 	}
 	command := os.Args[1]
 	g = gym.LoadGym()
+	files.MkdirJson()
 
 	if command == "new" {
 		g.SaveBackup()
@@ -41,6 +43,10 @@ func main() {
 	} else if command == "run" {
 		index := os.Args[2]
 		simulate.Run(index, g)
+	} else if command == "json" {
+		structIndex := os.Args[2]
+		amount := os.Args[3]
+		simulate.Json(structIndex, amount, g)
 	} else if command == "structs" {
 		if os.Args[2] == "add" {
 			name := os.Args[3]
