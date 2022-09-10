@@ -59,7 +59,7 @@ func (g *Gym) ListRoutes() {
 	for i, s := range g.Structs {
 		fmt.Printf("%2d. %-30s\n", i, s.Name)
 		for j, f := range s.Fields {
-			fmt.Printf("  %2d. %-30s %-30s\n", j, f.Name, f.Flavor)
+			fmt.Printf("  %2d. %-30s %-30s %s\n", j, f.Name, f.Flavor, f.Random)
 		}
 	}
 	fmt.Println("")
