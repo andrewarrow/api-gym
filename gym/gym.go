@@ -22,6 +22,7 @@ func NewGym() *Gym {
 
 func (g *Gym) AddRoute(verb, route string) {
 	g.Routes = append(g.Routes, NewRoute(verb, route))
+	g.SortRoutes()
 	g.Save()
 	g.ListRoutes()
 }
@@ -36,20 +37,20 @@ func (g *Gym) RemoveRoute(index string) {
 		routes = append(routes, route)
 	}
 	g.Routes = routes
+	g.SortRoutes()
 	g.Save()
 	g.ListRoutes()
 }
 
-func (g *Gym) ListRoutes() {
-	buff := []string{}
-	for _, route := range g.Routes {
-		buff = append(buff, fmt.Sprintf("%4s %s", route.Verb, route.Route))
-	}
-	sort.SliceStable(buff, func(i, j int) bool {
-		return buff[i] < buff[j]
+func (g *Gym) SortRoutes() {
+	sort.SliceStable(g.Routes, func(i, j int) bool {
+		return g.Routes[i].String() < g.Routes[j].String()
 	})
-	for i, route := range buff {
-		fmt.Printf("%2d. %s\n", i, route)
+}
+
+func (g *Gym) ListRoutes() {
+	for i, route := range g.Routes {
+		fmt.Printf("%2d. %s\n", i, route.String())
 	}
 }
 
