@@ -2,6 +2,7 @@ package main
 
 import (
 	"api-gym/gym"
+	"api-gym/simulate"
 	"fmt"
 	"math/rand"
 	"os"
@@ -37,6 +38,9 @@ func main() {
 	} else if command == "response" {
 		index := os.Args[2]
 		g.AddResponseToRoute(index, os.Args[3])
+	} else if command == "test" {
+		index := os.Args[2]
+		simulate.Run(index, g)
 	} else if command == "help" {
 		PrintHelp()
 	}

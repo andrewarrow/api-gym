@@ -14,4 +14,6 @@ func PrintHelp() {
 	fmt.Println("  api-gym structs ls")
 	fmt.Println("  api-gym structs field [name] [flavor]")
 	fmt.Println("")
+	fmt.Println("  api-gym test [index]")
+	fmt.Println("")
 }
