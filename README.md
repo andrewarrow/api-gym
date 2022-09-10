@@ -18,7 +18,9 @@ Or you can chose to apply to an existing one.
 
 Each LS can explain it's desire combination of people, parterships, and kids. Some might be 100% kid free. Some might be all families. Some might be in between with young partners thinking about having or adopting their first child.
 
-Similar to [https://www.pacaso.com/learn](https://www.pacaso.com/learn) but not a 2nd home, your primary home you own a % of it in an LLC.
+Similar to [https://www.pacaso.com/learn](https://www.pacaso.com/learn) but not a 2nd home, your primary home, and you own a % of it in an LLC.
+
+Existing apartment/condo buildings could be converted into having very large (think 10 bedrooms, 4 bathrooms) units by knocking down walls and combining units. Someone with the cash can start a conversion like this, and then post the option to buy into it with other individuals that meet the set criteria.
 
 # example
 https://www.pacaso.com
