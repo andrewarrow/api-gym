@@ -10,6 +10,8 @@ func PrintHelp() {
 	fmt.Println("  api-gym add      [get|post] [route]   ")
 	fmt.Println("  api-gym rm       [index]              ")
 	fmt.Println("  api-gym response [index]    [response]")
+	fmt.Println("")
 	fmt.Println("  api-gym structs ls")
+	fmt.Println("  api-gym structs field [name] [flavor]")
 	fmt.Println("")
 }
