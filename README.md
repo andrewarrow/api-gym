@@ -32,30 +32,33 @@ Existing apartment/condo buildings could be converted into having very large (th
  4. POST /living_spaces/apply
 
  0. LivingSpace
-   0. Id                             string                         uuid
-   1. Name                           string                         color
-   2. Address                        string                         address
-   3. Latitude                       float64                        latitude
-   4. Longitude                      float64                        longitude
-   5. BedroomCount                   int
-   5. BathCount                      float64
-   5. SquareFeet                     int
-   5. HumanCount                     int                            small_int_range
-   6. Humans                         []Human
-   7. Familes                        []Family
-   8. Partners                       []Partner
+    Id                             string                         uuid
+    Name                           string                         color
+    Mission                        string                         
+    Address                        string                         address
+    Latitude                       float64                        latitude
+    Longitude                      float64                        longitude
+    BedroomCount                   int
+    BathCount                      float64
+    SquareFeet                     int
+    HumanCount                     int                            small_int_range
+    Humans                         []Human
+    Familes                        []Family
+    Partners                       []Partner
  1. Human
-   0. Id                             string                         uuid
-   1. Name                           string                         name
-   2. Pronouns                       string                         pronouns
+    Id                             string                         uuid
+    Name                           string                         name
+    Pronouns                       string                         pronouns
  2. Family
-   0. Id                             string                         uuid
-   1. Name                           string                         color
+    Id                             string                         uuid
+    Name                           string                         color
 ```
 
-Let's create the JSON for a sample existing LS in Culver City, CA. The name of the LS will be "Culver Families for Love." It's a condo conversion from a few years ago, eight 2 bedrooms, 1 baths were merged. The total was 16 bedrooms, 8 baths but a few baths were removed to make more bedrooms. The final count was 20 bedrooms and 4.5 baths in 11,200 square feet. Picture a very large communal kitchen, play area for kids, and a large outdoor deck. All 11,200 square feet was repurposed to make sense for 30 people that will be living and working in this space.
+Let's create the JSON for two sample existing LS's in Culver City, CA. The name of the first LS will be "Culver Families for Love." It's a condo conversion from a few years ago, eight 2 bedrooms, 1 baths were merged. The total was 16 bedrooms, 8 baths but a few baths were removed to make more bedrooms. The final count was 20 bedrooms and 4.5 baths in 11,200 square feet. Picture a very large communal kitchen, play area for kids, and a large outdoor deck. All 11,200 square feet was repurposed to make sense for 30 people that will be living and working in this space. This was the entire first floor of the building.
 
-The desired 30 people breaks down like:
+There was another 11,200 of square feet in the same building (2nd floor) also converted and will be the second example LS. The two of them together share the one pool, garage, mail room, etc.
+
+The desired 30 people for "Culver Families for Love" breaks down like:
 
 1. Two families of six.
 2. Two families of three.
@@ -65,5 +68,14 @@ The desired 30 people breaks down like:
 
 12+6+4+3+4 = 29 with one empty spot for a future kid.
 
+The `mission` statement of this LS is: "Live together with love for everyone. We allow all types of food in the kichen but have many vegans. We allow for all types of gender identification. We believe in strong values for our kids and all the adults help all the kids. Our adults have a least one member working in the tech industry. Areas of the home are designed for their work with network access and no kids during working hours."
 
+The second example LS's name is "Culver Looking" and it breaks down like:
+
+1. Eight partnerships with no kids.
+2. Eight individuals with no partners no kids.
+
+16+8 = 24 with six open spots for future kids or individuals.
+
+The `mission` statement of this LS is: "No kids yet but looking for a family oriented life someday. Working professional tend to be in the film and television business but all professional are welcome. Dating within our LS is allowed but we value respecting existing partnerships and not disrupting them with bad intent. We welcome the first of our community to have children and spots are open for them."
 
