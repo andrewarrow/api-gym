@@ -5,6 +5,7 @@ import (
 	"api-gym/util"
 	"encoding/json"
 	"fmt"
+	"sort"
 	"strconv"
 )
 
@@ -40,8 +41,15 @@ func (g *Gym) RemoveRoute(index string) {
 }
 
 func (g *Gym) ListRoutes() {
-	for i, route := range g.Routes {
-		fmt.Printf("%02d. %4s %s\n", i, route.Verb, route.Route)
+	buff := []string{}
+	for _, route := range g.Routes {
+		buff = append(buff, fmt.Sprintf("%4s %s", route.Verb, route.Route))
+	}
+	sort.SliceStable(buff, func(i, j int) bool {
+		return buff[i] < buff[j]
+	})
+	for i, route := range buff {
+		fmt.Printf("%2d. %s\n", i, route)
 	}
 }
 
