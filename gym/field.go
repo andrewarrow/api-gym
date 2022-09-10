@@ -26,6 +26,9 @@ func (f *Field) ToFakeValue() string {
 	value := gofakeit.Color()
 	if f.Name == "Id" {
 		value = util.PseudoUuid()
+	} else if f.Name == "Address" {
+		a := gofakeit.Address()
+		value = fmt.Sprintf("%s, %s, %s %s %s", a.Street, a.City, a.State, a.Zip, a.Country)
 	}
 	return value
 }
