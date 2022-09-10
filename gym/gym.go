@@ -5,6 +5,7 @@ import (
 	"api-gym/util"
 	"encoding/json"
 	"fmt"
+	"strconv"
 )
 
 type Gym struct {
@@ -21,6 +22,21 @@ func NewGym() *Gym {
 func (g *Gym) AddRoute(verb, route string) {
 	g.Routes = append(g.Routes, NewRoute(verb, route))
 	g.Save()
+	g.ListRoutes()
+}
+
+func (g *Gym) RemoveRoute(index string) {
+	indexAsInt, _ := strconv.Atoi(index)
+	routes := []*Route{}
+	for i, route := range g.Routes {
+		if i == indexAsInt {
+			continue
+		}
+		routes = append(routes, route)
+	}
+	g.Routes = routes
+	g.Save()
+	g.ListRoutes()
 }
 
 func (g *Gym) ListRoutes() {
@@ -42,4 +58,8 @@ func LoadGym() *Gym {
 func (g *Gym) Save() {
 	b, _ := json.Marshal(g)
 	files.SaveFile("gym.json", string(b))
+}
+func (g *Gym) SaveBackup() {
+	b, _ := json.Marshal(g)
+	files.SaveFile("gym.backup.json", string(b))
 }

@@ -21,14 +21,19 @@ func main() {
 	g = gym.LoadGym()
 
 	if command == "new" {
+		g.SaveBackup()
 		g = gym.NewGym()
 		fmt.Printf("\nNew Gym Create with name: %s\n\n", g.Name)
+		g.Save()
 	} else if command == "ls" {
 		g.ListRoutes()
 	} else if command == "add" {
 		verb := os.Args[2]
 		route := os.Args[3]
 		g.AddRoute(verb, route)
+	} else if command == "rm" {
+		index := os.Args[2]
+		g.RemoveRoute(index)
 	} else if command == "help" {
 		PrintHelp()
 	}
