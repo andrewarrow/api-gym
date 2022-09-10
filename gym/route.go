@@ -3,8 +3,9 @@ package gym
 import "fmt"
 
 type Route struct {
-	Verb  string `json:"verb"`
-	Route string `json:"route"`
+	Verb     string `json:"verb"`
+	Route    string `json:"route"`
+	Response string `json:"response"`
 }
 
 func NewRoute(verb, route string) *Route {

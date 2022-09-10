@@ -50,7 +50,7 @@ func (g *Gym) SortRoutes() {
 
 func (g *Gym) ListRoutes() {
 	for i, route := range g.Routes {
-		fmt.Printf("%2d. %s\n", i, route.String())
+		fmt.Printf("%2d. %30s %s\n", i, route.String(), route.Response)
 	}
 }
 
@@ -71,4 +71,11 @@ func (g *Gym) Save() {
 func (g *Gym) SaveBackup() {
 	b, _ := json.Marshal(g)
 	files.SaveFile("gym.backup.json", string(b))
+}
+
+func (g *Gym) AddResponseToRoute(index, response string) {
+	indexAsInt, _ := strconv.Atoi(index)
+	g.Routes[indexAsInt].Response = response
+	g.Save()
+	g.ListRoutes()
 }

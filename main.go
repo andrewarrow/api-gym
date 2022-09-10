@@ -34,6 +34,9 @@ func main() {
 	} else if command == "rm" {
 		index := os.Args[2]
 		g.RemoveRoute(index)
+	} else if command == "response" {
+		index := os.Args[2]
+		g.AddResponseToRoute(index, os.Args[3])
 	} else if command == "help" {
 		PrintHelp()
 	}
