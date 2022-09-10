@@ -20,6 +20,7 @@ func NewGym() *Gym {
 
 func (g *Gym) AddRoute(verb, route string) {
 	g.Routes = append(g.Routes, NewRoute(verb, route))
+	g.Save()
 }
 
 func (g *Gym) ListRoutes() {
@@ -36,4 +37,9 @@ func LoadGym() *Gym {
 	var g Gym
 	json.Unmarshal([]byte(gymJson), &g)
 	return &g
+}
+
+func (g *Gym) Save() {
+	b, _ := json.Marshal(g)
+	files.SaveFile("gym.json", string(b))
 }
