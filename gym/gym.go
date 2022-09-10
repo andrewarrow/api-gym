@@ -114,3 +114,11 @@ func (g *Gym) AddStruct(name string) {
 	g.Save()
 	g.ListRoutes()
 }
+
+func (g *Gym) UpdateStructRandom(index, fieldIndex, random string) {
+	indexAsInt, _ := strconv.Atoi(index)
+	fieldIndexAsInt, _ := strconv.Atoi(fieldIndex)
+	g.Structs[indexAsInt].Fields[fieldIndexAsInt].Random = random
+	g.Save()
+	g.ListRoutes()
+}

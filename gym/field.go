@@ -39,6 +39,8 @@ func (f *Field) ToFakeValue() string {
 		value = util.PseudoUuid()
 	} else if f.Random == "color" {
 		value = gofakeit.Color()
+	} else if f.Random == "name" {
+		value = gofakeit.Name()
 	} else if f.Random == "address" {
 		a := gofakeit.Address()
 		value = fmt.Sprintf("%s, %s, %s %s %s", a.Street, a.City, a.State, a.Zip, a.Country)

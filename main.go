@@ -47,6 +47,12 @@ func main() {
 			g.AddStruct(name)
 			return
 		}
+		if os.Args[2] == "update-random" {
+			index := os.Args[3]
+			fieldIndex := os.Args[4]
+			g.UpdateStructRandom(index, fieldIndex, os.Args[5])
+			return
+		}
 		index := os.Args[2]
 		name := os.Args[3]
 		flavor := os.Args[4]
