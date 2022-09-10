@@ -68,7 +68,7 @@ The desired 30 people for "Culver Families for Love" breaks down like:
 
 12+6+4+3+4 = 29 with one empty spot for a future kid.
 
-The `mission` statement of this LS is: "Live together with love for everyone. We allow all types of food in the kichen but have many vegans. We allow for all types of gender identification. We believe in strong values for our kids and all the adults help all the kids. Our adults have a least one member working in the tech industry. Areas of the home are designed for their work with network access and no kids during working hours."
+The `mission` statement of this LS is: "Live together with love for everyone. We allow all types of food in the kichen but have many vegans. We allow for all types of gender identification. We believe in strong values for our kids and all the adults help all the kids. Our adults have a least one member working in the tech industry. Areas of the home are designed for their work with network access and no kids areas during working hours."
 
 The second example LS's name is "Culver Looking" and it breaks down like:
 
@@ -79,3 +79,34 @@ The second example LS's name is "Culver Looking" and it breaks down like:
 
 The `mission` statement of this LS is: "No kids yet but looking for a family oriented life someday. Working professional tend to be in the film and television business but all professional are welcome. Dating within our LS is allowed but we value respecting existing partnerships and not disrupting them with bad intent. We welcome the first of our community to have children and spots are open for them."
 
+```
+{
+  "data": [
+    {
+      "id": "c40fde42-a950-50c5-5e33-68f61188e31f",
+      "name": "Culver Families for Love",
+      "mission": "Live together with love for everyone. We allow all types of food in the kichen but have many vegans. We allow for all types of gender identification. We believe in strong values for our kids and all the adults help all the kids. Our adults have a least one member working in the tech industry. Areas of the home are designed for their work with network access and no kids areas during working hours.",
+      "address": "6410 Culver Blvd Floor #1, Culver City, CA 90230 USA",
+      "latitude": 23.531596,
+      "longitude": -54.374458,
+      "human_count": 29,
+      "bedroom_count": 20,
+      "bath_count": 4.5,
+      "square_feet": 11200
+    },
+    {
+      "id": "aa603ada-c537-6641-37a8-a419163c9d87",
+      "name": "Culver Looking",
+      "mission": "No kids yet but looking for a family oriented life someday. Working professional tend to be in the film and television business but all professional are welcome. Dating within our LS is allowed but we value respecting existing partnerships and not disrupting them with bad intent. We welcome the first of our community to have children and spots are open for them.",
+      "address": "6410 Culver Blvd Floor #2, Culver City, CA 90230 USA",
+      "latitude": 23.531596,
+      "longitude": -54.374458,
+      "human_count": 24,
+      "bedroom_count": 20,
+      "bath_count": 4.5,
+      "square_feet": 11200
+    }
+  ]
+}
+
+```
