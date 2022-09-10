@@ -22,6 +22,12 @@ func main() {
 	if command == "new" {
 		g = gym.NewGym()
 		fmt.Printf("\nNew Gym Create with name: %s\n\n", g.Name)
+	} else if command == "ls" {
+		g.ListRoutes()
+	} else if command == "add" {
+		verb := os.Args[2]
+		route := os.Args[3]
+		g.AddRoute(verb, route)
 	} else if command == "help" {
 		PrintHelp()
 	}
