@@ -41,6 +41,11 @@ func main() {
 	} else if command == "test" {
 		index := os.Args[2]
 		simulate.Run(index, g)
+	} else if command == "structs" {
+		index := os.Args[2]
+		name := os.Args[3]
+		flavor := os.Args[4]
+		g.AddFieldToStruct(index, name, flavor)
 	} else if command == "help" {
 		PrintHelp()
 	}

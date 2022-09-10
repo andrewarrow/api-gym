@@ -23,7 +23,7 @@ func (f *Field) NameToJson() string {
 	return fmt.Sprintf("%s", util.ToSnakeCase(f.Name))
 }
 func (f *Field) ToFakeValue() string {
-	value := gofakeit.Name()
+	value := gofakeit.Color()
 	if f.Name == "Id" {
 		value = util.PseudoUuid()
 	}

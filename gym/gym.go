@@ -99,3 +99,11 @@ func (g *Gym) AddResponseToRoute(index, response string) {
 	g.Save()
 	g.ListRoutes()
 }
+
+func (g *Gym) AddFieldToStruct(index, name, flavor string) {
+	indexAsInt, _ := strconv.Atoi(index)
+	f := NewField(name, flavor)
+	g.Structs[indexAsInt].Fields = append(g.Structs[indexAsInt].Fields, f)
+	g.Save()
+	g.ListRoutes()
+}
