@@ -10,8 +10,9 @@ import (
 )
 
 type Gym struct {
-	Name   string   `json:"name"`
-	Routes []*Route `json:"routes"`
+	Name    string    `json:"name"`
+	Routes  []*Route  `json:"routes"`
+	Structs []*Struct `json:"structs"`
 }
 
 func NewGym() *Gym {
@@ -52,6 +53,10 @@ func (g *Gym) ListRoutes() {
 	for i, route := range g.Routes {
 		fmt.Printf("%2d. %30s %s\n", i, route.String(), route.Response)
 	}
+	fmt.Println("")
+	for i, s := range g.Structs {
+		fmt.Printf("%2d. %30s\n", i, s.Name)
+	}
 }
 
 func LoadGym() *Gym {
@@ -76,6 +81,7 @@ func (g *Gym) SaveBackup() {
 func (g *Gym) AddResponseToRoute(index, response string) {
 	indexAsInt, _ := strconv.Atoi(index)
 	g.Routes[indexAsInt].Response = response
+	g.Structs = append(g.Structs, NewStruct(response))
 	g.Save()
 	g.ListRoutes()
 }
