@@ -1,10 +1,14 @@
 package main
 
 import (
+	"api-gym/gym"
+	"fmt"
 	"math/rand"
 	"os"
 	"time"
 )
+
+var g *gym.Gym
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
@@ -15,7 +19,9 @@ func main() {
 	}
 	command := os.Args[1]
 
-	if command == "process" {
+	if command == "new" {
+		g = gym.NewGym()
+		fmt.Printf("\nNew Gym Create with name: %s\n\n", g.Name)
 	} else if command == "help" {
 		PrintHelp()
 	}
