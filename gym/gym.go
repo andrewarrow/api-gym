@@ -10,9 +10,10 @@ import (
 )
 
 type Gym struct {
-	Name    string    `json:"name"`
-	Routes  []*Route  `json:"routes"`
-	Structs []*Struct `json:"structs"`
+	Name          string             `json:"name"`
+	Routes        []*Route           `json:"routes"`
+	Structs       []*Struct          `json:"structs"`
+	StructsByName map[string]*Struct `json:"-"`
 }
 
 func NewGym() *Gym {
@@ -71,7 +72,14 @@ func LoadGym() *Gym {
 	}
 	var g Gym
 	json.Unmarshal([]byte(gymJson), &g)
+	g.fillStructsByName()
 	return &g
+}
+
+func (g *Gym) fillStructsByName() {
+	for _, s := range g.Structs {
+		g.StructsByName[s.Name] = s
+	}
 }
 
 func (g *Gym) Save() {

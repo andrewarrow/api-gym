@@ -1,6 +1,9 @@
 package gym
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type Route struct {
 	Verb     string `json:"verb"`
@@ -17,4 +20,15 @@ func NewRoute(verb, route string) *Route {
 
 func (r *Route) String() string {
 	return fmt.Sprintf("%4s %s", r.Verb, r.Route)
+}
+
+func (r *Route) ParseResponse() (string, string) {
+	structure := ""
+	flavor := ""
+	if strings.HasPrefix(r.Response, "[]") {
+		structure = "array"
+		flavor = r.Response[2:]
+	}
+
+	return structure, flavor
 }
