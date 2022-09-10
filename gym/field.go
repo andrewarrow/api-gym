@@ -29,6 +29,10 @@ func (f *Field) ToFakeValue() string {
 	} else if f.Name == "Address" {
 		a := gofakeit.Address()
 		value = fmt.Sprintf("%s, %s, %s %s %s", a.Street, a.City, a.State, a.Zip, a.Country)
+	} else if f.Name == "Latitude" {
+		value = fmt.Sprintf("%f", gofakeit.Latitude())
+	} else if f.Name == "Longitude" {
+		value = fmt.Sprintf("%f", gofakeit.Longitude())
 	}
 	return value
 }

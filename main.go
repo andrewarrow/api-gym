@@ -38,7 +38,7 @@ func main() {
 	} else if command == "response" {
 		index := os.Args[2]
 		g.AddResponseToRoute(index, os.Args[3])
-	} else if command == "test" {
+	} else if command == "run" {
 		index := os.Args[2]
 		simulate.Run(index, g)
 	} else if command == "structs" {

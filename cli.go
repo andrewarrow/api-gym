@@ -13,6 +13,6 @@ func PrintHelp() {
 	fmt.Println("")
 	fmt.Println("  api-gym structs [index] [name] [flavor]")
 	fmt.Println("")
-	fmt.Println("  api-gym test [index]")
+	fmt.Println("  api-gym run [index]")
 	fmt.Println("")
 }
