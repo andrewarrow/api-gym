@@ -30,7 +30,7 @@ func printItems(flavor string, g *gym.Gym) {
 		items := []string{}
 		thing = append(thing, "{")
 		for _, f := range s.Fields {
-			items = append(items, fmt.Sprintf(`"%s": "%s"`, f.Name, "foo"))
+			items = append(items, fmt.Sprintf(`"%s": "%s"`, f.NameToJson(), "foo"))
 		}
 		thing = append(thing, strings.Join(items, ","))
 		thing = append(thing, "}")
