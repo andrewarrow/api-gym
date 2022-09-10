@@ -4,6 +4,7 @@ import (
 	"api-gym/util"
 	"fmt"
 	"math/rand"
+	"strings"
 
 	"github.com/brianvoe/gofakeit/v6"
 )
@@ -25,6 +26,13 @@ func NewField(name, flavor, random string) *Field {
 func (f *Field) NameToJson() string {
 	return fmt.Sprintf("%s", util.ToSnakeCase(f.Name))
 }
+func (f *Field) FlavorToStructName() string {
+	if strings.HasPrefix(f.Flavor, "[]") {
+		return f.Flavor[2:]
+	}
+	return fmt.Sprintf("%s", f.Flavor)
+}
+
 func (f *Field) ToFakeValue() string {
 	value := ""
 	if f.Random == "uuid" {

@@ -19,11 +19,12 @@ func Run(index string, g *gym.Gym) {
 }
 
 func makeArrayItems(field *gym.Field, g *gym.Gym) string {
+	s := g.StructsByName[field.FlavorToStructName()]
 	sub := []string{}
-	//for i := 0; i < 6; i++ {
-	//sub = append(sub, foo(s))
-	//	}
-	return strings.Join(sub, "")
+	for i := 0; i < 6; i++ {
+		sub = append(sub, makeStructJson(s, g))
+	}
+	return strings.Join(sub, ",")
 }
 
 func printItems(flavor string, g *gym.Gym) {
@@ -34,7 +35,7 @@ func printItems(flavor string, g *gym.Gym) {
 	buff = append(buff, "[")
 	sub := []string{}
 	for i := 0; i < 9; i++ {
-		sub = append(sub, makeStructJson(s))
+		sub = append(sub, makeStructJson(s, g))
 	}
 	buff = append(buff, strings.Join(sub, ","))
 	buff = append(buff, "]")
@@ -43,7 +44,7 @@ func printItems(flavor string, g *gym.Gym) {
 	fmt.Println(strings.Join(buff, "\n"))
 }
 
-func makeStructJson(s *gym.Struct) string {
+func makeStructJson(s *gym.Struct, g *gym.Gym) string {
 	thing := []string{}
 	items := []string{}
 	thing = append(thing, "{")
@@ -51,7 +52,7 @@ func makeStructJson(s *gym.Struct) string {
 		if f.Flavor == "string" {
 			items = append(items, fmt.Sprintf(`"%s": "%s"`, f.NameToJson(), f.ToFakeValue()))
 		} else if strings.HasPrefix(f.Flavor, "[]") {
-			//items = append(items, makeArrayItems(f))
+			items = append(items, fmt.Sprintf(`"%s": [%s]`, f.NameToJson(), makeArrayItems(f, g)))
 		} else {
 			items = append(items, fmt.Sprintf(`"%s": %s`, f.NameToJson(), f.ToFakeValue()))
 		}
