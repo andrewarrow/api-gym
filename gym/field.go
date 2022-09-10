@@ -3,6 +3,7 @@ package gym
 import (
 	"api-gym/util"
 	"fmt"
+	"math/rand"
 
 	"github.com/brianvoe/gofakeit/v6"
 )
@@ -33,6 +34,8 @@ func (f *Field) ToFakeValue() string {
 		value = fmt.Sprintf("%f", gofakeit.Latitude())
 	} else if f.Name == "Longitude" {
 		value = fmt.Sprintf("%f", gofakeit.Longitude())
+	} else if f.Flavor == "int" {
+		value = fmt.Sprintf("%d", rand.Intn(30))
 	}
 	return value
 }
