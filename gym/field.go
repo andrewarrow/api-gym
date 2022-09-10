@@ -41,6 +41,14 @@ func (f *Field) ToFakeValue() string {
 		value = gofakeit.Color()
 	} else if f.Random == "name" {
 		value = gofakeit.Name()
+	} else if f.Random == "pronouns" {
+		value = "she/her"
+		if rand.Intn(2) == 0 {
+			value = "he/him"
+		}
+		if rand.Intn(2) == 0 {
+			value = "they/them"
+		}
 	} else if f.Random == "address" {
 		a := gofakeit.Address()
 		value = fmt.Sprintf("%s, %s, %s %s %s", a.Street, a.City, a.State, a.Zip, a.Country)
