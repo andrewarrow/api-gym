@@ -1,8 +1,8 @@
 package gym
 
 type Route struct {
-	Verb  string
-	Route string
+	Verb  string `json:"verb"`
+	Route string `json:"route"`
 }
 
 func NewRoute(verb, route string) *Route {

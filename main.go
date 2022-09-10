@@ -18,6 +18,7 @@ func main() {
 		return
 	}
 	command := os.Args[1]
+	g = gym.LoadGym()
 
 	if command == "new" {
 		g = gym.NewGym()

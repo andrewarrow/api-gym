@@ -1,13 +1,15 @@
 package gym
 
 import (
+	"api-gym/files"
 	"api-gym/util"
+	"encoding/json"
 	"fmt"
 )
 
 type Gym struct {
-	Name   string
-	Routes []*Route
+	Name   string   `json:"name"`
+	Routes []*Route `json:"routes"`
 }
 
 func NewGym() *Gym {
@@ -24,4 +26,14 @@ func (g *Gym) ListRoutes() {
 	for i, route := range g.Routes {
 		fmt.Printf("%02d. %4s %s\n", i, route.Verb, route.Route)
 	}
+}
+
+func LoadGym() *Gym {
+	gymJson := files.ReadFile("gym.json")
+	if gymJson == "" {
+		return NewGym()
+	}
+	var g Gym
+	json.Unmarshal([]byte(gymJson), &g)
+	return &g
 }
