@@ -22,8 +22,32 @@ Similar to [https://www.pacaso.com/learn](https://www.pacaso.com/learn) but not 
 
 Existing apartment/condo buildings could be converted into having very large (think 10 bedrooms, 4 bathrooms) units by knocking down walls and combining units. Someone with the cash can start a conversion like this, and then post the option to buy into it with other individuals that meet the set criteria.
 
-# example
-https://www.pacaso.com
-https://www.pacaso.com/learn
-https://www.pacaso.com/faq
+# The structs and routes
+
+```
+ 0.  GET /humans/                  []Human
+ 1.  GET /living_spaces/           []LivingSpace
+ 2. POST /humans/
+ 3. POST /living_spaces/
+ 4. POST /living_spaces/apply
+
+ 0. LivingSpace
+   0. Id                             string                         uuid
+   1. Name                           string                         color
+   2. Address                        string                         address
+   3. Latitude                       float64                        latitude
+   4. Longitude                      float64                        longitude
+   5. HumanCount                     int                            small_int_range
+   6. Humans                         []Human
+   7. Familes                        []Family
+   8. Partners                       []Partner
+ 1. Human
+   0. Id                             string                         uuid
+   1. Name                           string                         name
+   2. Pronouns                       string                         pronouns
+ 2. Family
+   0. Id                             string                         uuid
+   1. Name                           string                         color
+```
+
 
