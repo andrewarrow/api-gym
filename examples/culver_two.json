@@ -8,21 +8,25 @@
       "latitude": 23.531596,
       "longitude": -54.374458,
       "human_count": 29,
+      "max_human_count": 30,
       "bedroom_count": 20,
       "bath_count": 4.5,
-      "square_feet": 11200
+      "square_feet": 11200,
+      "launched_at": "2022-04-18T06:52:29.940Z"
     },
     {
       "id": "aa603ada-c537-6641-37a8-a419163c9d87",
       "name": "Culver Looking",
-      "mission": "No kids yet but looking for a family oriented life someday. Working professional tend to be in the film and television business but all professional are welcome. Dating within our LS is allowed but we value respecting existing partnerships and not disrupting them with bad intent. We welcome the first of our community to have children and spots are open for them.",
+      "mission": "No kids yet but looking for a family oriented life someday. Working professional tend to be in the film and television business but all professionals are welcome. Dating within our LS is allowed but we value respecting existing partnerships and not disrupting them with bad intent. We welcome the first of our community to have children and spots are open for them.",
       "address": "6410 Culver Blvd Floor #2, Culver City, CA 90230 USA",
       "latitude": 23.531596,
       "longitude": -54.374458,
       "human_count": 24,
+      "max_human_count": 30,
       "bedroom_count": 20,
       "bath_count": 4.5,
-      "square_feet": 11200
+      "square_feet": 11200,
+      "launched_at": "2022-04-18T06:52:29.940Z"
     }
   ]
 }
