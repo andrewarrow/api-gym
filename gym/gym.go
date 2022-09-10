@@ -77,6 +77,7 @@ func LoadGym() *Gym {
 }
 
 func (g *Gym) fillStructsByName() {
+	g.StructsByName = map[string]*Struct{}
 	for _, s := range g.Structs {
 		g.StructsByName[s.Name] = s
 	}
