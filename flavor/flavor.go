@@ -17,6 +17,10 @@ var allFlavors = []Flavor{IdFlavor{}, NameFlavor{}, FewWordsFlavor{},
 	LatitudeFlavor{},
 	LongitudeFlavor{},
 	PronounsFlavor{},
+	LargeIntFlavor{},
+	SmallFloatFlavor{},
+	SmallIntFlavor{},
+	TimestampFlavor{},
 	ParagraphFlavor{}}
 
 func ListFlavors() {
