@@ -9,6 +9,7 @@ func PrintHelp() {
 	fmt.Println("  api-gym flavors")
 	fmt.Println("  api-gym model add [name]")
 	fmt.Println("  api-gym model [model_index] [flavor_index_list")
+	fmt.Println("  api-gym model update-random [struct_index] [field_index] [random]")
 	fmt.Println("  api-gym json [model_index] [amount]")
 	fmt.Println("")
 	//fmt.Println("  api-gym new")
