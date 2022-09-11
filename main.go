@@ -2,6 +2,7 @@ package main
 
 import (
 	"api-gym/files"
+	"api-gym/flavor"
 	"api-gym/gym"
 	"api-gym/simulate"
 	"fmt"
@@ -64,6 +65,8 @@ func main() {
 		flavor := os.Args[4]
 		random := os.Args[5]
 		g.AddFieldToStruct(index, name, flavor, random)
+	} else if command == "browse" {
+		flavor.ListFlavors()
 	} else if command == "help" {
 		PrintHelp()
 	}
