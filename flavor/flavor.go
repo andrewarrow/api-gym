@@ -12,7 +12,7 @@ type Flavor interface {
 	Generate() string
 }
 
-var allFlavors = []Flavor{IdFlavor{}, NameFlavor{}}
+var allFlavors = []Flavor{IdFlavor{}, NameFlavor{}, FewWordsFlavor{}}
 
 func ListFlavors() {
 	fmt.Println("")
