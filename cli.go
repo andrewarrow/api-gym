@@ -6,7 +6,7 @@ func PrintHelp() {
 	fmt.Println("")
 	fmt.Println("  api-gym help")
 	fmt.Println("  api-gym ls")
-	fmt.Println("  api-gym browse")
+	fmt.Println("  api-gym flavors")
 	fmt.Println("  api-gym model add [name]")
 	fmt.Println("  api-gym model [model_index] [name] [flavor] [random]")
 	fmt.Println("  api-gym json [model_index] [amount]")

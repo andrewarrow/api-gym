@@ -65,7 +65,7 @@ func main() {
 		flavor := os.Args[4]
 		random := os.Args[5]
 		g.AddFieldToStruct(index, name, flavor, random)
-	} else if command == "browse" {
+	} else if command == "flavors" {
 		flavor.ListFlavors()
 	} else if command == "help" {
 		PrintHelp()

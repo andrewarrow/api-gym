@@ -23,6 +23,14 @@ var allFlavors = []Flavor{IdFlavor{}, NameFlavor{}, FewWordsFlavor{},
 	TimestampFlavor{},
 	ParagraphFlavor{}}
 
+func FlavorsAsMap() map[string]Flavor {
+	m := map[string]Flavor{}
+	for _, flavor := range allFlavors {
+		m[flavor.Name()] = flavor
+	}
+	return m
+}
+
 func ListFlavors() {
 	fmt.Println("")
 	for i, flavor := range allFlavors {

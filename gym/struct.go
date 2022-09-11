@@ -14,6 +14,6 @@ func NewStruct(name string) *Struct {
 		s.Name = name[2:]
 	}
 	s.Fields = append(s.Fields, NewField("Id", "string", "uuid"))
-	s.Fields = append(s.Fields, NewField("Name", "string", "two_words"))
+	s.Fields = append(s.Fields, NewField("Name", "string", "few_words"))
 	return &s
 }

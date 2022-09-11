@@ -9,5 +9,12 @@ func (id FewWordsFlavor) Name() string {
 }
 
 func (id FewWordsFlavor) Generate() string {
-	return gofakeit.Word() + " " + gofakeit.Word()
+	value := gofakeit.Word() + " " + gofakeit.Word()
+	for {
+		if len(value) >= 33 {
+			break
+		}
+		value = value + " " + gofakeit.Word()
+	}
+	return value
 }
