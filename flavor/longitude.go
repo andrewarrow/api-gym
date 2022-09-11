@@ -15,3 +15,6 @@ func (id LongitudeFlavor) Name() string {
 func (id LongitudeFlavor) Generate() string {
 	return fmt.Sprintf("%f", gofakeit.Longitude())
 }
+func (id LongitudeFlavor) Flavor() string {
+	return "float64"
+}

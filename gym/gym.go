@@ -2,11 +2,13 @@ package gym
 
 import (
 	"api-gym/files"
+	"api-gym/flavor"
 	"api-gym/util"
 	"encoding/json"
 	"fmt"
 	"sort"
 	"strconv"
+	"strings"
 )
 
 type Gym struct {
@@ -100,10 +102,22 @@ func (g *Gym) AddResponseToRoute(index, response string) {
 	g.ListRoutes()
 }
 
-func (g *Gym) AddFieldToStruct(index, name, flavor, random string) {
-	indexAsInt, _ := strconv.Atoi(index)
-	f := NewField(name, flavor, random)
-	g.Structs[indexAsInt].Fields = append(g.Structs[indexAsInt].Fields, f)
+func (g *Gym) AddFieldToStruct(modelIndex, flavorIndexList string) {
+	modelIndexAsInt, _ := strconv.Atoi(modelIndex)
+
+	tokens := strings.Split(flavorIndexList, ",")
+	for _, token := range tokens {
+		subTokens := strings.Split(token, ".")
+		if len(subTokens) == 1 {
+			flavorIndexInt, _ := strconv.Atoi(subTokens[0])
+			f := flavor.GetFlavorByIndex(flavorIndexInt)
+			name := util.ToCamelCase(f.Name())
+			field := NewField(name, f.Flavor(), f.Name())
+			g.Structs[modelIndexAsInt].Fields = append(g.Structs[modelIndexAsInt].Fields, field)
+		} else {
+		}
+	}
+
 	g.Save()
 	g.ListRoutes()
 }

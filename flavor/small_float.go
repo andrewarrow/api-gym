@@ -14,3 +14,6 @@ func (id SmallFloatFlavor) Name() string {
 func (id SmallFloatFlavor) Generate() string {
 	return fmt.Sprintf("%d.%d", rand.Intn(30), rand.Intn(10))
 }
+func (id SmallFloatFlavor) Flavor() string {
+	return "float64"
+}

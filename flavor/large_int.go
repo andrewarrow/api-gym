@@ -14,3 +14,6 @@ func (id LargeIntFlavor) Name() string {
 func (id LargeIntFlavor) Generate() string {
 	return fmt.Sprintf("%d", 6000+rand.Intn(9000))
 }
+func (id LargeIntFlavor) Flavor() string {
+	return "int64"
+}

@@ -18,3 +18,6 @@ func (id PronounsFlavor) Generate() string {
 	}
 	return value
 }
+func (id PronounsFlavor) Flavor() string {
+	return "string"
+}

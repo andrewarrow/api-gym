@@ -60,11 +60,9 @@ func main() {
 			g.UpdateStructRandom(index, fieldIndex, os.Args[5])
 			return
 		}
-		index := os.Args[2]
-		name := os.Args[3]
-		flavor := os.Args[4]
-		random := os.Args[5]
-		g.AddFieldToStruct(index, name, flavor, random)
+		modelIndex := os.Args[2]
+		flavorIndexList := os.Args[3]
+		g.AddFieldToStruct(modelIndex, flavorIndexList)
 	} else if command == "flavors" {
 		flavor.ListFlavors()
 	} else if command == "help" {

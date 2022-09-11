@@ -10,6 +10,7 @@ import (
 type Flavor interface {
 	Name() string
 	Generate() string
+	Flavor() string
 }
 
 var allFlavors = []Flavor{IdFlavor{}, NameFlavor{}, FewWordsFlavor{},
@@ -29,6 +30,9 @@ func FlavorsAsMap() map[string]Flavor {
 		m[flavor.Name()] = flavor
 	}
 	return m
+}
+func GetFlavorByIndex(index int) Flavor {
+	return allFlavors[index]
 }
 
 func ListFlavors() {
@@ -50,6 +54,10 @@ func (id IdFlavor) Generate() string {
 	return util.PseudoUuid()
 }
 
+func (id IdFlavor) Flavor() string {
+	return "string"
+}
+
 type NameFlavor struct {
 }
 
@@ -59,4 +67,8 @@ func (id NameFlavor) Name() string {
 
 func (id NameFlavor) Generate() string {
 	return gofakeit.Name()
+}
+
+func (id NameFlavor) Flavor() string {
+	return "string"
 }
