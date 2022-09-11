@@ -110,7 +110,7 @@ func (g *Gym) AddFieldToStruct(modelIndex, flavorIndexList string) {
 		flavorIndexInt, _ := strconv.Atoi(subTokens[0])
 		if flavorIndexInt == 0 {
 			// this means it's not an int, it's another model
-			field := NewField("Parents", "[]Human", "")
+			field := NewField("Parents", "[]Human", "2")
 			g.Structs[modelIndexAsInt-1].Fields = append(g.Structs[modelIndexAsInt-1].Fields, field)
 		} else {
 			f := flavor.GetFlavorByIndex(flavorIndexInt)

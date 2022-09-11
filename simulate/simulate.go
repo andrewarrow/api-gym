@@ -21,8 +21,12 @@ func Run(index string, g *gym.Gym) {
 
 func makeArrayItems(field *gym.Field, g *gym.Gym) string {
 	s := g.StructsByName[field.FlavorToStructName()]
+
+	//TODO rethink name, Random can also hold amount for sub items
+	amount, _ := strconv.Atoi(field.Random)
+
 	sub := []string{}
-	for i := 0; i < 6; i++ {
+	for i := 0; i < amount; i++ {
 		sub = append(sub, makeStructJson(s, g))
 	}
 	return strings.Join(sub, ",")
