@@ -41,7 +41,7 @@ func printItems(s *gym.Struct, amount int, g *gym.Gym) {
 	buff = append(buff, "]")
 	buff = append(buff, "}")
 
-	fmt.Println(strings.Join(buff, "\n"))
+	fmt.Println(strings.Join(buff, ""))
 }
 
 func makeStructJson(s *gym.Struct, g *gym.Gym) string {
