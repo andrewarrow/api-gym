@@ -102,7 +102,7 @@ func (g *Gym) AddResponseToRoute(index, response string) {
 	g.ListRoutes()
 }
 
-func (g *Gym) AddFieldToStruct(modelIndex, flavorIndexList string) {
+func (g *Gym) AddFieldToStruct(modelIndex, flavorIndexList, amount string) {
 	modelIndexAsInt, _ := strconv.Atoi(modelIndex)
 	tokens := strings.Split(flavorIndexList, ",")
 	for _, token := range tokens {
@@ -110,7 +110,8 @@ func (g *Gym) AddFieldToStruct(modelIndex, flavorIndexList string) {
 		flavorIndexInt, _ := strconv.Atoi(subTokens[0])
 		if flavorIndexInt == 0 {
 			// this means it's not an int, it's another model
-			field := NewField("Parents", "[]Human", "2")
+			name := subTokens[1]
+			field := NewField(name, subTokens[0], amount)
 			g.Structs[modelIndexAsInt-1].Fields = append(g.Structs[modelIndexAsInt-1].Fields, field)
 		} else {
 			f := flavor.GetFlavorByIndex(flavorIndexInt)
