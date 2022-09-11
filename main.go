@@ -47,7 +47,7 @@ func main() {
 		structIndex := os.Args[2]
 		amount := os.Args[3]
 		simulate.Json(structIndex, amount, g)
-	} else if command == "structs" {
+	} else if command == "model" {
 		if os.Args[2] == "add" {
 			name := os.Args[3]
 			g.AddStruct(name)

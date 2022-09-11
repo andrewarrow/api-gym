@@ -37,8 +37,8 @@ func (f *Field) ToFakeValue() string {
 	value := ""
 	if f.Random == "uuid" {
 		value = util.PseudoUuid()
-	} else if f.Random == "two_words" {
-		value = gofakeit.HipsterWord() + " " + gofakeit.HipsterWord()
+	} else if f.Random == "few_words" {
+		value = gofakeit.Word() + " " + gofakeit.Word()
 	} else if f.Random == "name" {
 		value = gofakeit.Name()
 	} else if f.Random == "paragraph" {
