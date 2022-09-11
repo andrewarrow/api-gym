@@ -8,6 +8,27 @@
       "latitude": 23.531596,
       "longitude": -54.374458,
       "human_count": 29,
+      "human_profiles": {
+        "max_single": 9,
+        "max_couples": 6,
+        "max_families": 3
+      },
+      "spots": [
+        {"flavor": "single",
+         "status": "available"},
+        {"flavor": "single",
+         "status": "taken",
+         "human": {},
+        "taken_at": ""},
+        {"flavor": "couple",
+         "status": "taken",
+         "humans": [{}],
+        "taken_at": ""},
+        {"flavor": "family",
+         "status": "taken",
+         "humans": [{}],
+        "taken_at": ""}
+      ],
       "max_human_count": 30,
       "bedroom_count": 20,
       "bath_count": 4.5,

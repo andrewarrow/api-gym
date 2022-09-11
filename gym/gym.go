@@ -59,9 +59,9 @@ func (g *Gym) ListRoutes() {
 	}
 	fmt.Println("")
 	for i, s := range g.Structs {
-		fmt.Printf("%2d. %-30s\n", i, s.Name)
+		fmt.Printf("%2d. %-30s\n", i+1, s.Name)
 		for j, f := range s.Fields {
-			fmt.Printf("  %2d. %-30s %-30s %s\n", j, f.Name, f.Flavor, f.Random)
+			fmt.Printf("  %2d. %-30s %-30s %s\n", j+1, f.Name, f.Flavor, f.Random)
 		}
 	}
 	fmt.Println("")
@@ -104,22 +104,27 @@ func (g *Gym) AddResponseToRoute(index, response string) {
 
 func (g *Gym) AddFieldToStruct(modelIndex, flavorIndexList string) {
 	modelIndexAsInt, _ := strconv.Atoi(modelIndex)
-
 	tokens := strings.Split(flavorIndexList, ",")
 	for _, token := range tokens {
 		subTokens := strings.Split(token, ".")
 		flavorIndexInt, _ := strconv.Atoi(subTokens[0])
-		f := flavor.GetFlavorByIndex(flavorIndexInt)
-		name := ""
-		var field *Field
-		if len(subTokens) == 1 {
-			name = util.ToCamelCase(f.Name())
-			field = NewField(name, f.Flavor(), f.Name())
+		if flavorIndexInt == 0 {
+			// this means it's not an int, it's another model
+			field := NewField("Parents", "[]Human", "")
+			g.Structs[modelIndexAsInt-1].Fields = append(g.Structs[modelIndexAsInt-1].Fields, field)
 		} else {
-			name = subTokens[1]
-			field = NewField(name, f.Flavor(), f.Name())
+			f := flavor.GetFlavorByIndex(flavorIndexInt)
+			name := ""
+			var field *Field
+			if len(subTokens) == 1 {
+				name = util.ToCamelCase(f.Name())
+				field = NewField(name, f.Flavor(), f.Name())
+			} else {
+				name = subTokens[1]
+				field = NewField(name, f.Flavor(), f.Name())
+			}
+			g.Structs[modelIndexAsInt-1].Fields = append(g.Structs[modelIndexAsInt-1].Fields, field)
 		}
-		g.Structs[modelIndexAsInt].Fields = append(g.Structs[modelIndexAsInt].Fields, field)
 	}
 
 	g.Save()

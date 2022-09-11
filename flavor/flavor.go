@@ -32,7 +32,7 @@ func FlavorsAsMap() map[string]Flavor {
 	return m
 }
 func GetFlavorByIndex(index int) Flavor {
-	return allFlavors[index]
+	return allFlavors[index-1]
 }
 
 func ListFlavors() {
