@@ -108,14 +108,18 @@ func (g *Gym) AddFieldToStruct(modelIndex, flavorIndexList string) {
 	tokens := strings.Split(flavorIndexList, ",")
 	for _, token := range tokens {
 		subTokens := strings.Split(token, ".")
+		flavorIndexInt, _ := strconv.Atoi(subTokens[0])
+		f := flavor.GetFlavorByIndex(flavorIndexInt)
+		name := ""
+		var field *Field
 		if len(subTokens) == 1 {
-			flavorIndexInt, _ := strconv.Atoi(subTokens[0])
-			f := flavor.GetFlavorByIndex(flavorIndexInt)
-			name := util.ToCamelCase(f.Name())
-			field := NewField(name, f.Flavor(), f.Name())
-			g.Structs[modelIndexAsInt].Fields = append(g.Structs[modelIndexAsInt].Fields, field)
+			name = util.ToCamelCase(f.Name())
+			field = NewField(name, f.Flavor(), f.Name())
 		} else {
+			name = subTokens[1]
+			field = NewField(name, f.Flavor(), f.Name())
 		}
+		g.Structs[modelIndexAsInt].Fields = append(g.Structs[modelIndexAsInt].Fields, field)
 	}
 
 	g.Save()
