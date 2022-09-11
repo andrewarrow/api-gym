@@ -13,7 +13,7 @@ type Flavor interface {
 }
 
 var allFlavors = []Flavor{IdFlavor{}, NameFlavor{}, FewWordsFlavor{},
-	ParagraphFlavor{}}
+	AddressFlavor{}, ParagraphFlavor{}}
 
 func ListFlavors() {
 	fmt.Println("")
