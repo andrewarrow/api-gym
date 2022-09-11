@@ -1,9 +1,15 @@
 package flavor
 
-import "fmt"
+import (
+	"api-gym/util"
+	"fmt"
+
+	"github.com/brianvoe/gofakeit/v6"
+)
 
 type Flavor interface {
-	String() string
+	Name() string
+	Generate() string
 }
 
 var allFlavors = []Flavor{IdFlavor{}, NameFlavor{}}
@@ -11,7 +17,7 @@ var allFlavors = []Flavor{IdFlavor{}, NameFlavor{}}
 func ListFlavors() {
 	fmt.Println("")
 	for i, flavor := range allFlavors {
-		fmt.Printf("%2d. %-30s\n", i, flavor.String())
+		fmt.Printf("%2d. %-30s %-30s\n", i, flavor.Name(), flavor.Generate())
 	}
 	fmt.Println("")
 }
@@ -19,13 +25,21 @@ func ListFlavors() {
 type IdFlavor struct {
 }
 
-func (id IdFlavor) String() string {
+func (id IdFlavor) Name() string {
 	return "uuid"
+}
+
+func (id IdFlavor) Generate() string {
+	return util.PseudoUuid()
 }
 
 type NameFlavor struct {
 }
 
-func (id NameFlavor) String() string {
+func (id NameFlavor) Name() string {
 	return "name"
+}
+
+func (id NameFlavor) Generate() string {
+	return gofakeit.Name()
 }
