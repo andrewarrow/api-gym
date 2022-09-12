@@ -34,16 +34,23 @@ func makeArrayItems(field *gym.Field, g *gym.Gym) string {
 
 func printItems(s *gym.Struct, amount int, g *gym.Gym) {
 	buff := []string{}
-	buff = append(buff, `{"data":`)
+	buff = append(buff, fmt.Sprintf(`{"%s":`, s.JsonContainerName()))
 
-	buff = append(buff, "[")
-	sub := []string{}
-	for i := 0; i < amount; i++ {
-		sub = append(sub, makeStructJson(s, g))
+	if s.ArrayOrMap == "array" {
+
+		buff = append(buff, "[")
+		sub := []string{}
+		for i := 0; i < amount; i++ {
+			sub = append(sub, makeStructJson(s, g))
+		}
+		buff = append(buff, strings.Join(sub, ","))
+		buff = append(buff, "]")
+		buff = append(buff, "}")
+	} else if s.ArrayOrMap == "map" {
+		buff = append(buff, "{")
+		buff = append(buff, "}")
+		buff = append(buff, "}")
 	}
-	buff = append(buff, strings.Join(sub, ","))
-	buff = append(buff, "]")
-	buff = append(buff, "}")
 
 	fmt.Println(strings.Join(buff, ""))
 }
