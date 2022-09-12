@@ -65,9 +65,11 @@ func printItems(s *gym.Struct, amount int, g *gym.Gym) {
 		sub := []string{}
 		fewWords := flavor.FewWordsFlavor{}
 		for i := 0; i < amount; i++ {
+			subFields := []string{}
 			for _, f := range s.Fields {
-				sub = append(sub, fmt.Sprintf(`"%s": {"%s": 1}`, fewWords.Generate(), f.NameToJson()))
+				subFields = append(subFields, fmt.Sprintf(`"%s": 1`, f.NameToJson()))
 			}
+			sub = append(sub, fmt.Sprintf(`"%s": {%s}`, fewWords.Generate(), strings.Join(subFields, ",")))
 		}
 		buff = append(buff, strings.Join(sub, ","))
 		buff = append(buff, "}")
