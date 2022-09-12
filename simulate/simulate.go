@@ -13,7 +13,7 @@ func Run(routeIndex string, g *gym.Gym) {
 
 	modelIndexAsInt, _ := strconv.Atoi(route.ModelIndex)
 	s := g.Structs[modelIndexAsInt-1]
-	printItems(s, s.Extra, g)
+	PrintItemsToStdout(s, s.Extra, g)
 }
 
 func makeArrayItems(field *gym.Field, g *gym.Gym) string {
@@ -40,8 +40,7 @@ func makeMapItems(field *gym.Field, g *gym.Gym) string {
 	return strings.Join(sub, ",")
 }
 
-func printItems(s *gym.Struct, extra string, g *gym.Gym) {
-
+func PrintItemsToString(s *gym.Struct, extra string, g *gym.Gym) string {
 	buff := []string{}
 	buff = append(buff, fmt.Sprintf(`{"%s":`, s.JsonContainerName()))
 
@@ -73,7 +72,11 @@ func printItems(s *gym.Struct, extra string, g *gym.Gym) {
 		buff = append(buff, "}")
 	}
 
-	fmt.Println(strings.Join(buff, ""))
+	return strings.Join(buff, "")
+}
+
+func PrintItemsToStdout(s *gym.Struct, extra string, g *gym.Gym) {
+	fmt.Println(PrintItemsToString(s, extra, g))
 }
 
 func makeStructJson(s *gym.Struct, g *gym.Gym) string {
