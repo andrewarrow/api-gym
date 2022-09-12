@@ -4,6 +4,7 @@ import (
 	"api-gym/files"
 	"api-gym/flavor"
 	"api-gym/gym"
+	"api-gym/server"
 	"api-gym/simulate"
 	"fmt"
 	"math/rand"
@@ -72,6 +73,8 @@ func main() {
 		g.AddFieldToStruct(modelIndex, flavorIndexList, extra)
 	} else if command == "flavors" {
 		flavor.ListFlavors()
+	} else if command == "server" {
+		server.Run()
 	} else if command == "help" {
 		PrintHelp()
 	}
