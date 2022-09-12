@@ -84,17 +84,20 @@ func makeStructJson(s *gym.Struct, g *gym.Gym) string {
 	items := []string{}
 	thing = append(thing, "{")
 	for _, f := range s.Fields {
-		if f.Flavor == "string" {
-			items = append(items, fmt.Sprintf(`"%s": "%s"`, f.NameToJson(), f.ToFakeValue()))
-		} else if strings.HasPrefix(f.Flavor, "[]") {
-			items = append(items, fmt.Sprintf(`"%s": [%s]`, f.NameToJson(), makeArrayItems(f, g)))
-		} else if f.Flavor == "int" || f.Flavor == "int64" || f.Flavor == "float64" {
-			items = append(items, fmt.Sprintf(`"%s": %s`, f.NameToJson(), f.ToFakeValue()))
-		} else {
-			items = append(items, fmt.Sprintf(`"%s": %s`, f.NameToJson(), makeMapItems(f, g)))
-		}
+		items = append(items, makeJsonBasedOnFlavor(f, g))
 	}
 	thing = append(thing, strings.Join(items, ","))
 	thing = append(thing, "}")
 	return strings.Join(thing, "")
+}
+
+func makeJsonBasedOnFlavor(f *gym.Field, g *gym.Gym) string {
+	if f.Flavor == "string" {
+		return fmt.Sprintf(`"%s": "%s"`, f.NameToJson(), f.ToFakeValue())
+	} else if strings.HasPrefix(f.Flavor, "[]") {
+		fmt.Sprintf(`"%s": [%s]`, f.NameToJson(), makeArrayItems(f, g))
+	} else if f.Flavor == "int" || f.Flavor == "int64" || f.Flavor == "float64" {
+		fmt.Sprintf(`"%s": %s`, f.NameToJson(), f.ToFakeValue())
+	}
+	return fmt.Sprintf(`"%s": %s`, f.NameToJson(), makeMapItems(f, g))
 }
