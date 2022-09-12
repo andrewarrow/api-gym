@@ -67,7 +67,7 @@ func printItems(s *gym.Struct, amount int, g *gym.Gym) {
 		for i := 0; i < amount; i++ {
 			subFields := []string{}
 			for _, f := range s.Fields {
-				subFields = append(subFields, fmt.Sprintf(`"%s": 1`, f.NameToJson()))
+				subFields = append(subFields, makeJsonBasedOnFlavor(f, g))
 			}
 			sub = append(sub, fmt.Sprintf(`"%s": {%s}`, fewWords.Generate(), strings.Join(subFields, ",")))
 		}
@@ -95,9 +95,9 @@ func makeJsonBasedOnFlavor(f *gym.Field, g *gym.Gym) string {
 	if f.Flavor == "string" {
 		return fmt.Sprintf(`"%s": "%s"`, f.NameToJson(), f.ToFakeValue())
 	} else if strings.HasPrefix(f.Flavor, "[]") {
-		fmt.Sprintf(`"%s": [%s]`, f.NameToJson(), makeArrayItems(f, g))
+		return fmt.Sprintf(`"%s": [%s]`, f.NameToJson(), makeArrayItems(f, g))
 	} else if f.Flavor == "int" || f.Flavor == "int64" || f.Flavor == "float64" {
-		fmt.Sprintf(`"%s": %s`, f.NameToJson(), f.ToFakeValue())
+		return fmt.Sprintf(`"%s": %s`, f.NameToJson(), f.ToFakeValue())
 	}
 	return fmt.Sprintf(`"%s": %s`, f.NameToJson(), makeMapItems(f, g))
 }
