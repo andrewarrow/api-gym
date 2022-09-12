@@ -1,7 +1,6 @@
 package simulate
 
 import (
-	"api-gym/flavor"
 	"api-gym/gym"
 	"fmt"
 	"strconv"
@@ -15,7 +14,7 @@ func Run(index string, g *gym.Gym) {
 
 	if structure == "array" {
 		s := g.StructsByName[flavor]
-		printItems(s, 9, g)
+		printItems(s, "9", g)
 		return
 	}
 }
@@ -44,7 +43,8 @@ func makeMapItems(field *gym.Field, g *gym.Gym) string {
 	return strings.Join(sub, ",")
 }
 
-func printItems(s *gym.Struct, amount int, g *gym.Gym) {
+func printItems(s *gym.Struct, extra string, g *gym.Gym) {
+
 	buff := []string{}
 	buff = append(buff, fmt.Sprintf(`{"%s":`, s.JsonContainerName()))
 
@@ -52,7 +52,8 @@ func printItems(s *gym.Struct, amount int, g *gym.Gym) {
 
 		buff = append(buff, "[")
 		sub := []string{}
-		for i := 0; i < amount; i++ {
+		amountAsInt, _ := strconv.Atoi(extra)
+		for i := 0; i < amountAsInt; i++ {
 			sub = append(sub, makeStructJson(s, g))
 		}
 		buff = append(buff, strings.Join(sub, ","))
@@ -61,13 +62,14 @@ func printItems(s *gym.Struct, amount int, g *gym.Gym) {
 	} else if s.ArrayOrMap == "map" {
 		buff = append(buff, "{")
 		sub := []string{}
-		fewWords := flavor.FewWordsFlavor{}
-		for i := 0; i < amount; i++ {
+
+		extraTokens := strings.Split(extra, ",")
+		for _, token := range extraTokens {
 			subFields := []string{}
 			for _, f := range s.Fields {
 				subFields = append(subFields, makeJsonBasedOnFlavor(f, g))
 			}
-			sub = append(sub, fmt.Sprintf(`"%s": {%s}`, fewWords.Generate(""), strings.Join(subFields, ",")))
+			sub = append(sub, fmt.Sprintf(`"%s": {%s}`, token, strings.Join(subFields, ",")))
 		}
 		buff = append(buff, strings.Join(sub, ","))
 		buff = append(buff, "}")
