@@ -1,7 +1,19 @@
 package server
 
-import "fmt"
+import (
+	"net/http"
 
-func Run() {
-	fmt.Println("vim-go")
+	"github.com/gin-gonic/gin"
+)
+
+func Setup() *gin.Engine {
+
+	router := gin.Default()
+
+	router.GET("/", Welcome)
+	return router
+}
+
+func Welcome(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"message": ""})
 }
