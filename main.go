@@ -37,16 +37,16 @@ func main() {
 			route := os.Args[4]
 			modelIndex := os.Args[5]
 			g.AddRoute(verb, route, modelIndex)
+			return
 		}
+		index := os.Args[3]
+		simulate.Run(index, g)
 	} else if command == "rm" {
 		index := os.Args[2]
 		g.RemoveRoute(index)
 	} else if command == "response" {
 		index := os.Args[2]
 		g.AddResponseToRoute(index, os.Args[3])
-	} else if command == "run" {
-		index := os.Args[2]
-		simulate.Run(index, g)
 	} else if command == "json" {
 		structIndex := os.Args[2]
 		extra := os.Args[3]

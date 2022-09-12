@@ -55,7 +55,7 @@ func (g *Gym) SortRoutes() {
 func (g *Gym) ListRoutes() {
 	fmt.Println("")
 	for i, route := range g.Routes {
-		fmt.Printf("%2d. %-30s %s\n", i, route.String(), route.Response)
+		fmt.Printf("%2d. %-30s %s\n", i+1, route.String(), route.Response)
 	}
 	fmt.Println("")
 	for i, s := range g.Structs {

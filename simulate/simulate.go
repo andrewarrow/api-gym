@@ -7,16 +7,13 @@ import (
 	"strings"
 )
 
-func Run(index string, g *gym.Gym) {
-	indexAsInt, _ := strconv.Atoi(index)
-	route := g.Routes[indexAsInt]
-	structure, flavor := route.ParseResponse()
+func Run(routeIndex string, g *gym.Gym) {
+	routeIndexAsInt, _ := strconv.Atoi(routeIndex)
+	route := g.Routes[routeIndexAsInt-1]
 
-	if structure == "array" {
-		s := g.StructsByName[flavor]
-		printItems(s, "9", g)
-		return
-	}
+	modelIndexAsInt, _ := strconv.Atoi(route.ModelIndex)
+	s := g.Structs[modelIndexAsInt-1]
+	printItems(s, s.Extra, g)
 }
 
 func makeArrayItems(field *gym.Field, g *gym.Gym) string {

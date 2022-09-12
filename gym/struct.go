@@ -9,6 +9,7 @@ type Struct struct {
 	Name       string   `json:"name"`
 	Fields     []*Field `json:"field"`
 	ArrayOrMap string   `json:"array_or_map"`
+	Extra      string   `json:"extra"`
 }
 
 func NewStruct(name string) *Struct {
