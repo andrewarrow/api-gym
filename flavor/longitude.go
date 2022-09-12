@@ -12,7 +12,7 @@ func (id LongitudeFlavor) Name() string {
 	return "longitude"
 }
 
-func (id LongitudeFlavor) Generate() string {
+func (id LongitudeFlavor) Generate(e string) string {
 	return fmt.Sprintf("%f", gofakeit.Longitude())
 }
 func (id LongitudeFlavor) Flavor() string {

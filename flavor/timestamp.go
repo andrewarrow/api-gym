@@ -6,7 +6,7 @@ func (id TimestampFlavor) Name() string {
 	return "timestamp"
 }
 
-func (id TimestampFlavor) Generate() string {
+func (id TimestampFlavor) Generate(e string) string {
 	return "2022-04-18T06:52:29.940Z"
 }
 

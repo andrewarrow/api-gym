@@ -8,7 +8,7 @@ func (id FewWordsFlavor) Name() string {
 	return "few_words"
 }
 
-func (id FewWordsFlavor) Generate() string {
+func (id FewWordsFlavor) Generate(e string) string {
 	value := gofakeit.Word() + " " + gofakeit.Word()
 	for {
 		if len(value) >= 33 {
@@ -18,6 +18,7 @@ func (id FewWordsFlavor) Generate() string {
 	}
 	return value
 }
+
 func (id FewWordsFlavor) Flavor() string {
 	return "string"
 }

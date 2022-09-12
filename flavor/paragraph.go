@@ -8,7 +8,7 @@ func (id ParagraphFlavor) Name() string {
 	return "paragraph"
 }
 
-func (id ParagraphFlavor) Generate() string {
+func (id ParagraphFlavor) Generate(e string) string {
 	return gofakeit.LoremIpsumParagraph(1, 3, 33, ".")
 }
 func (id ParagraphFlavor) Flavor() string {

@@ -62,11 +62,11 @@ func main() {
 		}
 		modelIndex := os.Args[2]
 		flavorIndexList := os.Args[3]
-		amount := ""
+		extra := ""
 		if len(os.Args) > 4 {
-			amount = os.Args[4]
+			extra = os.Args[4]
 		}
-		g.AddFieldToStruct(modelIndex, flavorIndexList, amount)
+		g.AddFieldToStruct(modelIndex, flavorIndexList, extra)
 	} else if command == "flavors" {
 		flavor.ListFlavors()
 	} else if command == "help" {

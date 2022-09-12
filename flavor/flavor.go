@@ -9,7 +9,7 @@ import (
 
 type Flavor interface {
 	Name() string
-	Generate() string
+	Generate(string) string
 	Flavor() string
 }
 
@@ -22,6 +22,7 @@ var allFlavors = []Flavor{IdFlavor{}, NameFlavor{}, FewWordsFlavor{},
 	SmallFloatFlavor{},
 	SmallIntFlavor{},
 	TimestampFlavor{},
+	EnumFlavor{},
 	ParagraphFlavor{}}
 
 func FlavorsAsMap() map[string]Flavor {
@@ -38,7 +39,7 @@ func GetFlavorByIndex(index int) Flavor {
 func ListFlavors() {
 	fmt.Println("")
 	for i, flavor := range allFlavors {
-		fmt.Printf("%2d. %-30s %-30s\n", i, flavor.Name(), flavor.Generate())
+		fmt.Printf("%2d. %-30s %-30s\n", i+1, flavor.Name(), flavor.Generate(""))
 	}
 	fmt.Println("")
 }
@@ -50,7 +51,7 @@ func (id IdFlavor) Name() string {
 	return "uuid"
 }
 
-func (id IdFlavor) Generate() string {
+func (id IdFlavor) Generate(e string) string {
 	return util.PseudoUuid()
 }
 
@@ -65,7 +66,7 @@ func (id NameFlavor) Name() string {
 	return "name"
 }
 
-func (id NameFlavor) Generate() string {
+func (id NameFlavor) Generate(e string) string {
 	return gofakeit.Name()
 }
 

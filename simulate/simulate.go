@@ -23,8 +23,7 @@ func Run(index string, g *gym.Gym) {
 func makeArrayItems(field *gym.Field, g *gym.Gym) string {
 	s := g.StructsByName[field.FlavorToStructName()]
 
-	//TODO rethink name, Random can also hold amount for sub items
-	amount, _ := strconv.Atoi(field.Random)
+	amount, _ := strconv.Atoi(field.Extra)
 
 	sub := []string{}
 	for i := 0; i < amount; i++ {
@@ -36,8 +35,7 @@ func makeArrayItems(field *gym.Field, g *gym.Gym) string {
 func makeMapItems(field *gym.Field, g *gym.Gym) string {
 	s := g.StructsByName[field.FlavorToStructName()]
 
-	//TODO rethink name, Random can also hold amount for sub items
-	amount, _ := strconv.Atoi(field.Random)
+	amount, _ := strconv.Atoi(field.Extra)
 
 	sub := []string{}
 	for i := 0; i < amount; i++ {
@@ -69,7 +67,7 @@ func printItems(s *gym.Struct, amount int, g *gym.Gym) {
 			for _, f := range s.Fields {
 				subFields = append(subFields, makeJsonBasedOnFlavor(f, g))
 			}
-			sub = append(sub, fmt.Sprintf(`"%s": {%s}`, fewWords.Generate(), strings.Join(subFields, ",")))
+			sub = append(sub, fmt.Sprintf(`"%s": {%s}`, fewWords.Generate(""), strings.Join(subFields, ",")))
 		}
 		buff = append(buff, strings.Join(sub, ","))
 		buff = append(buff, "}")
