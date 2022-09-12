@@ -24,8 +24,8 @@ func NewGym() *Gym {
 	return &g
 }
 
-func (g *Gym) AddRoute(verb, route string) {
-	g.Routes = append(g.Routes, NewRoute(verb, route))
+func (g *Gym) AddRoute(verb, route, modelIndex string) {
+	g.Routes = append(g.Routes, NewRoute(verb, route, modelIndex))
 	g.SortRoutes()
 	g.Save()
 	g.ListRoutes()

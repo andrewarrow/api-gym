@@ -31,10 +31,13 @@ func main() {
 		g.Save()
 	} else if command == "ls" {
 		g.ListRoutes()
-	} else if command == "add" {
-		verb := os.Args[2]
-		route := os.Args[3]
-		g.AddRoute(verb, route)
+	} else if command == "route" {
+		if os.Args[2] == "add" {
+			verb := os.Args[3]
+			route := os.Args[4]
+			modelIndex := os.Args[5]
+			g.AddRoute(verb, route, modelIndex)
+		}
 	} else if command == "rm" {
 		index := os.Args[2]
 		g.RemoveRoute(index)

@@ -6,15 +6,17 @@ import (
 )
 
 type Route struct {
-	Verb     string `json:"verb"`
-	Route    string `json:"route"`
-	Response string `json:"response"`
+	Verb       string `json:"verb"`
+	Route      string `json:"route"`
+	Response   string `json:"response"`
+	ModelIndex string `json:"model_index"`
 }
 
-func NewRoute(verb, route string) *Route {
+func NewRoute(verb, route, modelIndex string) *Route {
 	r := Route{}
 	r.Verb = verb
 	r.Route = route
+	r.ModelIndex = modelIndex
 	return &r
 }
 
