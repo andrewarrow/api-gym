@@ -1,6 +1,7 @@
 package simulate
 
 import (
+	"api-gym/flavor"
 	"api-gym/gym"
 	"fmt"
 	"strconv"
@@ -32,6 +33,19 @@ func makeArrayItems(field *gym.Field, g *gym.Gym) string {
 	return strings.Join(sub, ",")
 }
 
+func makeMapItems(field *gym.Field, g *gym.Gym) string {
+	s := g.StructsByName[field.FlavorToStructName()]
+
+	//TODO rethink name, Random can also hold amount for sub items
+	amount, _ := strconv.Atoi(field.Random)
+
+	sub := []string{}
+	for i := 0; i < amount; i++ {
+		sub = append(sub, makeStructJson(s, g))
+	}
+	return strings.Join(sub, ",")
+}
+
 func printItems(s *gym.Struct, amount int, g *gym.Gym) {
 	buff := []string{}
 	buff = append(buff, fmt.Sprintf(`{"%s":`, s.JsonContainerName()))
@@ -48,6 +62,14 @@ func printItems(s *gym.Struct, amount int, g *gym.Gym) {
 		buff = append(buff, "}")
 	} else if s.ArrayOrMap == "map" {
 		buff = append(buff, "{")
+		sub := []string{}
+		fewWords := flavor.FewWordsFlavor{}
+		for i := 0; i < amount; i++ {
+			for _, f := range s.Fields {
+				sub = append(sub, fmt.Sprintf(`"%s": {"%s": 1}`, fewWords.Generate(), f.NameToJson()))
+			}
+		}
+		buff = append(buff, strings.Join(sub, ","))
 		buff = append(buff, "}")
 		buff = append(buff, "}")
 	}
@@ -64,8 +86,10 @@ func makeStructJson(s *gym.Struct, g *gym.Gym) string {
 			items = append(items, fmt.Sprintf(`"%s": "%s"`, f.NameToJson(), f.ToFakeValue()))
 		} else if strings.HasPrefix(f.Flavor, "[]") {
 			items = append(items, fmt.Sprintf(`"%s": [%s]`, f.NameToJson(), makeArrayItems(f, g)))
-		} else {
+		} else if f.Flavor == "int" || f.Flavor == "int64" || f.Flavor == "float64" {
 			items = append(items, fmt.Sprintf(`"%s": %s`, f.NameToJson(), f.ToFakeValue()))
+		} else {
+			items = append(items, fmt.Sprintf(`"%s": %s`, f.NameToJson(), makeMapItems(f, g)))
 		}
 	}
 	thing = append(thing, strings.Join(items, ","))
