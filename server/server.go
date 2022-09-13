@@ -4,7 +4,6 @@ import (
 	"api-gym/files"
 	"api-gym/gym"
 	"api-gym/simulate"
-	"encoding/json"
 	"net/http"
 	"os"
 	"strconv"
@@ -19,7 +18,7 @@ func Setup(g *gym.Gym) *gin.Engine {
 	for _, route := range g.Routes {
 		modelIndexAsInt, _ := strconv.Atoi(route.ModelIndex)
 		s := g.Structs[modelIndexAsInt-1]
-		j := JsonRoute{s, g}
+		j := JsonRoute{s, g, ""}
 		if route.Verb == "get" {
 			router.GET(route.Route, j.JsonRunner)
 		} else if route.Verb == "post" {
@@ -31,15 +30,20 @@ func Setup(g *gym.Gym) *gin.Engine {
 }
 
 type JsonRoute struct {
-	Struct *gym.Struct
-	Gym    *gym.Gym
+	Struct  *gym.Struct
+	Gym     *gym.Gym
+	UseFile string
 }
 
 func (j *JsonRoute) JsonRunner(c *gin.Context) {
-	jsonString := simulate.PrintItemsToString(j.Struct, j.Struct.Extra, j.Gym)
-	var m map[string]interface{}
-	json.Unmarshal([]byte(jsonString), &m)
-	c.JSON(http.StatusOK, m)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	stringToSend := ""
+	if j.UseFile != "" {
+		stringToSend = files.ReadFile(os.Getenv("API_GYM_FILE"))
+	} else {
+		stringToSend = simulate.PrintItemsToString(j.Struct, j.Struct.Extra, j.Gym)
+	}
+	c.String(http.StatusOK, stringToSend)
 }
 
 func StaticFile(c *gin.Context) {
