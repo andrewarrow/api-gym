@@ -21,10 +21,11 @@ func (f TimestampFlavor) Name() string {
 
 func (f TimestampFlavor) Generate(e string) string {
 	value := "2022-04-18T06:52:29.940Z"
-	if e == "years_with_null" {
+	if e == "1" { // years_with_null
 		if rand.Intn(2) == 0 {
 			value = "null"
 		}
+	} else if e == "2" { //years_never_null
 	}
 	return value
 }
