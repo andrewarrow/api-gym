@@ -93,7 +93,12 @@ func makeStructJson(s *gym.Struct, g *gym.Gym) string {
 
 func makeJsonBasedOnFlavor(f *gym.Field, g *gym.Gym) string {
 	if f.Flavor == "string" {
-		return fmt.Sprintf(`"%s": "%s"`, f.NameToJson(), f.ToFakeValue())
+		value := f.ToFakeValue()
+		if value == "null" {
+			return fmt.Sprintf(`"%s": null`, f.NameToJson())
+		} else {
+			return fmt.Sprintf(`"%s": "%s"`, f.NameToJson(), value)
+		}
 	} else if strings.HasPrefix(f.Flavor, "[]") {
 		return fmt.Sprintf(`"%s": [%s]`, f.NameToJson(), makeArrayItems(f, g))
 	} else if f.Flavor == "int" || f.Flavor == "int64" || f.Flavor == "float64" || f.Flavor == "bool" {
