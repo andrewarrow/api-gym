@@ -19,3 +19,6 @@ func (id LatitudeFlavor) Generate(e string) string {
 func (id LatitudeFlavor) Flavor() string {
 	return "float64"
 }
+func (f LatitudeFlavor) ListOptions() bool {
+	return false
+}

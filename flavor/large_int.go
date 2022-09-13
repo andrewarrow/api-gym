@@ -18,3 +18,6 @@ func (id LargeIntFlavor) Generate(e string) string {
 func (id LargeIntFlavor) Flavor() string {
 	return "int64"
 }
+func (f LargeIntFlavor) ListOptions() bool {
+	return false
+}

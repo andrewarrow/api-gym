@@ -14,3 +14,6 @@ func (id ParagraphFlavor) Generate(e string) string {
 func (id ParagraphFlavor) Flavor() string {
 	return "string"
 }
+func (f ParagraphFlavor) ListOptions() bool {
+	return false
+}

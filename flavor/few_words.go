@@ -22,3 +22,6 @@ func (id FewWordsFlavor) Generate(e string) string {
 func (id FewWordsFlavor) Flavor() string {
 	return "string"
 }
+func (f FewWordsFlavor) ListOptions() bool {
+	return false
+}

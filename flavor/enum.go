@@ -23,3 +23,6 @@ func (id EnumFlavor) Generate(extra string) string {
 func (id EnumFlavor) Flavor() string {
 	return "string"
 }
+func (f EnumFlavor) ListOptions() bool {
+	return false
+}

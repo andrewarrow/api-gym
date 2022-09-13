@@ -18,3 +18,6 @@ func (id LongitudeFlavor) Generate(e string) string {
 func (id LongitudeFlavor) Flavor() string {
 	return "float64"
 }
+func (f LongitudeFlavor) ListOptions() bool {
+	return false
+}

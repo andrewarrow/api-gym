@@ -20,3 +20,6 @@ func (id AddressFlavor) Generate(e string) string {
 func (id AddressFlavor) Flavor() string {
 	return "string"
 }
+func (f AddressFlavor) ListOptions() bool {
+	return false
+}

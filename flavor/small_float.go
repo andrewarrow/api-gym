@@ -18,3 +18,6 @@ func (id SmallFloatFlavor) Generate(e string) string {
 func (id SmallFloatFlavor) Flavor() string {
 	return "float64"
 }
+func (f SmallFloatFlavor) ListOptions() bool {
+	return false
+}

@@ -11,9 +11,12 @@ type Flavor interface {
 	Name() string
 	Generate(string) string
 	Flavor() string
+	ListOptions() bool
 }
 
-var allFlavors = []Flavor{IdFlavor{}, NameFlavor{}, FewWordsFlavor{},
+var allFlavors = []Flavor{IdFlavor{},
+	NameFlavor{},
+	FewWordsFlavor{},
 	AddressFlavor{},
 	LatitudeFlavor{},
 	LongitudeFlavor{},
@@ -21,7 +24,7 @@ var allFlavors = []Flavor{IdFlavor{}, NameFlavor{}, FewWordsFlavor{},
 	LargeIntFlavor{},
 	SmallFloatFlavor{},
 	SmallIntFlavor{},
-	TimestampFlavor{},
+	NewTimestampFlavor(),
 	EnumFlavor{},
 	BooleanFlavor{},
 	ParagraphFlavor{}}
@@ -59,6 +62,9 @@ func (id IdFlavor) Generate(e string) string {
 func (id IdFlavor) Flavor() string {
 	return "string"
 }
+func (f IdFlavor) ListOptions() bool {
+	return false
+}
 
 type NameFlavor struct {
 }
@@ -73,4 +79,7 @@ func (id NameFlavor) Generate(e string) string {
 
 func (id NameFlavor) Flavor() string {
 	return "string"
+}
+func (f NameFlavor) ListOptions() bool {
+	return false
 }

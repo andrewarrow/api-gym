@@ -18,3 +18,6 @@ func (id SmallIntFlavor) Generate(e string) string {
 func (id SmallIntFlavor) Flavor() string {
 	return "int"
 }
+func (f SmallIntFlavor) ListOptions() bool {
+	return false
+}

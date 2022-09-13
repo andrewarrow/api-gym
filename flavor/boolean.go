@@ -18,3 +18,6 @@ func (id BooleanFlavor) Generate(e string) string {
 func (id BooleanFlavor) Flavor() string {
 	return "bool"
 }
+func (f BooleanFlavor) ListOptions() bool {
+	return false
+}

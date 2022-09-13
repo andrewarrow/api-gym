@@ -6,9 +6,11 @@ import (
 	"api-gym/gym"
 	"api-gym/server"
 	"api-gym/simulate"
+	"api-gym/util"
 	"fmt"
 	"math/rand"
 	"os"
+	"strconv"
 	"time"
 )
 
@@ -64,13 +66,19 @@ func main() {
 			g.UpdateStructRandom(index, fieldIndex, os.Args[5])
 			return
 		}
-		modelIndex := os.Args[2]
-		flavorIndexList := os.Args[3]
-		extra := ""
-		if len(os.Args) > 4 {
-			extra = os.Args[4]
+		flavor.ListFlavors()
+		flavorIndex := util.InputLine()
+		flavorIndexInt, _ := strconv.Atoi(flavorIndex)
+		f := flavor.GetFlavorByIndex(flavorIndexInt)
+		if f.ListOptions() {
 		}
-		g.AddFieldToStruct(modelIndex, flavorIndexList, extra)
+		//modelIndex := os.Args[2]
+		//flavorIndexList := os.Args[3]
+		//extra := ""
+		//if len(os.Args) > 4 {
+		//	extra = os.Args[4]
+		//}
+		//g.AddFieldToStruct(modelIndex, flavorIndexList, extra)
 	} else if command == "flavors" {
 		flavor.ListFlavors()
 	} else if command == "server" {

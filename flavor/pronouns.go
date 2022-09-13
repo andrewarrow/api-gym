@@ -22,3 +22,6 @@ func (id PronounsFlavor) Generate(e string) string {
 func (id PronounsFlavor) Flavor() string {
 	return "string"
 }
+func (f PronounsFlavor) ListOptions() bool {
+	return false
+}
