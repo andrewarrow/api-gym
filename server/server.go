@@ -5,7 +5,6 @@ import (
 	"api-gym/gym"
 	"api-gym/simulate"
 	"net/http"
-	"os"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -18,14 +17,13 @@ func Setup(g *gym.Gym) *gin.Engine {
 	for _, route := range g.Routes {
 		modelIndexAsInt, _ := strconv.Atoi(route.ModelIndex)
 		s := g.Structs[modelIndexAsInt-1]
-		j := JsonRoute{s, g, ""}
+		j := JsonRoute{s, g, route.UseFile}
 		if route.Verb == "get" {
 			router.GET(route.Route, j.JsonRunner)
 		} else if route.Verb == "post" {
 			router.POST(route.Route, j.JsonRunner)
 		}
 	}
-	router.GET("/static/file", StaticFile)
 	return router
 }
 
@@ -39,15 +37,9 @@ func (j *JsonRoute) JsonRunner(c *gin.Context) {
 	c.Writer.Header().Set("Content-Type", "application/json")
 	stringToSend := ""
 	if j.UseFile != "" {
-		stringToSend = files.ReadFile(os.Getenv("API_GYM_FILE"))
+		stringToSend = files.ReadFile("static/" + j.UseFile)
 	} else {
 		stringToSend = simulate.PrintItemsToString(j.Struct, j.Struct.Extra, j.Gym)
 	}
 	c.String(http.StatusOK, stringToSend)
-}
-
-func StaticFile(c *gin.Context) {
-	fileString := files.ReadFile(os.Getenv("API_GYM_FILE"))
-	c.Writer.Header().Set("Content-Type", "application/json")
-	c.String(http.StatusOK, fileString)
 }

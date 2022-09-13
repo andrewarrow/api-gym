@@ -10,6 +10,7 @@ type Route struct {
 	Route      string `json:"route"`
 	Response   string `json:"response"`
 	ModelIndex string `json:"model_index"`
+	UseFile    string `json:"use_file"`
 }
 
 func NewRoute(verb, route, modelIndex string) *Route {
@@ -17,6 +18,7 @@ func NewRoute(verb, route, modelIndex string) *Route {
 	r.Verb = verb
 	r.Route = route
 	r.ModelIndex = modelIndex
+	r.UseFile = ""
 	return &r
 }
 
