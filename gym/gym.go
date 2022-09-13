@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"sort"
 	"strconv"
-	"strings"
 )
 
 type Gym struct {
@@ -102,32 +101,21 @@ func (g *Gym) AddResponseToRoute(index, response string) {
 	g.ListRoutes()
 }
 
-func (g *Gym) AddFieldToStruct(modelIndex, flavorIndexList, extra string) {
+func (g *Gym) AddFieldToStruct(modelIndex, name, otherModel, flavorIndex string) {
 	modelIndexAsInt, _ := strconv.Atoi(modelIndex)
-	tokens := strings.Split(flavorIndexList, ",")
-	for _, token := range tokens {
-		subTokens := strings.Split(token, ".")
-		flavorIndexInt, _ := strconv.Atoi(subTokens[0])
-		if flavorIndexInt == 0 {
-			// this means it's not an int, it's another model
-			name := subTokens[1]
-			field := NewField(name, subTokens[0], "", extra)
-			g.Structs[modelIndexAsInt-1].Fields = append(g.Structs[modelIndexAsInt-1].Fields, field)
-		} else {
-			f := flavor.GetFlavorByIndex(flavorIndexInt)
-			name := ""
-			var field *Field
-			if len(subTokens) == 1 {
-				name = util.ToCamelCase(f.Name())
-				field = NewField(name, f.Flavor(), f.Name(), extra)
-			} else {
-				name = subTokens[1]
-				field = NewField(name, f.Flavor(), f.Name(), extra)
-			}
-			g.Structs[modelIndexAsInt-1].Fields = append(g.Structs[modelIndexAsInt-1].Fields, field)
+	var field *Field
+	if otherModel != "" {
+		field = NewField(name, otherModel, "", "1")
+	} else {
+		flavorIndexInt, _ := strconv.Atoi(flavorIndex)
+		optionIndex := ""
+		f := flavor.GetFlavorByIndex(flavorIndexInt)
+		if f.ListOptions() {
+			optionIndex = util.InputLine()
 		}
+		field = NewField(name, f.Flavor(), f.Name(), optionIndex)
 	}
-
+	g.Structs[modelIndexAsInt-1].Fields = append(g.Structs[modelIndexAsInt-1].Fields, field)
 	g.Save()
 	g.ListRoutes()
 }

@@ -10,7 +10,6 @@ import (
 	"fmt"
 	"math/rand"
 	"os"
-	"strconv"
 	"time"
 )
 
@@ -66,19 +65,18 @@ func main() {
 			g.UpdateStructRandom(index, fieldIndex, os.Args[5])
 			return
 		}
-		flavor.ListFlavors()
-		flavorIndex := util.InputLine()
-		flavorIndexInt, _ := strconv.Atoi(flavorIndex)
-		f := flavor.GetFlavorByIndex(flavorIndexInt)
-		if f.ListOptions() {
+		modelIndex := os.Args[2]
+		name := os.Args[3]
+		otherModel := ""
+		flavorIndex := ""
+		if len(os.Args) > 4 {
+			otherModel = os.Args[4]
+		} else {
+			flavor.ListFlavors()
+			flavorIndex = util.InputLine()
 		}
-		//modelIndex := os.Args[2]
-		//flavorIndexList := os.Args[3]
-		//extra := ""
-		//if len(os.Args) > 4 {
-		//	extra = os.Args[4]
-		//}
-		//g.AddFieldToStruct(modelIndex, flavorIndexList, extra)
+
+		g.AddFieldToStruct(modelIndex, name, otherModel, flavorIndex)
 	} else if command == "flavors" {
 		flavor.ListFlavors()
 	} else if command == "server" {
