@@ -2,4 +2,5 @@ go.sum
 api-gym
 gym.json
 json
+static
 .DS_Store
