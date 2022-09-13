@@ -1,10 +1,12 @@
 package server
 
 import (
+	"api-gym/files"
 	"api-gym/gym"
 	"api-gym/simulate"
 	"encoding/json"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -24,6 +26,7 @@ func Setup(g *gym.Gym) *gin.Engine {
 			router.POST(route.Route, j.JsonRunner)
 		}
 	}
+	router.GET("/static/file", StaticFile)
 	return router
 }
 
@@ -37,4 +40,10 @@ func (j *JsonRoute) JsonRunner(c *gin.Context) {
 	var m map[string]interface{}
 	json.Unmarshal([]byte(jsonString), &m)
 	c.JSON(http.StatusOK, m)
+}
+
+func StaticFile(c *gin.Context) {
+	fileString := files.ReadFile(os.Getenv("API_GYM_FILE"))
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.String(http.StatusOK, fileString)
 }

@@ -23,6 +23,7 @@ var allFlavors = []Flavor{IdFlavor{}, NameFlavor{}, FewWordsFlavor{},
 	SmallIntFlavor{},
 	TimestampFlavor{},
 	EnumFlavor{},
+	BooleanFlavor{},
 	ParagraphFlavor{}}
 
 func FlavorsAsMap() map[string]Flavor {
