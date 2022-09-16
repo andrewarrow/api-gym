@@ -26,7 +26,7 @@ func Run(g *gym.Gym) {
 	gs := &GymScreen{}
 	gs.listMap = map[string]*widgets.List{}
 	gs.g = g
-	models := MakeNewList("Models", ui.ColorGreen)
+	models := MakeNewList("Models", ui.ColorMagenta)
 	gs.listMap["models"] = models
 	gs.listArray = append(gs.listArray, "models")
 	gs.listIndex = 0
@@ -36,12 +36,12 @@ func Run(g *gym.Gym) {
 	}
 	models.SetRect(0, 0, 30, 8)
 
-	fields := MakeNewList("Fields", ui.ColorCyan)
+	fields := MakeNewList("Fields", ui.ColorGreen)
 	fields.SetRect(31, 0, 30+31, 8)
 	gs.listMap["fields"] = fields
 	gs.listArray = append(gs.listArray, "fields")
 
-	list := MakeNewList("Flavors", ui.ColorCyan)
+	list := MakeNewList("Flavors", ui.ColorGreen)
 	list.Rows = append(list.Rows, "Address")
 	list.Rows = append(list.Rows, "Timestamp")
 	list.Rows = append(list.Rows, "LargeInt")
@@ -92,11 +92,11 @@ func (gs *GymScreen) nextList() {
 	}
 	for _, listName := range gs.listArray {
 		list := gs.listMap[listName]
-		list.SelectedRowStyle.Bg = ui.ColorCyan
+		list.SelectedRowStyle.Bg = ui.ColorGreen
 	}
 	gs.activeListName = gs.listArray[gs.listIndex]
 	list := gs.listMap[gs.activeListName]
-	list.SelectedRowStyle.Bg = ui.ColorGreen
+	list.SelectedRowStyle.Bg = ui.ColorMagenta
 }
 
 func (gs *GymScreen) enterOnModels() {
@@ -108,6 +108,7 @@ func (gs *GymScreen) enterOnModels() {
 	}
 	fields.Rows = append(fields.Rows, "     ADD NEW")
 	gs.activeListName = "fields"
+	gs.nextList()
 }
 
 func (gs *GymScreen) enterOnFields() {
