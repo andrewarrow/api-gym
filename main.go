@@ -4,6 +4,7 @@ import (
 	"api-gym/files"
 	"api-gym/flavor"
 	"api-gym/gym"
+	"api-gym/screen"
 	"api-gym/server"
 	"api-gym/simulate"
 	"api-gym/util"
@@ -79,6 +80,8 @@ func main() {
 		g.AddFieldToStruct(modelIndex, name, otherModel, flavorIndex)
 	} else if command == "flavors" {
 		flavor.ListFlavors()
+	} else if command == "map" {
+		screen.Run()
 	} else if command == "server" {
 		router := server.Setup(g)
 		router.Run(":8080")
