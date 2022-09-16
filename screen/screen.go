@@ -38,9 +38,8 @@ func Run(g *gym.Gym) {
 	gymScreen.poll()
 }
 
-func (g *GymScreen) poll() {
+func (gs *GymScreen) poll() {
 
-	previousKey := ""
 	uiEvents := ui.PollEvents()
 	for {
 		e := <-uiEvents
@@ -48,46 +47,36 @@ func (g *GymScreen) poll() {
 		case "q", "<C-c>":
 			return
 		case "j", "<Down>":
-			g.models.ScrollDown()
+			gs.models.ScrollDown()
 		case "k", "<Up>":
-			g.models.ScrollUp()
+			gs.models.ScrollUp()
 		case "<C-d>":
-			g.models.ScrollHalfPageDown()
+			gs.models.ScrollHalfPageDown()
 		case "<C-u>":
-			g.models.ScrollHalfPageUp()
+			gs.models.ScrollHalfPageUp()
 		case "<C-f>":
-			g.models.ScrollPageDown()
+			gs.models.ScrollPageDown()
 		case "<C-b>":
-			g.models.ScrollPageUp()
+			gs.models.ScrollPageUp()
 		case "<Enter>":
-			g.fields = widgets.NewList()
-			g.fields.Title = "Fields"
-			g.fields.Rows = []string{}
-			g.fields.SelectedRowStyle.Fg = ui.ColorWhite
-			g.fields.SelectedRowStyle.Bg = ui.ColorGreen
-			g.fields.TextStyle.Fg = ui.ColorWhite
-			g.fields.TextStyle.Bg = ui.ColorBlack
-			for i, f := range g.g.Structs[g.models.SelectedRow].Fields {
-				g.fields.Rows = append(g.fields.Rows, fmt.Sprintf("[%d] %s", i, f.Name))
+			gs.fields = widgets.NewList()
+			gs.fields.Title = "Fields"
+			gs.fields.Rows = []string{}
+			gs.fields.SelectedRowStyle.Fg = ui.ColorWhite
+			gs.fields.SelectedRowStyle.Bg = ui.ColorGreen
+			gs.fields.TextStyle.Fg = ui.ColorWhite
+			gs.fields.TextStyle.Bg = ui.ColorBlack
+			for i, f := range gs.g.Structs[gs.models.SelectedRow].Fields {
+				gs.fields.Rows = append(gs.fields.Rows, fmt.Sprintf("[%d] %s", i, f.Name))
 			}
-			g.fields.SetRect(40, 0, 30, 8)
-			ui.Render(g.fields)
-		case "g":
-			if previousKey == "g" {
-				g.models.ScrollTop()
-			}
+			gs.fields.SetRect(40, 0, 30, 8)
+			ui.Render(gs.fields)
 		case "<Home>":
-			g.models.ScrollTop()
+			gs.models.ScrollTop()
 		case "G", "<End>":
-			g.models.ScrollBottom()
+			gs.models.ScrollBottom()
 		}
 
-		if previousKey == "g" {
-			previousKey = ""
-		} else {
-			previousKey = e.ID
-		}
-
-		ui.Render(g.models)
+		ui.Render(gs.models)
 	}
 }
