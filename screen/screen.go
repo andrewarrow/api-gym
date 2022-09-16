@@ -8,15 +8,20 @@ import (
 	"github.com/gizak/termui/v3/widgets"
 )
 
+type GymScreen struct {
+	models *widgets.List
+}
+
 func Run() {
 	if err := ui.Init(); err != nil {
 		log.Fatalf("failed to initialize termui: %v", err)
 	}
 	defer ui.Close()
 
-	l := widgets.NewList()
-	l.Title = "List"
-	l.Rows = []string{
+	gymScreen := &GymScreen{}
+	gymScreen.models = widgets.NewList()
+	gymScreen.models.Title = "Models"
+	gymScreen.models.Rows = []string{
 		"[0] github.com/gizak/termui/v3",
 		"[1] [你好，世界](fg:blue)",
 		"[2] [こんにちは世界](fg:red)",
@@ -28,11 +33,14 @@ func Run() {
 		"[8] bar",
 		"[9] baz",
 	}
-	l.TextStyle = ui.NewStyle(ui.ColorYellow)
-	l.WrapText = false
-	l.SetRect(0, 0, 60, 8)
+	//l.TextStyle = ui.NewStyle(ui.ColorYellow)
+	//l.WrapText = false
+	gymScreen.models.SetRect(0, 0, 60, 8)
+	ui.Render(gymScreen.models)
+	gymScreen.poll()
+}
 
-	ui.Render(l)
+func (g *GymScreen) poll() {
 
 	previousKey := ""
 	uiEvents := ui.PollEvents()
@@ -42,27 +50,27 @@ func Run() {
 		case "q", "<C-c>":
 			return
 		case "j", "<Down>":
-			l.ScrollDown()
+			g.models.ScrollDown()
 		case "k", "<Up>":
-			l.ScrollUp()
+			g.models.ScrollUp()
 		case "<C-d>":
-			l.ScrollHalfPageDown()
+			g.models.ScrollHalfPageDown()
 		case "<C-u>":
-			l.ScrollHalfPageUp()
+			g.models.ScrollHalfPageUp()
 		case "<C-f>":
-			l.ScrollPageDown()
+			g.models.ScrollPageDown()
 		case "<C-b>":
-			l.ScrollPageUp()
+			g.models.ScrollPageUp()
 		case "<Enter>":
 			os.Exit(1)
 		case "g":
 			if previousKey == "g" {
-				l.ScrollTop()
+				g.models.ScrollTop()
 			}
 		case "<Home>":
-			l.ScrollTop()
+			g.models.ScrollTop()
 		case "G", "<End>":
-			l.ScrollBottom()
+			g.models.ScrollBottom()
 		}
 
 		if previousKey == "g" {
@@ -71,6 +79,6 @@ func Run() {
 			previousKey = e.ID
 		}
 
-		ui.Render(l)
+		ui.Render(g.models)
 	}
 }
