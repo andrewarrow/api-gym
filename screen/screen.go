@@ -50,18 +50,30 @@ func (gs *GymScreen) poll() {
 			gs.activeList().ScrollDown()
 		case "k", "<Up>":
 			gs.activeList().ScrollUp()
+		case "a":
+			gs.addNew()
+		case "<Escape>":
+			gs.activeListName = "models"
 		case "<Enter>":
 			list := MakeNewList("Fields")
 			for i, f := range gs.g.Structs[gs.models.SelectedRow].Fields {
 				list.Rows = append(list.Rows, fmt.Sprintf("[%d] %s", i, f.Name))
 			}
-			list.SetRect(40, 0, 30, 8)
+			list.SetRect(40, 0, 60, 8)
 			gs.fields = list
 			gs.listMap["fields"] = list
 			gs.activeListName = "fields"
 		}
 
 		ui.Render(gs.activeLists()...)
+	}
+}
+
+func (gs *GymScreen) addNew() {
+	if gs.activeListName == "fields" {
+		//s := gs.g.Structs[gs.models.SelectedRow]
+		list := gs.listMap["fields"]
+		list.Rows = append(list.Rows, fmt.Sprintf("[%d] %s", len(list.Rows), "Untitled"))
 	}
 }
 
