@@ -37,11 +37,6 @@ func Run(g *gym.Gym) {
 	models.SetRect(0, 0, 30, 8)
 
 	fields := MakeNewList("Fields", ui.ColorCyan)
-	//gs.selectedModel = models.SelectedRow
-	//for i, f := range gs.g.Structs[models.SelectedRow].Fields {
-	//	list.Rows = append(list.Rows, fmt.Sprintf("[%02d] %-10s %s", i, f.Name, f.Random))
-	//}
-	fields.Rows = append(fields.Rows, "     ADD NEW")
 	fields.SetRect(31, 0, 30+31, 8)
 	gs.listMap["fields"] = fields
 	gs.listArray = append(gs.listArray, "fields")
@@ -105,6 +100,13 @@ func (gs *GymScreen) nextList() {
 }
 
 func (gs *GymScreen) enterOnModels() {
+	models := gs.listMap["models"]
+	fields := gs.listMap["fields"]
+	fields.Rows = []string{}
+	for i, f := range gs.g.Structs[models.SelectedRow].Fields {
+		fields.Rows = append(fields.Rows, fmt.Sprintf("[%02d] %-10s %s", i, f.Name, f.Random))
+	}
+	fields.Rows = append(fields.Rows, "     ADD NEW")
 	gs.activeListName = "fields"
 }
 
