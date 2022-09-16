@@ -5,14 +5,17 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/gizak/termui/v3"
 	ui "github.com/gizak/termui/v3"
 	"github.com/gizak/termui/v3/widgets"
 )
 
 type GymScreen struct {
-	models *widgets.List
-	fields *widgets.List
-	g      *gym.Gym
+	models         *widgets.List
+	fields         *widgets.List
+	activeList     *widgets.List
+	activeListName string
+	g              *gym.Gym
 }
 
 func Run(g *gym.Gym) {
@@ -23,6 +26,7 @@ func Run(g *gym.Gym) {
 
 	gymScreen := &GymScreen{}
 	gymScreen.g = g
+	gymScreen.activeListName = "models"
 	gymScreen.models = widgets.NewList()
 	gymScreen.models.Title = "Models"
 	gymScreen.models.Rows = []string{}
@@ -59,24 +63,39 @@ func (gs *GymScreen) poll() {
 		case "<C-b>":
 			gs.models.ScrollPageUp()
 		case "<Enter>":
-			gs.fields = widgets.NewList()
-			gs.fields.Title = "Fields"
-			gs.fields.Rows = []string{}
-			gs.fields.SelectedRowStyle.Fg = ui.ColorWhite
-			gs.fields.SelectedRowStyle.Bg = ui.ColorGreen
-			gs.fields.TextStyle.Fg = ui.ColorWhite
-			gs.fields.TextStyle.Bg = ui.ColorBlack
+			list := MakeNewList("Fields")
 			for i, f := range gs.g.Structs[gs.models.SelectedRow].Fields {
-				gs.fields.Rows = append(gs.fields.Rows, fmt.Sprintf("[%d] %s", i, f.Name))
+				list.Rows = append(list.Rows, fmt.Sprintf("[%d] %s", i, f.Name))
 			}
-			gs.fields.SetRect(40, 0, 30, 8)
-			ui.Render(gs.fields)
+			list.SetRect(40, 0, 30, 8)
+			gs.fields = list
+			gs.activeList = list
+			gs.activeListName = "fields"
 		case "<Home>":
 			gs.models.ScrollTop()
 		case "G", "<End>":
 			gs.models.ScrollBottom()
 		}
 
-		ui.Render(gs.models)
+		ui.Render(gs.activeLists()...)
 	}
+}
+
+func (gs *GymScreen) activeLists() []termui.Drawable {
+	items := []termui.Drawable{gs.models}
+	if gs.fields != nil {
+		items = append(items, gs.fields)
+	}
+	return items
+}
+
+func MakeNewList(title string) *widgets.List {
+	list := widgets.NewList()
+	list.Title = title
+	list.Rows = []string{}
+	list.SelectedRowStyle.Fg = ui.ColorWhite
+	list.SelectedRowStyle.Bg = ui.ColorGreen
+	list.TextStyle.Fg = ui.ColorWhite
+	list.TextStyle.Bg = ui.ColorBlack
+	return list
 }
