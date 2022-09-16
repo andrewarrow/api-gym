@@ -13,8 +13,8 @@ import (
 type GymScreen struct {
 	models         *widgets.List
 	fields         *widgets.List
-	activeList     *widgets.List
 	activeListName string
+	listMap        map[string]*widgets.List
 	g              *gym.Gym
 }
 
@@ -25,15 +25,11 @@ func Run(g *gym.Gym) {
 	defer ui.Close()
 
 	gymScreen := &GymScreen{}
+	gymScreen.listMap = map[string]*widgets.List{}
 	gymScreen.g = g
+	gymScreen.models = MakeNewList("Models")
+	gymScreen.listMap["models"] = gymScreen.models
 	gymScreen.activeListName = "models"
-	gymScreen.models = widgets.NewList()
-	gymScreen.models.Title = "Models"
-	gymScreen.models.Rows = []string{}
-	gymScreen.models.SelectedRowStyle.Fg = ui.ColorWhite
-	gymScreen.models.SelectedRowStyle.Bg = ui.ColorGreen
-	gymScreen.models.TextStyle.Fg = ui.ColorWhite
-	gymScreen.models.TextStyle.Bg = ui.ColorBlack
 	for i, s := range g.Structs {
 		gymScreen.models.Rows = append(gymScreen.models.Rows, fmt.Sprintf("[%d] %s", i, s.Name))
 	}
@@ -51,17 +47,9 @@ func (gs *GymScreen) poll() {
 		case "q", "<C-c>":
 			return
 		case "j", "<Down>":
-			gs.models.ScrollDown()
+			gs.activeList().ScrollDown()
 		case "k", "<Up>":
-			gs.models.ScrollUp()
-		case "<C-d>":
-			gs.models.ScrollHalfPageDown()
-		case "<C-u>":
-			gs.models.ScrollHalfPageUp()
-		case "<C-f>":
-			gs.models.ScrollPageDown()
-		case "<C-b>":
-			gs.models.ScrollPageUp()
+			gs.activeList().ScrollUp()
 		case "<Enter>":
 			list := MakeNewList("Fields")
 			for i, f := range gs.g.Structs[gs.models.SelectedRow].Fields {
@@ -69,16 +57,16 @@ func (gs *GymScreen) poll() {
 			}
 			list.SetRect(40, 0, 30, 8)
 			gs.fields = list
-			gs.activeList = list
+			gs.listMap["fields"] = list
 			gs.activeListName = "fields"
-		case "<Home>":
-			gs.models.ScrollTop()
-		case "G", "<End>":
-			gs.models.ScrollBottom()
 		}
 
 		ui.Render(gs.activeLists()...)
 	}
+}
+
+func (gs *GymScreen) activeList() *widgets.List {
+	return gs.listMap[gs.activeListName]
 }
 
 func (gs *GymScreen) activeLists() []termui.Drawable {
