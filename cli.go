@@ -17,6 +17,7 @@ func PrintHelp() {
 	fmt.Println("")
 	fmt.Println("  api-gym route add [get|post] [route] [model_index]")
 	fmt.Println("  api-gym route run [route_index]")
+	fmt.Println("  api-gym screen")
 	fmt.Println("")
 	fmt.Println("  api-gym server run")
 	fmt.Println("")

@@ -6,6 +6,7 @@ require (
 	github.com/brianvoe/gofakeit/v6 v6.18.0
 	github.com/gin-gonic/gin v1.8.1
 	github.com/iancoleman/strcase v0.2.0
+	golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1
 )
 
 require (

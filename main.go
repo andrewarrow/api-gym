@@ -80,7 +80,7 @@ func main() {
 		g.AddFieldToStruct(modelIndex, name, otherModel, flavorIndex)
 	} else if command == "flavors" {
 		flavor.ListFlavors()
-	} else if command == "map" {
+	} else if command == "screen" {
 		screen.Run()
 	} else if command == "server" {
 		router := server.Setup(g)
