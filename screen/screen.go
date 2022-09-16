@@ -1,8 +1,9 @@
 package screen
 
 import (
+	"api-gym/gym"
+	"fmt"
 	"log"
-	"os"
 
 	ui "github.com/gizak/termui/v3"
 	"github.com/gizak/termui/v3/widgets"
@@ -10,32 +11,29 @@ import (
 
 type GymScreen struct {
 	models *widgets.List
+	fields *widgets.List
+	g      *gym.Gym
 }
 
-func Run() {
+func Run(g *gym.Gym) {
 	if err := ui.Init(); err != nil {
 		log.Fatalf("failed to initialize termui: %v", err)
 	}
 	defer ui.Close()
 
 	gymScreen := &GymScreen{}
+	gymScreen.g = g
 	gymScreen.models = widgets.NewList()
 	gymScreen.models.Title = "Models"
-	gymScreen.models.Rows = []string{
-		"[0] github.com/gizak/termui/v3",
-		"[1] [你好，世界](fg:blue)",
-		"[2] [こんにちは世界](fg:red)",
-		"[3] [color](fg:white,bg:green) output",
-		"[4] output.go",
-		"[5] random_out.go",
-		"[6] dashboard.go",
-		"[7] foo",
-		"[8] bar",
-		"[9] baz",
+	gymScreen.models.Rows = []string{}
+	gymScreen.models.SelectedRowStyle.Fg = ui.ColorWhite
+	gymScreen.models.SelectedRowStyle.Bg = ui.ColorGreen
+	gymScreen.models.TextStyle.Fg = ui.ColorWhite
+	gymScreen.models.TextStyle.Bg = ui.ColorBlack
+	for i, s := range g.Structs {
+		gymScreen.models.Rows = append(gymScreen.models.Rows, fmt.Sprintf("[%d] %s", i, s.Name))
 	}
-	//l.TextStyle = ui.NewStyle(ui.ColorYellow)
-	//l.WrapText = false
-	gymScreen.models.SetRect(0, 0, 60, 8)
+	gymScreen.models.SetRect(0, 0, 30, 8)
 	ui.Render(gymScreen.models)
 	gymScreen.poll()
 }
@@ -62,7 +60,18 @@ func (g *GymScreen) poll() {
 		case "<C-b>":
 			g.models.ScrollPageUp()
 		case "<Enter>":
-			os.Exit(1)
+			g.fields = widgets.NewList()
+			g.fields.Title = "Fields"
+			g.fields.Rows = []string{}
+			g.fields.SelectedRowStyle.Fg = ui.ColorWhite
+			g.fields.SelectedRowStyle.Bg = ui.ColorGreen
+			g.fields.TextStyle.Fg = ui.ColorWhite
+			g.fields.TextStyle.Bg = ui.ColorBlack
+			for i, f := range g.g.Structs[g.models.SelectedRow].Fields {
+				g.fields.Rows = append(g.fields.Rows, fmt.Sprintf("[%d] %s", i, f.Name))
+			}
+			g.fields.SetRect(40, 0, 30, 8)
+			ui.Render(g.fields)
 		case "g":
 			if previousKey == "g" {
 				g.models.ScrollTop()

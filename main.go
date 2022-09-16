@@ -81,7 +81,7 @@ func main() {
 	} else if command == "flavors" {
 		flavor.ListFlavors()
 	} else if command == "screen" {
-		screen.Run()
+		screen.Run(g)
 	} else if command == "server" {
 		router := server.Setup(g)
 		router.Run(":8080")
