@@ -10,8 +10,6 @@ import (
 )
 
 type GymScreen struct {
-	models         *widgets.List
-	fields         *widgets.List
 	activeListName string
 	listMap        map[string]*widgets.List
 	g              *gym.Gym
@@ -27,14 +25,14 @@ func Run(g *gym.Gym) {
 	gymScreen := &GymScreen{}
 	gymScreen.listMap = map[string]*widgets.List{}
 	gymScreen.g = g
-	gymScreen.models = MakeNewList("Models")
-	gymScreen.listMap["models"] = gymScreen.models
+	models := MakeNewList("Models")
+	gymScreen.listMap["models"] = models
 	gymScreen.activeListName = "models"
 	for i, s := range g.Structs {
-		gymScreen.models.Rows = append(gymScreen.models.Rows, fmt.Sprintf("[%d] %s", i, s.Name))
+		models.Rows = append(models.Rows, fmt.Sprintf("[%d] %s", i, s.Name))
 	}
-	gymScreen.models.SetRect(0, 0, 30, 8)
-	ui.Render(gymScreen.models)
+	models.SetRect(0, 0, 30, 8)
+	ui.Render(models)
 	gymScreen.poll()
 }
 
@@ -60,20 +58,41 @@ func (gs *GymScreen) poll() {
 			gs.activeListName = "models"
 			gs.quit = true
 		case "<Enter>":
-			list := MakeNewList("Fields")
-			for i, f := range gs.g.Structs[gs.models.SelectedRow].Fields {
-				list.Rows = append(list.Rows, fmt.Sprintf("[%d] %s", i, f.Name))
+			if gs.activeListName == "models" {
+				gs.enterOnModels()
+			} else if gs.activeListName == "fields" {
+				gs.enterOnFields()
 			}
-			list.SetRect(40, 0, 60, 8)
-			gs.fields = list
-			gs.listMap["fields"] = list
-			gs.activeListName = "fields"
 		}
 
 		ui.Render(gs.activeLists()...)
 	}
 
 	Run(gs.g)
+}
+
+func (gs *GymScreen) enterOnModels() {
+	list := MakeNewList("Fields")
+	models := gs.listMap["models"]
+	for i, f := range gs.g.Structs[models.SelectedRow].Fields {
+		list.Rows = append(list.Rows, fmt.Sprintf("[%02d] %-10s %s", i, f.Name, f.Random))
+	}
+	list.Rows = append(list.Rows, "     ADD NEW")
+	list.SetRect(31, 0, 30+31, 8)
+	gs.listMap["fields"] = list
+	gs.activeListName = "fields"
+}
+
+func (gs *GymScreen) enterOnFields() {
+	list := MakeNewList("Flavors")
+	list.Rows = append(list.Rows, "Address")
+	list.Rows = append(list.Rows, "Timestamp")
+	list.Rows = append(list.Rows, "LargeInt")
+	list.Rows = append(list.Rows, "SmallInt")
+	list.Rows = append(list.Rows, "[]OtherModel")
+	list.SetRect(31, 9, 30+31, 9+8)
+	gs.listMap["flavors"] = list
+	gs.activeListName = "flavors"
 }
 
 func (gs *GymScreen) addNew() {
@@ -89,9 +108,12 @@ func (gs *GymScreen) activeList() *widgets.List {
 }
 
 func (gs *GymScreen) activeLists() []ui.Drawable {
-	items := []ui.Drawable{gs.models}
-	if gs.fields != nil {
-		items = append(items, gs.fields)
+	items := []ui.Drawable{}
+	for _, v := range gs.listMap {
+		if v == nil {
+			continue
+		}
+		items = append(items, v)
 	}
 	return items
 }
