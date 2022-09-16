@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/gizak/termui/v3"
 	ui "github.com/gizak/termui/v3"
 	"github.com/gizak/termui/v3/widgets"
 )
@@ -16,6 +15,7 @@ type GymScreen struct {
 	activeListName string
 	listMap        map[string]*widgets.List
 	g              *gym.Gym
+	quit           bool
 }
 
 func Run(g *gym.Gym) {
@@ -42,6 +42,9 @@ func (gs *GymScreen) poll() {
 
 	uiEvents := ui.PollEvents()
 	for {
+		if gs.quit {
+			break
+		}
 		e := <-uiEvents
 		switch e.ID {
 		case "q", "<C-c>":
@@ -53,7 +56,9 @@ func (gs *GymScreen) poll() {
 		case "a":
 			gs.addNew()
 		case "<Escape>":
+			gs.listMap["fields"] = nil
 			gs.activeListName = "models"
+			gs.quit = true
 		case "<Enter>":
 			list := MakeNewList("Fields")
 			for i, f := range gs.g.Structs[gs.models.SelectedRow].Fields {
@@ -67,6 +72,8 @@ func (gs *GymScreen) poll() {
 
 		ui.Render(gs.activeLists()...)
 	}
+
+	Run(gs.g)
 }
 
 func (gs *GymScreen) addNew() {
@@ -81,8 +88,8 @@ func (gs *GymScreen) activeList() *widgets.List {
 	return gs.listMap[gs.activeListName]
 }
 
-func (gs *GymScreen) activeLists() []termui.Drawable {
-	items := []termui.Drawable{gs.models}
+func (gs *GymScreen) activeLists() []ui.Drawable {
+	items := []ui.Drawable{gs.models}
 	if gs.fields != nil {
 		items = append(items, gs.fields)
 	}
