@@ -86,6 +86,7 @@ func (gs *GymScreen) renameEvents(e ui.Event) {
 func (gs *GymScreen) normalEvents(e ui.Event) {
 	switch e.ID {
 	case "q", "<C-c>":
+		ui.Close()
 		os.Exit(1)
 	case "j", "<Down>":
 		gs.activeList().ScrollDown()
