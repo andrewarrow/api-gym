@@ -34,10 +34,10 @@ func Run(g *gym.Gym) {
 	for i, s := range g.Structs {
 		models.Rows = append(models.Rows, fmt.Sprintf("[%d] %s", i, s.Name))
 	}
-	models.SetRect(0, 0, 30, 8)
+	models.SetRect(0, 0, 26, 8)
 
 	fields := MakeNewList("Fields", ui.ColorGreen)
-	fields.SetRect(31, 0, 60+31, 8)
+	fields.SetRect(27, 0, 56+27, 8)
 	gs.listMap["fields"] = fields
 	gs.listArray = append(gs.listArray, "fields")
 
@@ -47,7 +47,7 @@ func Run(g *gym.Gym) {
 	list.Rows = append(list.Rows, "LargeInt")
 	list.Rows = append(list.Rows, "SmallInt")
 	list.Rows = append(list.Rows, "[]OtherModel")
-	list.SetRect(31, 8, 30+31, 8+8)
+	list.SetRect(27, 8, 26+27, 8+8)
 	gs.listMap["flavors"] = list
 	gs.listArray = append(gs.listArray, "flavors")
 
@@ -99,9 +99,9 @@ func (gs *GymScreen) enterOnModels() {
 	fields.Rows = []string{}
 	fields.SelectedRow = 0
 	for i, f := range gs.g.Structs[models.SelectedRow].Fields {
-		fields.Rows = append(fields.Rows, fmt.Sprintf("[%02d] %-20s %-20s %s", i, f.Name, f.Flavor, f.Random))
+		fields.Rows = append(fields.Rows, fmt.Sprintf("[%02d] %-16s %-16s %s", i, f.Name, f.Flavor, f.Random))
 	}
-	fields.Rows = append(fields.Rows, fmt.Sprintf("%56s", ""))
+	fields.Rows = append(fields.Rows, fmt.Sprintf("%50s", ""))
 	gs.setActiveByName("fields")
 }
 
