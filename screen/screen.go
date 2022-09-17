@@ -44,11 +44,7 @@ func Run(g *gym.Gym) {
 	gs.listArray = append(gs.listArray, "fields")
 
 	list := MakeNewList("Flavors", ui.ColorGreen)
-	list.Rows = append(list.Rows, "Address")
-	list.Rows = append(list.Rows, "Timestamp")
-	list.Rows = append(list.Rows, "LargeInt")
-	list.Rows = append(list.Rows, "SmallInt")
-	list.Rows = append(list.Rows, "[]OtherModel")
+	list.Rows = flavorList()
 	list.SetRect(27, 8, 26+27, 8+16)
 	gs.listMap["flavors"] = list
 	gs.listArray = append(gs.listArray, "flavors")

@@ -102,7 +102,7 @@ func (g *Gym) AddResponseToRoute(index, response string) {
 
 func (g *Gym) AddFieldToStruct(modelIndex, flavorIndex int) {
 	var field *Field
-	field = NewField("name", "string", "timestamp", "")
+	field = NewField("name", "string", "timestamp", "years_not_null")
 	g.Structs[modelIndex].Fields = append(g.Structs[modelIndex].Fields, field)
 	g.Save()
 }
