@@ -2,7 +2,6 @@ package gym
 
 import (
 	"api-gym/files"
-	"api-gym/flavor"
 	"api-gym/util"
 	"encoding/json"
 	"fmt"
@@ -101,23 +100,11 @@ func (g *Gym) AddResponseToRoute(index, response string) {
 	g.ListRoutes()
 }
 
-func (g *Gym) AddFieldToStruct(modelIndex, name, otherModel, flavorIndex string) {
-	modelIndexAsInt, _ := strconv.Atoi(modelIndex)
+func (g *Gym) AddFieldToStruct(modelIndex, flavorIndex int) {
 	var field *Field
-	if otherModel != "" {
-		field = NewField(name, otherModel, "", "1")
-	} else {
-		flavorIndexInt, _ := strconv.Atoi(flavorIndex)
-		optionIndex := ""
-		f := flavor.GetFlavorByIndex(flavorIndexInt)
-		if f.ListOptions() {
-			optionIndex = util.InputLine()
-		}
-		field = NewField(name, f.Flavor(), f.Name(), optionIndex)
-	}
-	g.Structs[modelIndexAsInt-1].Fields = append(g.Structs[modelIndexAsInt-1].Fields, field)
+	field = NewField("name", "string", "timestamp", "")
+	g.Structs[modelIndex].Fields = append(g.Structs[modelIndex].Fields, field)
 	g.Save()
-	g.ListRoutes()
 }
 
 func (g *Gym) AddStruct(name string) {

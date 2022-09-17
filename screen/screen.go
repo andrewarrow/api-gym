@@ -4,6 +4,7 @@ import (
 	"api-gym/gym"
 	"fmt"
 	"log"
+	"os"
 
 	ui "github.com/gizak/termui/v3"
 	"github.com/gizak/termui/v3/widgets"
@@ -15,6 +16,7 @@ type GymScreen struct {
 	listArray      []string
 	listIndex      int
 	g              *gym.Gym
+	rename         bool
 }
 
 func Run(g *gym.Gym) {
@@ -37,7 +39,7 @@ func Run(g *gym.Gym) {
 	models.SetRect(0, 0, 26, 8)
 
 	fields := MakeNewList("Fields", ui.ColorGreen)
-	fields.SetRect(27, 0, 56+27, 8)
+	fields.SetRect(27, 0, 59+27, 8)
 	gs.listMap["fields"] = fields
 	gs.listArray = append(gs.listArray, "fields")
 
@@ -47,7 +49,7 @@ func Run(g *gym.Gym) {
 	list.Rows = append(list.Rows, "LargeInt")
 	list.Rows = append(list.Rows, "SmallInt")
 	list.Rows = append(list.Rows, "[]OtherModel")
-	list.SetRect(27, 8, 26+27, 8+8)
+	list.SetRect(27, 8, 26+27, 8+16)
 	gs.listMap["flavors"] = list
 	gs.listArray = append(gs.listArray, "flavors")
 
@@ -60,28 +62,48 @@ func (gs *GymScreen) poll() {
 	uiEvents := ui.PollEvents()
 	for {
 		e := <-uiEvents
-		switch e.ID {
-		case "q", "<C-c>":
-			return
-		case "j", "<Down>":
-			gs.activeList().ScrollDown()
-		case "k", "<Up>":
-			gs.activeList().ScrollUp()
-		case "a":
-			gs.addNew()
-		case "<Escape>":
-		case "<Tab>":
-			gs.nextList()
-		case "<Enter>":
-			if gs.activeListName == "models" {
-				gs.enterOnModels()
-			} else if gs.activeListName == "fields" {
-				gs.enterOnFields()
-			} else if gs.activeListName == "flavors" {
-			}
+		if gs.rename {
+			gs.renameEvents(e)
+		} else {
+			gs.normalEvents(e)
 		}
 
 		ui.Render(gs.activeLists()...)
+	}
+}
+
+func (gs *GymScreen) renameEvents(e ui.Event) {
+	if e.ID == "<Enter>" {
+		gs.rename = false
+	} else {
+		models := gs.listMap["models"]
+		fields := gs.listMap["fields"]
+		gs.g.Structs[models.SelectedRow].Fields[fields.SelectedRow].Name = ""
+		fields.Rows[fields.SelectedRow] = ""
+	}
+}
+
+func (gs *GymScreen) normalEvents(e ui.Event) {
+	switch e.ID {
+	case "q", "<C-c>":
+		os.Exit(1)
+	case "j", "<Down>":
+		gs.activeList().ScrollDown()
+	case "k", "<Up>":
+		gs.activeList().ScrollUp()
+	case "r":
+		gs.rename = true
+	case "<Escape>":
+	case "<Tab>":
+		gs.nextList()
+	case "<Enter>":
+		if gs.activeListName == "models" {
+			gs.enterOnModels()
+		} else if gs.activeListName == "fields" {
+			gs.enterOnFields()
+		} else if gs.activeListName == "flavors" {
+			gs.enterOnFlavors()
+		}
 	}
 }
 

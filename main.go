@@ -7,7 +7,6 @@ import (
 	"api-gym/screen"
 	"api-gym/server"
 	"api-gym/simulate"
-	"api-gym/util"
 	"fmt"
 	"math/rand"
 	"os"
@@ -66,18 +65,20 @@ func main() {
 			g.UpdateStructRandom(index, fieldIndex, os.Args[5])
 			return
 		}
-		modelIndex := os.Args[2]
-		name := os.Args[3]
-		otherModel := ""
-		flavorIndex := ""
-		if len(os.Args) > 4 {
-			otherModel = os.Args[4]
-		} else {
-			flavor.ListFlavors()
-			flavorIndex = util.InputLine()
-		}
+		/*
+			modelIndex := os.Args[2]
+			name := os.Args[3]
+			otherModel := ""
+			flavorIndex := ""
+			if len(os.Args) > 4 {
+				otherModel = os.Args[4]
+			} else {
+				flavor.ListFlavors()
+				flavorIndex = util.InputLine()
+			}
 
-		g.AddFieldToStruct(modelIndex, name, otherModel, flavorIndex)
+			g.AddFieldToStruct(modelIndex, name, otherModel, flavorIndex)
+		*/
 	} else if command == "flavors" {
 		flavor.ListFlavors()
 	} else if command == "screen" {
