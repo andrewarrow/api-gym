@@ -1,6 +1,9 @@
 package screen
 
-import "strings"
+import (
+	"api-gym/gym"
+	"strings"
+)
 
 func (gs *GymScreen) enterOnFields() {
 	gs.setActiveByName("flavors")
@@ -14,20 +17,14 @@ func (gs *GymScreen) deleteField() {
 }
 
 func (gs *GymScreen) renameField() {
-	models := gs.listMap["models"]
-	fields := gs.listMap["fields"]
-	model := gs.g.Structs[models.SelectedRow]
-	field := model.Fields[fields.SelectedRow]
+	field := gs.fieldFromModel()
 	field.Name = ""
 	gs.enterOnModels()
 	gs.rename = true
 }
 
 func (gs *GymScreen) renameFieldEvent(c string) {
-	models := gs.listMap["models"]
-	fields := gs.listMap["fields"]
-	model := gs.g.Structs[models.SelectedRow]
-	field := model.Fields[fields.SelectedRow]
+	field := gs.fieldFromModel()
 
 	if len(field.Name) == 0 {
 		field.Name += strings.ToUpper(c)
@@ -38,12 +35,17 @@ func (gs *GymScreen) renameFieldEvent(c string) {
 }
 
 func (gs *GymScreen) backspaceFieldEvent() {
-	models := gs.listMap["models"]
-	fields := gs.listMap["fields"]
-	model := gs.g.Structs[models.SelectedRow]
-	field := model.Fields[fields.SelectedRow]
+	field := gs.fieldFromModel()
 
 	name := field.Name
 	field.Name = name[0 : len(name)-1]
 	gs.enterOnModels()
+}
+
+func (gs *GymScreen) fieldFromModel() *gym.Field {
+	models := gs.listMap["models"]
+	fields := gs.listMap["fields"]
+	model := gs.g.Structs[models.SelectedRow]
+	field := model.Fields[fields.SelectedRow]
+	return field
 }
