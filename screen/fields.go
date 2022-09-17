@@ -1,5 +1,7 @@
 package screen
 
+import "strings"
+
 func (gs *GymScreen) enterOnFields() {
 	gs.setActiveByName("flavors")
 }
@@ -22,7 +24,11 @@ func (gs *GymScreen) renameField() {
 func (gs *GymScreen) renameFieldEvent(c string) {
 	models := gs.listMap["models"]
 	fields := gs.listMap["fields"]
-	gs.g.Structs[models.SelectedRow].Fields[fields.SelectedRow].Name += c
+	if len(gs.g.Structs[models.SelectedRow].Fields[fields.SelectedRow].Name) == 0 {
+		gs.g.Structs[models.SelectedRow].Fields[fields.SelectedRow].Name += strings.ToUpper(c)
+	} else {
+		gs.g.Structs[models.SelectedRow].Fields[fields.SelectedRow].Name += c
+	}
 	gs.enterOnModels()
 }
 
