@@ -25,3 +25,11 @@ func (gs *GymScreen) renameFieldEvent(c string) {
 	gs.g.Structs[models.SelectedRow].Fields[fields.SelectedRow].Name += c
 	gs.enterOnModels()
 }
+
+func (gs *GymScreen) backspaceFieldEvent() {
+	models := gs.listMap["models"]
+	fields := gs.listMap["fields"]
+	name := gs.g.Structs[models.SelectedRow].Fields[fields.SelectedRow].Name
+	gs.g.Structs[models.SelectedRow].Fields[fields.SelectedRow].Name = name[0 : len(name)-1]
+	gs.enterOnModels()
+}

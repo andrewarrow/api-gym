@@ -75,6 +75,9 @@ func (gs *GymScreen) poll() {
 func (gs *GymScreen) renameEvents(e ui.Event) {
 	if e.ID == "<Enter>" {
 		gs.rename = false
+	} else if e.ID == "<Backspace>" {
+		gs.backspaceFieldEvent()
+	} else if e.ID == "<Space>" {
 	} else {
 		gs.renameFieldEvent(e.ID)
 	}
