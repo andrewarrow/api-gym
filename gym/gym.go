@@ -107,6 +107,18 @@ func (g *Gym) AddFieldToStruct(modelIndex, flavorIndex int) {
 	g.Save()
 }
 
+func (g *Gym) DeleteField(modelIndex, fieldIndex int) {
+	newList := []*Field{}
+	for i, f := range g.Structs[modelIndex].Fields {
+		if i == fieldIndex {
+			continue
+		}
+		newList = append(newList, f)
+	}
+	g.Structs[modelIndex].Fields = newList
+	g.Save()
+}
+
 func (g *Gym) AddStruct(name string) {
 	g.Structs = append(g.Structs, NewStruct(name))
 	g.fillStructsByName()
