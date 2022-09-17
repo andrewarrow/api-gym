@@ -94,6 +94,10 @@ func (gs *GymScreen) normalEvents(e ui.Event) {
 		gs.activeList().ScrollUp()
 	case "r":
 		gs.rename = true
+	case "d":
+		if gs.activeListName == "fields" {
+			gs.deleteField()
+		}
 	case "<Escape>":
 	case "<Tab>":
 		gs.nextList()
@@ -114,22 +118,6 @@ func (gs *GymScreen) nextList() {
 		gs.listIndex = 0
 	}
 	gs.setActiveByName(gs.listArray[gs.listIndex])
-}
-
-func (gs *GymScreen) enterOnModels() {
-	models := gs.listMap["models"]
-	fields := gs.listMap["fields"]
-	fields.Rows = []string{}
-	fields.SelectedRow = 0
-	for i, f := range gs.g.Structs[models.SelectedRow].Fields {
-		fields.Rows = append(fields.Rows, fmt.Sprintf("[%02d] %-16s %-16s %s", i, f.Name, f.Flavor, f.Random))
-	}
-	fields.Rows = append(fields.Rows, fmt.Sprintf("%50s", ""))
-	gs.setActiveByName("fields")
-}
-
-func (gs *GymScreen) enterOnFields() {
-	gs.setActiveByName("flavors")
 }
 
 func (gs *GymScreen) setActiveByName(name string) {
