@@ -76,16 +76,14 @@ func (gs *GymScreen) renameEvents(e ui.Event) {
 	if e.ID == "<Enter>" {
 		gs.rename = false
 	} else {
-		models := gs.listMap["models"]
-		fields := gs.listMap["fields"]
-		gs.g.Structs[models.SelectedRow].Fields[fields.SelectedRow].Name = ""
-		fields.Rows[fields.SelectedRow] = ""
+		gs.renameFieldEvent(e.ID)
 	}
 }
 
 func (gs *GymScreen) normalEvents(e ui.Event) {
 	switch e.ID {
 	case "q", "<C-c>":
+		gs.g.Save()
 		ui.Close()
 		os.Exit(1)
 	case "j", "<Down>":
@@ -93,7 +91,9 @@ func (gs *GymScreen) normalEvents(e ui.Event) {
 	case "k", "<Up>":
 		gs.activeList().ScrollUp()
 	case "r":
-		gs.rename = true
+		if gs.activeListName == "fields" {
+			gs.renameField()
+		}
 	case "d":
 		if gs.activeListName == "fields" {
 			gs.deleteField()
