@@ -9,6 +9,7 @@ import (
 
 var flavors = widgets.NewList()
 var selected = widgets.NewList()
+var tab = "flavors"
 
 func Setup() {
 	if err := ui.Init(); err != nil {
@@ -40,10 +41,27 @@ func Setup() {
 			case "q", "<C-c>":
 				return
 			case "j", "<Down>":
-				flavors.ScrollDown()
+				selectedList().ScrollDown()
 			case "k", "<Up>":
-				flavors.ScrollUp()
+				selectedList().ScrollUp()
+			case "<Right>":
+				if tab == "flavors" {
+					tab = "selected"
+				} else if tab == "selected" {
+					tab = "flavors"
+				}
+			case "<Left>":
+				if tab == "flavors" {
+					tab = "selected"
+				} else if tab == "selected" {
+					tab = "flavors"
+				}
 			case "<Tab>":
+				if tab == "flavors" {
+					tab = "selected"
+				} else if tab == "selected" {
+					tab = "flavors"
+				}
 			case "<Enter>":
 				handleEnter()
 			case "<Resize>":
@@ -54,6 +72,16 @@ func Setup() {
 		}
 		ui.Render(grid)
 	}
+}
+
+func selectedList() *widgets.List {
+	if tab == "flavors" {
+		return flavors
+	} else if tab == "selected" {
+		return selected
+	}
+
+	return selected
 }
 
 func handleEnter() {
@@ -70,7 +98,7 @@ func handleEnter() {
 	} else if flavors.SelectedRow == 8 {
 		selected.Rows = append(selected.Rows, "paragraph")
 	}
-	selected.SelectedRow = len(selected.Rows) + 1
+	//selected.SelectedRow = len(selected.Rows) + 1
 }
 
 func setListColors(s *widgets.List) {
