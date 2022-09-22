@@ -13,6 +13,7 @@ import (
 var grid = ui.NewGrid()
 var flavors = widgets.NewList()
 var selected = widgets.NewList()
+var rendered = widgets.NewList()
 var tab = "flavors"
 var insertMode = false
 
@@ -23,8 +24,10 @@ func Setup() {
 	defer ui.Close()
 
 	setListColors(flavors)
-	flavors.Rows = []string{"individual", "location", "phone", "timestamp", "few_words", "int", "float", "bool", "paragraph"}
 	setListColors(selected)
+	setListColors(rendered)
+
+	flavors.Rows = []string{"individual", "location", "phone", "timestamp", "few_words", "int", "float", "bool", "paragraph"}
 
 	termWidth, termHeight := ui.TerminalDimensions()
 	grid.SetRect(0, 0, termWidth, termHeight)
@@ -33,6 +36,7 @@ func Setup() {
 		ui.NewRow(1.0,
 			ui.NewCol(0.16, flavors),
 			ui.NewCol(0.16, selected),
+			ui.NewCol(0.16, rendered),
 		),
 	)
 
@@ -121,6 +125,21 @@ func selectedList() *widgets.List {
 }
 
 func handleEnter() {
+	if tab == "flavors" {
+		handleEnterFlavors()
+	} else if tab == "selected" {
+		handleEnterSelected()
+	}
+}
+
+func handleEnterSelected() {
+	rendered.Rows = []string{}
+	for _, thing := range selected.Rows {
+		rendered.Rows = append(rendered.Rows, thing)
+	}
+}
+
+func handleEnterFlavors() {
 	if flavors.SelectedRow == 1 {
 		selected.Rows = append(selected.Rows, "address")
 		selected.Rows = append(selected.Rows, "latitude")
