@@ -3,9 +3,11 @@ package screen
 import (
 	"fmt"
 	"log"
+	"math/rand"
 	"os"
 	"strings"
 
+	"github.com/brianvoe/gofakeit/v6"
 	ui "github.com/gizak/termui/v3"
 	"github.com/gizak/termui/v3/widgets"
 )
@@ -43,7 +45,7 @@ func Setup() {
 		ui.NewRow(1.0,
 			ui.NewCol(0.16, flavors),
 			ui.NewCol(0.16, selected),
-			ui.NewCol(0.16, rendered),
+			ui.NewCol(0.68, rendered),
 		),
 	)
 
@@ -141,8 +143,27 @@ func handleEnter() {
 
 func handleEnterSelected() {
 	rendered.Rows = []string{}
-	for _, thing := range selected.Rows {
-		rendered.Rows = append(rendered.Rows, thing)
+	for _, item := range selectedItems {
+		val := ""
+		if item.Flavor == "address" {
+			a := gofakeit.Address()
+			val = fmt.Sprintf("%s, %s, %s %s %s", a.Street, a.City, a.State, a.Zip, a.Country)
+		} else if item.Flavor == "latitude" {
+			val = fmt.Sprintf("%f", gofakeit.Latitude())
+		} else if item.Flavor == "longitude" {
+			val = fmt.Sprintf("%f", gofakeit.Longitude())
+		} else if item.Flavor == "timestamp" {
+			val = "2022-04-18T06:52:29.940Z"
+		} else if item.Flavor == "few_words" {
+			val = gofakeit.Word() + " " + gofakeit.Word()
+		} else if item.Flavor == "float" {
+			val = fmt.Sprintf("%d.%d", rand.Intn(30), rand.Intn(10))
+		} else if item.Flavor == "int" {
+			val = fmt.Sprintf("%d", rand.Intn(65000))
+		} else if item.Flavor == "paragraph" {
+			val = gofakeit.LoremIpsumParagraph(1, 3, 33, ".")
+		}
+		rendered.Rows = append(rendered.Rows, val)
 	}
 }
 
@@ -157,6 +178,8 @@ func handleEnterFlavors() {
 		addToSelectedItems("few_words", "few_words")
 	} else if flavors.SelectedRow == 5 {
 		addToSelectedItems("int", "int")
+	} else if flavors.SelectedRow == 6 {
+		addToSelectedItems("float", "float")
 	} else if flavors.SelectedRow == 8 {
 		addToSelectedItems("paragraph", "paragraph")
 	}
