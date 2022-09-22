@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 
 	ui "github.com/gizak/termui/v3"
 	"github.com/gizak/termui/v3/widgets"
@@ -52,10 +53,17 @@ func handleInsert(e ui.Event) {
 	if e.ID == "<Enter>" || e.ID == "<Escape>" {
 		insertMode = false
 	} else if e.ID == "<Backspace>" {
+		i := selected.SelectedRow
+		text := selected.Rows[i]
+		if len(text) > 0 {
+			selected.Rows[i] = text[0 : len(text)-1]
+		}
 	} else if e.ID == "<Space>" {
+		i := selected.SelectedRow
+		selected.Rows[i] += "_"
 	} else {
 		i := selected.SelectedRow
-		selected.Rows[i] += e.ID
+		selected.Rows[i] += strings.ToLower(e.ID)
 	}
 }
 
