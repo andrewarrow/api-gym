@@ -17,6 +17,13 @@ var rendered = widgets.NewList()
 var tab = "flavors"
 var insertMode = false
 
+type GymField struct {
+	Flavor string
+	Name   string
+}
+
+var selectedItems = []GymField{}
+
 func Setup() {
 	if err := ui.Init(); err != nil {
 		log.Fatalf("failed to initialize termui: %v", err)
@@ -141,19 +148,27 @@ func handleEnterSelected() {
 
 func handleEnterFlavors() {
 	if flavors.SelectedRow == 1 {
-		selected.Rows = append(selected.Rows, "address")
-		selected.Rows = append(selected.Rows, "latitude")
-		selected.Rows = append(selected.Rows, "longitude")
+		addToSelectedItems("address", "address")
+		addToSelectedItems("latitude", "latitude")
+		addToSelectedItems("longitude", "longitude")
 	} else if flavors.SelectedRow == 3 {
-		selected.Rows = append(selected.Rows, "something_at")
+		addToSelectedItems("timestamp", "something_at")
 	} else if flavors.SelectedRow == 4 {
-		selected.Rows = append(selected.Rows, "few_words")
+		addToSelectedItems("few_words", "few_words")
 	} else if flavors.SelectedRow == 5 {
-		selected.Rows = append(selected.Rows, "int")
+		addToSelectedItems("int", "int")
 	} else if flavors.SelectedRow == 8 {
-		selected.Rows = append(selected.Rows, "paragraph")
+		addToSelectedItems("paragraph", "paragraph")
 	}
 	//selected.SelectedRow = len(selected.Rows) + 1
+}
+
+func addToSelectedItems(flavor, name string) {
+	gf := GymField{}
+	gf.Flavor = flavor
+	gf.Name = name
+	selectedItems = append(selectedItems, gf)
+	selected.Rows = append(selected.Rows, name)
 }
 
 func setListColors(s *widgets.List) {
