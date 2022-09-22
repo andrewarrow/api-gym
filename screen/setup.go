@@ -1,15 +1,19 @@
 package screen
 
 import (
+	"fmt"
 	"log"
+	"os"
 
 	ui "github.com/gizak/termui/v3"
 	"github.com/gizak/termui/v3/widgets"
 )
 
+var grid = ui.NewGrid()
 var flavors = widgets.NewList()
 var selected = widgets.NewList()
 var tab = "flavors"
+var insertMode = false
 
 func Setup() {
 	if err := ui.Init(); err != nil {
@@ -21,7 +25,6 @@ func Setup() {
 	flavors.Rows = []string{"individual", "location", "phone", "timestamp", "few_words", "int", "float", "bool", "paragraph"}
 	setListColors(selected)
 
-	grid := ui.NewGrid()
 	termWidth, termHeight := ui.TerminalDimensions()
 	grid.SetRect(0, 0, termWidth, termHeight)
 
@@ -35,42 +38,57 @@ func Setup() {
 	ui.Render(grid)
 	uiEvents := ui.PollEvents()
 	for {
-		select {
-		case e := <-uiEvents:
-			switch e.ID {
-			case "q", "<C-c>":
-				return
-			case "j", "<Down>":
-				selectedList().ScrollDown()
-			case "k", "<Up>":
-				selectedList().ScrollUp()
-			case "<Right>":
-				if tab == "flavors" {
-					tab = "selected"
-				} else if tab == "selected" {
-					tab = "flavors"
-				}
-			case "<Left>":
-				if tab == "flavors" {
-					tab = "selected"
-				} else if tab == "selected" {
-					tab = "flavors"
-				}
-			case "<Tab>":
-				if tab == "flavors" {
-					tab = "selected"
-				} else if tab == "selected" {
-					tab = "flavors"
-				}
-			case "<Enter>":
-				handleEnter()
-			case "<Resize>":
-				payload := e.Payload.(ui.Resize)
-				grid.SetRect(0, 0, payload.Width, payload.Height)
-				ui.Clear()
-			}
+		e := <-uiEvents
+		if insertMode {
+			handleInsert(e)
+		} else {
+			normalEvents(e)
 		}
 		ui.Render(grid)
+	}
+}
+
+func handleInsert(e ui.Event) {
+}
+
+func normalEvents(e ui.Event) {
+	switch e.ID {
+	case "q", "<C-c>":
+		ui.Close()
+		fmt.Println("")
+		fmt.Println("")
+		fmt.Println("")
+		fmt.Println("")
+		os.Exit(1)
+		return
+	case "j", "<Down>":
+		selectedList().ScrollDown()
+	case "k", "<Up>":
+		selectedList().ScrollUp()
+	case "<Right>":
+		if tab == "flavors" {
+			tab = "selected"
+		} else if tab == "selected" {
+			tab = "flavors"
+		}
+	case "<Left>":
+		if tab == "flavors" {
+			tab = "selected"
+		} else if tab == "selected" {
+			tab = "flavors"
+		}
+	case "<Tab>":
+		if tab == "flavors" {
+			tab = "selected"
+		} else if tab == "selected" {
+			tab = "flavors"
+		}
+	case "<Enter>":
+		handleEnter()
+	case "<Resize>":
+		payload := e.Payload.(ui.Resize)
+		grid.SetRect(0, 0, payload.Width, payload.Height)
+		ui.Clear()
 	}
 }
 
