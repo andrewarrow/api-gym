@@ -49,6 +49,14 @@ func Setup() {
 }
 
 func handleInsert(e ui.Event) {
+	if e.ID == "<Enter>" || e.ID == "<Escape>" {
+		insertMode = false
+	} else if e.ID == "<Backspace>" {
+	} else if e.ID == "<Space>" {
+	} else {
+		i := selected.SelectedRow
+		selected.Rows[i] += e.ID
+	}
 }
 
 func normalEvents(e ui.Event) {
@@ -65,6 +73,8 @@ func normalEvents(e ui.Event) {
 		selectedList().ScrollDown()
 	case "k", "<Up>":
 		selectedList().ScrollUp()
+	case "i":
+		insertMode = true
 	case "<Right>":
 		if tab == "flavors" {
 			tab = "selected"
