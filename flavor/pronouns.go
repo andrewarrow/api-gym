@@ -25,3 +25,14 @@ func (id PronounsFlavor) Flavor() string {
 func (f PronounsFlavor) ListOptions() bool {
 	return false
 }
+
+func Pronouns() string {
+	value := "she/her"
+	if rand.Intn(2) == 0 {
+		value = "he/him"
+	}
+	if rand.Intn(2) == 0 {
+		value = "they/them"
+	}
+	return value
+}

@@ -1,6 +1,7 @@
 package screen
 
 import (
+	"api-gym/flavor"
 	"fmt"
 	"log"
 	"math/rand"
@@ -162,13 +163,23 @@ func handleEnterSelected() {
 			val = fmt.Sprintf("%d", rand.Intn(65000))
 		} else if item.Flavor == "paragraph" {
 			val = gofakeit.LoremIpsumParagraph(1, 3, 33, ".")
+		} else if item.Flavor == "first_name" {
+			val = gofakeit.FirstName()
+		} else if item.Flavor == "last_name" {
+			val = gofakeit.LastName()
+		} else if item.Flavor == "pronouns" {
+			val = flavor.Pronouns()
 		}
 		rendered.Rows = append(rendered.Rows, val)
 	}
 }
 
 func handleEnterFlavors() {
-	if flavors.SelectedRow == 1 {
+	if flavors.SelectedRow == 0 {
+		addToSelectedItems("first_name", "first_name")
+		addToSelectedItems("last_name", "last_name")
+		addToSelectedItems("pronouns", "pronouns")
+	} else if flavors.SelectedRow == 1 {
 		addToSelectedItems("address", "address")
 		addToSelectedItems("latitude", "latitude")
 		addToSelectedItems("longitude", "longitude")
