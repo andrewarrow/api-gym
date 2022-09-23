@@ -20,9 +20,13 @@ func NewField(name, flavor, extra string) *Field {
 	return &f
 }
 
+func (f *Field) DataType() string {
+	return "string"
+}
 func (f *Field) NameToJson() string {
 	return fmt.Sprintf("%s", util.ToSnakeCase(f.Name))
 }
+
 func (f *Field) FlavorToStructName() string {
 	if strings.HasPrefix(f.Flavor, "[]") {
 		return f.Flavor[2:]

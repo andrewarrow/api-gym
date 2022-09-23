@@ -5,6 +5,7 @@ import (
 	"api-gym/gym"
 	"api-gym/screen"
 	"api-gym/server"
+	"api-gym/simulate"
 	"fmt"
 	"math/rand"
 	"os"
@@ -25,12 +26,15 @@ func main() {
 	files.MkdirJson()
 
 	if command == "new" {
-		g.SaveBackup()
+		//g.SaveBackup()
 		g = gym.NewGym()
 		fmt.Printf("\nNew Gym Create with name: %s\n\n", g.Name)
 		g.Save()
 	} else if command == "ls" {
 		g.ListRoutes()
+	} else if command == "json" {
+		model := os.Args[2]
+		simulate.Json(model, g)
 	} else if command == "server" {
 		router := server.Setup(g)
 		router.Run(":8080")
