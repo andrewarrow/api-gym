@@ -30,13 +30,24 @@ type GymModel struct {
 	Gym  *gym.Gym
 }
 
-func AddModel(name string, g *gym.Gym) {
+func EditModel(model string, g *gym.Gym) {
+	s := g.StructsByName[model]
+	for _, field := range s.Fields {
+		addToSelectedItems(field.Flavor, field.Name)
+	}
+	StartModelUI(model, g)
+}
+func AddModel(model string, g *gym.Gym) {
+	StartModelUI(model, g)
+}
+
+func StartModelUI(model string, g *gym.Gym) {
 	if err := ui.Init(); err != nil {
 		log.Fatalf("failed to initialize termui: %v", err)
 	}
 	defer ui.Close()
 	gm := GymModel{}
-	gm.Name = name
+	gm.Name = model
 	gm.Gym = g
 
 	setListColors(flavors)
@@ -98,6 +109,7 @@ func (gm *GymModel) normalEvents(e ui.Event) {
 		os.Exit(1)
 		return
 	case "s":
+		gm.Gym.RemoveStruct(gm.Name)
 		gm.Gym.AddStruct(gm.Name)
 		for _, item := range selectedItems {
 			gm.Gym.AddFieldToStruct(gm.Name, item.Name, item.Flavor, "")

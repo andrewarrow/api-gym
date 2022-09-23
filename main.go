@@ -41,6 +41,9 @@ func main() {
 	} else if command == "add" {
 		model := os.Args[2]
 		screen.AddModel(model, g)
+	} else if command == "edit" {
+		model := os.Args[2]
+		screen.EditModel(model, g)
 	} else if command == "help" {
 		PrintHelp()
 	}

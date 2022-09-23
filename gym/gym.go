@@ -37,6 +37,24 @@ func (g *Gym) AddFieldToStruct(model, name, flavor, extra string) {
 	g.Save()
 }
 
+func (g *Gym) AddStruct(name string) {
+	g.Structs = append(g.Structs, NewStruct(name))
+	g.fillStructsByName()
+	g.Save()
+}
+
+func (g *Gym) RemoveStruct(name string) {
+	g.Structs = []*Struct{}
+	for _, s := range g.Structs {
+		if s.Name == name {
+			continue
+		}
+		g.Structs = append(g.Structs, NewStruct(s.Name))
+	}
+	delete(g.StructsByName, name)
+	g.Save()
+}
+
 func (g *Gym) AddRoute(verb, route, modelIndex string) {
 	g.Routes = append(g.Routes, NewRoute(verb, route, modelIndex))
 	g.SortRoutes()
@@ -124,13 +142,6 @@ func (g *Gym) DeleteField(modelIndex, fieldIndex int) {
 	}
 	g.Structs[modelIndex].Fields = newList
 	g.Save()
-}
-
-func (g *Gym) AddStruct(name string) {
-	g.Structs = append(g.Structs, NewStruct(name))
-	g.fillStructsByName()
-	g.Save()
-	g.ListRoutes()
 }
 
 func (g *Gym) UpdateStructRandom(index, fieldIndex, random string) {
