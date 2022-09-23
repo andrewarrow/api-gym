@@ -44,13 +44,14 @@ func (g *Gym) AddStruct(name string) {
 }
 
 func (g *Gym) RemoveStruct(name string) {
-	g.Structs = []*Struct{}
+	newList := []*Struct{}
 	for _, s := range g.Structs {
 		if s.Name == name {
 			continue
 		}
-		g.Structs = append(g.Structs, NewStruct(s.Name))
+		newList = append(newList, s)
 	}
+	g.Structs = newList
 	delete(g.StructsByName, name)
 	g.Save()
 }
