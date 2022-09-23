@@ -2,6 +2,7 @@ package screen
 
 import (
 	"api-gym/flavor"
+	"api-gym/gym"
 	"fmt"
 	"log"
 	"os"
@@ -17,19 +18,26 @@ var selected = widgets.NewList()
 var rendered = widgets.NewList()
 var tab = "flavors"
 var insertMode = false
+var selectedItems = []GymField{}
 
 type GymField struct {
 	Flavor string
 	Name   string
 }
 
-var selectedItems = []GymField{}
+type GymModel struct {
+	Name string
+	Gym  *gym.Gym
+}
 
-func Setup() {
+func AddModel(name string, g *gym.Gym) {
 	if err := ui.Init(); err != nil {
 		log.Fatalf("failed to initialize termui: %v", err)
 	}
 	defer ui.Close()
+	gm := GymModel{}
+	gm.Name = name
+	gm.Gym = g
 
 	setListColors(flavors)
 	setListColors(selected)
@@ -55,7 +63,7 @@ func Setup() {
 		if insertMode {
 			handleInsert(e)
 		} else {
-			normalEvents(e)
+			gm.normalEvents(e)
 		}
 		ui.Render(grid)
 	}
@@ -79,7 +87,7 @@ func handleInsert(e ui.Event) {
 	}
 }
 
-func normalEvents(e ui.Event) {
+func (gm *GymModel) normalEvents(e ui.Event) {
 	switch e.ID {
 	case "q", "<C-c>":
 		ui.Close()
@@ -89,6 +97,12 @@ func normalEvents(e ui.Event) {
 		fmt.Println("")
 		os.Exit(1)
 		return
+	case "s":
+		gm.Gym.AddStruct(gm.Name)
+		for _, item := range selectedItems {
+			gm.Gym.AddFieldToStruct(gm.Name, item.Name, item.Flavor, "")
+		}
+		gm.Gym.Save()
 	case "j", "<Down>":
 		selectedList().ScrollDown()
 	case "k", "<Up>":
