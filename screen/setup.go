@@ -4,11 +4,9 @@ import (
 	"api-gym/flavor"
 	"fmt"
 	"log"
-	"math/rand"
 	"os"
 	"strings"
 
-	"github.com/brianvoe/gofakeit/v6"
 	ui "github.com/gizak/termui/v3"
 	"github.com/gizak/termui/v3/widgets"
 )
@@ -145,35 +143,7 @@ func handleEnter() {
 func handleEnterSelected() {
 	rendered.Rows = []string{}
 	for _, item := range selectedItems {
-		val := ""
-		if item.Flavor == "address" {
-			a := gofakeit.Address()
-			val = fmt.Sprintf("%s, %s, %s %s %s", a.Street, a.City, a.State, a.Zip, a.Country)
-		} else if item.Flavor == "latitude" {
-			val = fmt.Sprintf("%f", gofakeit.Latitude())
-		} else if item.Flavor == "longitude" {
-			val = fmt.Sprintf("%f", gofakeit.Longitude())
-		} else if item.Flavor == "timestamp" {
-			val = "2022-04-18T06:52:29.940Z"
-		} else if item.Flavor == "few_words" {
-			val = gofakeit.Word() + " " + gofakeit.Word()
-		} else if item.Flavor == "float" {
-			val = fmt.Sprintf("%d.%d", rand.Intn(30), rand.Intn(10))
-		} else if item.Flavor == "int" {
-			val = fmt.Sprintf("%d", rand.Intn(65000))
-		} else if item.Flavor == "paragraph" {
-			val = gofakeit.LoremIpsumParagraph(1, 3, 33, ".")
-		} else if item.Flavor == "first_name" {
-			val = gofakeit.FirstName()
-		} else if item.Flavor == "last_name" {
-			val = gofakeit.LastName()
-		} else if item.Flavor == "pronouns" {
-			val = flavor.Pronouns()
-		} else if item.Flavor == "email" {
-			val = gofakeit.Email()
-		} else if item.Flavor == "phone" {
-			val = gofakeit.PhoneFormatted()
-		}
+		val := flavor.Generate(item.Flavor)
 		rendered.Rows = append(rendered.Rows, val)
 	}
 }

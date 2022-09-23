@@ -20,6 +20,7 @@ func NewGym() *Gym {
 	g := Gym{}
 	g.Name = util.PseudoUuid()
 	g.AddStruct("user")
+	g.AddFieldToStruct("user", "id", "uuid", "")
 	g.AddFieldToStruct("user", "first_name", "first_name", "")
 	g.AddFieldToStruct("user", "last_name", "last_name", "")
 	g.AddFieldToStruct("user", "pronouns", "pronouns", "")
