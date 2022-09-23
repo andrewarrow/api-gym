@@ -52,6 +52,8 @@ func Generate(flavor, extra string) string {
 		val = gofakeit.PhoneFormatted()
 	} else if flavor == "uuid" {
 		val = util.PseudoUuid()
+	} else if flavor == "bool" {
+		val = "false"
 	}
 	return val
 }

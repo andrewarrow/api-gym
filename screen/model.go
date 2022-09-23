@@ -55,7 +55,8 @@ func StartModelUI(model string, g *gym.Gym) {
 	setListColors(selected)
 	setListColors(rendered)
 
-	flavors.Rows = []string{"individual", "location", "phone", "timestamp", "few_words", "int", "float", "bool", "paragraph", "email"}
+	flavors.Rows = []string{"individual", "location", "phone", "timestamp", "few_words",
+		"int", "float", "bool", "paragraph", "email", "uuid"}
 
 	termWidth, termHeight := ui.TerminalDimensions()
 	grid.SetRect(0, 0, termWidth, termHeight)
@@ -196,8 +197,14 @@ func handleEnterFlavors() {
 		addToSelectedItems("int", "int")
 	} else if flavors.SelectedRow == 6 {
 		addToSelectedItems("float", "float")
+	} else if flavors.SelectedRow == 7 {
+		addToSelectedItems("bool", "is_on")
 	} else if flavors.SelectedRow == 8 {
 		addToSelectedItems("paragraph", "paragraph")
+	} else if flavors.SelectedRow == 9 {
+		addToSelectedItems("email", "email")
+	} else if flavors.SelectedRow == 10 {
+		addToSelectedItems("uuid", "id")
 	}
 	//selected.SelectedRow = len(selected.Rows) + 1
 }
