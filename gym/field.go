@@ -1,6 +1,7 @@
 package gym
 
 import (
+	"api-gym/flavor"
 	"api-gym/util"
 	"fmt"
 	"strings"
@@ -35,7 +36,5 @@ func (f *Field) FlavorToStructName() string {
 }
 
 func (f *Field) ToFakeValue() string {
-	//theFlavor := flavor.FlavorsAsMap()[f.Random]
-	//return theFlavor.Generate(f.Extra)
-	return ""
+	return flavor.Generate(f.Flavor, f.Extra)
 }

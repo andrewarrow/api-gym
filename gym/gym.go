@@ -26,7 +26,7 @@ func NewGym() *Gym {
 	g.AddFieldToStruct("user", "pronouns", "pronouns", "")
 	g.AddFieldToStruct("user", "email", "email", "")
 	g.AddFieldToStruct("user", "phone", "phone", "")
-	g.AddFieldToStruct("user", "age", "age", "max:100")
+	g.AddFieldToStruct("user", "age", "int", "max:100")
 	return &g
 }
 

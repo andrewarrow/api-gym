@@ -8,7 +8,7 @@ import (
 	"github.com/brianvoe/gofakeit/v6"
 )
 
-func Generate(flavor string) string {
+func Generate(flavor, extra string) string {
 	val := ""
 	if flavor == "address" {
 		a := gofakeit.Address()
@@ -47,68 +47,4 @@ func Generate(flavor string) string {
 		val = util.PseudoUuid()
 	}
 	return val
-}
-
-type Flavor interface {
-	Name() string
-	Generate(string) string
-	Flavor() string
-	ListOptions() bool
-}
-
-var allFlavors = []Flavor{}
-
-func FlavorsAsMap() map[string]Flavor {
-	m := map[string]Flavor{}
-	for _, flavor := range allFlavors {
-		m[flavor.Name()] = flavor
-	}
-	return m
-}
-func GetFlavorByIndex(index int) Flavor {
-	return allFlavors[index-1]
-}
-
-func ListFlavors() {
-	fmt.Println("")
-	for i, flavor := range allFlavors {
-		fmt.Printf("%2d. %-30s %-30s\n", i+1, flavor.Name(), flavor.Generate(""))
-	}
-	fmt.Println("")
-}
-
-type IdFlavor struct {
-}
-
-func (id IdFlavor) Name() string {
-	return "uuid"
-}
-
-func (id IdFlavor) Generate(e string) string {
-	return util.PseudoUuid()
-}
-
-func (id IdFlavor) Flavor() string {
-	return "string"
-}
-func (f IdFlavor) ListOptions() bool {
-	return false
-}
-
-type NameFlavor struct {
-}
-
-func (id NameFlavor) Name() string {
-	return "name"
-}
-
-func (id NameFlavor) Generate(e string) string {
-	return gofakeit.Name()
-}
-
-func (id NameFlavor) Flavor() string {
-	return "string"
-}
-func (f NameFlavor) ListOptions() bool {
-	return false
 }

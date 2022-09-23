@@ -143,7 +143,7 @@ func handleEnter() {
 func handleEnterSelected() {
 	rendered.Rows = []string{}
 	for _, item := range selectedItems {
-		val := flavor.Generate(item.Flavor)
+		val := flavor.Generate(item.Flavor, "")
 		rendered.Rows = append(rendered.Rows, val)
 	}
 }
