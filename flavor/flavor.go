@@ -54,6 +54,8 @@ func Generate(flavor, extra string) string {
 		val = util.PseudoUuid()
 	} else if flavor == "bool" {
 		val = "false"
+	} else if flavor == "model" {
+		val = extra
 	}
 	return val
 }

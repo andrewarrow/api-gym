@@ -114,7 +114,7 @@ func (gm *GymModel) normalEvents(e ui.Event) {
 		gm.Gym.RemoveStruct(gm.Name)
 		gm.Gym.AddStruct(gm.Name)
 		for _, item := range selectedItems {
-			gm.Gym.AddFieldToStruct(gm.Name, item.Name, item.Flavor, "")
+			gm.Gym.AddFieldToStruct(gm.Name, item.Name, item.Flavor, item.Extra)
 		}
 		gm.Gym.Save()
 	case "j", "<Down>":
@@ -171,7 +171,7 @@ func handleEnter() {
 func handleEnterSelected() {
 	rendered.Rows = []string{}
 	for _, item := range selectedItems {
-		val := flavor.Generate(item.Flavor, "")
+		val := flavor.Generate(item.Flavor, item.Extra)
 		rendered.Rows = append(rendered.Rows, val)
 	}
 }
