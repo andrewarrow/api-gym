@@ -81,21 +81,20 @@ func StartModelUI(model string, g *gym.Gym) {
 }
 
 func handleInsert(e ui.Event) {
+	i := selected.SelectedRow
 	if e.ID == "<Enter>" || e.ID == "<Escape>" {
 		insertMode = false
 	} else if e.ID == "<Backspace>" {
-		i := selected.SelectedRow
 		text := selected.Rows[i]
 		if len(text) > 0 {
 			selected.Rows[i] = text[0 : len(text)-1]
 		}
 	} else if e.ID == "<Space>" {
-		i := selected.SelectedRow
 		selected.Rows[i] += "_"
 	} else {
-		i := selected.SelectedRow
 		selected.Rows[i] += strings.ToLower(e.ID)
 	}
+	selectedItems[i].Name = selected.Rows[i]
 }
 
 func (gm *GymModel) normalEvents(e ui.Event) {
