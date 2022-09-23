@@ -38,6 +38,7 @@ func EditModel(model string, g *gym.Gym) {
 	StartModelUI(model, g)
 }
 func AddModel(model string, g *gym.Gym) {
+	addToSelectedItems("uuid", "id")
 	StartModelUI(model, g)
 }
 
