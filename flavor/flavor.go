@@ -4,6 +4,8 @@ import (
 	"api-gym/util"
 	"fmt"
 	"math/rand"
+	"strconv"
+	"strings"
 
 	"github.com/brianvoe/gofakeit/v6"
 )
@@ -24,7 +26,12 @@ func Generate(flavor, extra string) string {
 	} else if flavor == "float" {
 		val = fmt.Sprintf("%d.%d", rand.Intn(30), rand.Intn(10))
 	} else if flavor == "int" {
-		val = fmt.Sprintf("%d", rand.Intn(65000))
+		max := 65000
+		if strings.HasPrefix(extra, "max") {
+			tokens := strings.Split(extra, ":")
+			max, _ = strconv.Atoi(tokens[1])
+		}
+		val = fmt.Sprintf("%d", rand.Intn(max))
 	} else if flavor == "paragraph" {
 		val = gofakeit.LoremIpsumParagraph(1, 3, 33, ".")
 	} else if flavor == "first_name" {
