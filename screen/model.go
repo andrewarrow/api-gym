@@ -23,6 +23,7 @@ var selectedItems = []GymField{}
 type GymField struct {
 	Flavor string
 	Name   string
+	Extra  string
 }
 
 type GymModel struct {
@@ -33,12 +34,12 @@ type GymModel struct {
 func EditModel(model string, g *gym.Gym) {
 	s := g.StructsByName[model]
 	for _, field := range s.Fields {
-		addToSelectedItems(field.Flavor, field.Name)
+		addToSelectedItems(field.Flavor, field.Name, field.Extra)
 	}
 	StartModelUI(model, g)
 }
 func AddModel(model string, g *gym.Gym) {
-	addToSelectedItems("uuid", "id")
+	addToSelectedItems("uuid", "id", "")
 	StartModelUI(model, g)
 }
 
@@ -56,7 +57,7 @@ func StartModelUI(model string, g *gym.Gym) {
 	setListColors(rendered)
 
 	flavors.Rows = []string{"individual", "location", "phone", "timestamp", "few_words",
-		"int", "float", "bool", "paragraph", "email", "uuid"}
+		"int", "float", "bool", "paragraph", "email", "uuid", "model", "[]model"}
 
 	termWidth, termHeight := ui.TerminalDimensions()
 	grid.SetRect(0, 0, termWidth, termHeight)
@@ -177,42 +178,45 @@ func handleEnterSelected() {
 
 func handleEnterFlavors() {
 	if flavors.SelectedRow == 0 {
-		addToSelectedItems("first_name", "first_name")
-		addToSelectedItems("last_name", "last_name")
-		addToSelectedItems("pronouns", "pronouns")
-		addToSelectedItems("phone", "phone")
-		addToSelectedItems("email", "email")
-		addToSelectedItems("int", "age")
+		addToSelectedItems("first_name", "first_name", "")
+		addToSelectedItems("last_name", "last_name", "")
+		addToSelectedItems("pronouns", "pronouns", "")
+		addToSelectedItems("phone", "phone", "")
+		addToSelectedItems("email", "email", "")
+		addToSelectedItems("int", "age", "")
 	} else if flavors.SelectedRow == 1 {
-		addToSelectedItems("address", "address")
-		addToSelectedItems("latitude", "latitude")
-		addToSelectedItems("longitude", "longitude")
+		addToSelectedItems("address", "address", "")
+		addToSelectedItems("latitude", "latitude", "")
+		addToSelectedItems("longitude", "longitude", "")
 	} else if flavors.SelectedRow == 2 {
-		addToSelectedItems("phone", "phone")
+		addToSelectedItems("phone", "phone", "")
 	} else if flavors.SelectedRow == 3 {
-		addToSelectedItems("timestamp", "something_at")
+		addToSelectedItems("timestamp", "something_at", "")
 	} else if flavors.SelectedRow == 4 {
-		addToSelectedItems("few_words", "few_words")
+		addToSelectedItems("few_words", "few_words", "")
 	} else if flavors.SelectedRow == 5 {
-		addToSelectedItems("int", "int")
+		addToSelectedItems("int", "int", "")
 	} else if flavors.SelectedRow == 6 {
-		addToSelectedItems("float", "float")
+		addToSelectedItems("float", "float", "")
 	} else if flavors.SelectedRow == 7 {
-		addToSelectedItems("bool", "is_on")
+		addToSelectedItems("bool", "is_on", "")
 	} else if flavors.SelectedRow == 8 {
-		addToSelectedItems("paragraph", "paragraph")
+		addToSelectedItems("paragraph", "paragraph", "")
 	} else if flavors.SelectedRow == 9 {
-		addToSelectedItems("email", "email")
+		addToSelectedItems("email", "email", "")
 	} else if flavors.SelectedRow == 10 {
-		addToSelectedItems("uuid", "id")
+		addToSelectedItems("uuid", "id", "")
+	} else if flavors.SelectedRow == 11 {
+		addToSelectedItems("model", "created_by", "user")
 	}
 	//selected.SelectedRow = len(selected.Rows) + 1
 }
 
-func addToSelectedItems(flavor, name string) {
+func addToSelectedItems(flavor, name, extra string) {
 	gf := GymField{}
 	gf.Flavor = flavor
 	gf.Name = name
+	gf.Extra = extra
 	selectedItems = append(selectedItems, gf)
 	selected.Rows = append(selected.Rows, name)
 }
