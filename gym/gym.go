@@ -4,7 +4,6 @@ import (
 	"api-gym/files"
 	"api-gym/util"
 	"encoding/json"
-	"fmt"
 	"sort"
 	"strconv"
 )
@@ -67,7 +66,6 @@ func (g *Gym) SortRoutes() {
 }
 
 func (g *Gym) ListRoutes() {
-	fmt.Println("")
 	/*
 		for i, route := range g.Routes {
 			fmt.Printf("%2d. %-30s %s\n", i+1, route.String(), route.Response)
@@ -79,7 +77,6 @@ func (g *Gym) ListRoutes() {
 				fmt.Printf("  %2d. %-20s %-26s %-16s %s\n", j+1, f.Name, f.Flavor, f.Random, f.Extra)
 			}
 		}*/
-	fmt.Println("")
 }
 
 func LoadGym() *Gym {
