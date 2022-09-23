@@ -19,7 +19,22 @@ type Gym struct {
 func NewGym() *Gym {
 	g := Gym{}
 	g.Name = util.PseudoUuid()
+	g.AddStruct("user")
+	g.AddFieldToStruct("user", "first_name", "first_name", "")
+	g.AddFieldToStruct("user", "last_name", "last_name", "")
+	g.AddFieldToStruct("user", "pronouns", "pronouns", "")
+	g.AddFieldToStruct("user", "email", "email", "")
+	g.AddFieldToStruct("user", "phone", "phone", "")
+	g.AddFieldToStruct("user", "age", "age", "max:100")
 	return &g
+}
+
+func (g *Gym) AddFieldToStruct(model, name, flavor, extra string) {
+	var field *Field
+	s := g.StructsByName[model]
+	field = NewField(name, flavor, extra)
+	s.Fields = append(s.Fields, field)
+	g.Save()
 }
 
 func (g *Gym) AddRoute(verb, route, modelIndex string) {
@@ -52,16 +67,17 @@ func (g *Gym) SortRoutes() {
 
 func (g *Gym) ListRoutes() {
 	fmt.Println("")
-	for i, route := range g.Routes {
-		fmt.Printf("%2d. %-30s %s\n", i+1, route.String(), route.Response)
-	}
-	fmt.Println("")
-	for i, s := range g.Structs {
-		fmt.Printf("%2d. %-30s\n", i+1, s.Name)
-		for j, f := range s.Fields {
-			fmt.Printf("  %2d. %-20s %-26s %-16s %s\n", j+1, f.Name, f.Flavor, f.Random, f.Extra)
+	/*
+		for i, route := range g.Routes {
+			fmt.Printf("%2d. %-30s %s\n", i+1, route.String(), route.Response)
 		}
-	}
+		fmt.Println("")
+		for i, s := range g.Structs {
+			fmt.Printf("%2d. %-30s\n", i+1, s.Name)
+			for j, f := range s.Fields {
+				fmt.Printf("  %2d. %-20s %-26s %-16s %s\n", j+1, f.Name, f.Flavor, f.Random, f.Extra)
+			}
+		}*/
 	fmt.Println("")
 }
 
@@ -100,13 +116,6 @@ func (g *Gym) AddResponseToRoute(index, response string) {
 	g.ListRoutes()
 }
 
-func (g *Gym) AddFieldToStruct(modelIndex, flavorIndex int) {
-	var field *Field
-	field = NewField("name", "string", "timestamp", "years_not_null")
-	g.Structs[modelIndex].Fields = append(g.Structs[modelIndex].Fields, field)
-	g.Save()
-}
-
 func (g *Gym) DeleteField(modelIndex, fieldIndex int) {
 	newList := []*Field{}
 	for i, f := range g.Structs[modelIndex].Fields {
@@ -127,9 +136,11 @@ func (g *Gym) AddStruct(name string) {
 }
 
 func (g *Gym) UpdateStructRandom(index, fieldIndex, random string) {
-	indexAsInt, _ := strconv.Atoi(index)
-	fieldIndexAsInt, _ := strconv.Atoi(fieldIndex)
-	g.Structs[indexAsInt].Fields[fieldIndexAsInt].Random = random
-	g.Save()
-	g.ListRoutes()
+	/*
+		indexAsInt, _ := strconv.Atoi(index)
+		fieldIndexAsInt, _ := strconv.Atoi(fieldIndex)
+		g.Structs[indexAsInt].Fields[fieldIndexAsInt].Random = random
+		g.Save()
+		g.ListRoutes()
+	*/
 }
