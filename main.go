@@ -49,7 +49,7 @@ func main() {
 	} else if command == "response" {
 		index := os.Args[2]
 		g.AddResponseToRoute(index, os.Args[3])
-	} else if command == "json" {
+	} else if command == "old-json" {
 		structIndex := os.Args[2]
 		extra := os.Args[3]
 		simulate.Json(structIndex, extra, g)
@@ -83,6 +83,9 @@ func main() {
 		flavor.ListFlavors()
 	} else if command == "screen" {
 		screen.Setup()
+	} else if command == "json" {
+		file := os.Args[2]
+		screen.ReadJson(file)
 	} else if command == "server" {
 		router := server.Setup(g)
 		router.Run(":8080")
