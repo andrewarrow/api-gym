@@ -2,11 +2,9 @@ package main
 
 import (
 	"api-gym/files"
-	"api-gym/flavor"
 	"api-gym/gym"
 	"api-gym/screen"
 	"api-gym/server"
-	"api-gym/simulate"
 	"fmt"
 	"math/rand"
 	"os"
@@ -33,6 +31,17 @@ func main() {
 		g.Save()
 	} else if command == "ls" {
 		g.ListRoutes()
+	} else if command == "server" {
+		router := server.Setup(g)
+		router.Run(":8080")
+	} else if command == "screen" {
+		screen.Setup()
+	} else if command == "help" {
+		PrintHelp()
+	}
+}
+
+/*
 	} else if command == "route" {
 		if os.Args[2] == "add" {
 			verb := os.Args[3]
@@ -65,7 +74,6 @@ func main() {
 			g.UpdateStructRandom(index, fieldIndex, os.Args[5])
 			return
 		}
-		/*
 			modelIndex := os.Args[2]
 			name := os.Args[3]
 			otherModel := ""
@@ -78,15 +86,8 @@ func main() {
 			}
 
 			g.AddFieldToStruct(modelIndex, name, otherModel, flavorIndex)
-		*/
 	} else if command == "flavors" {
 		flavor.ListFlavors()
 	} else if command == "screen" {
 		screen.Setup()
-	} else if command == "server" {
-		router := server.Setup(g)
-		router.Run(":8080")
-	} else if command == "help" {
-		PrintHelp()
-	}
-}
+*/

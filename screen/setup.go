@@ -37,7 +37,7 @@ func Setup() {
 	setListColors(selected)
 	setListColors(rendered)
 
-	flavors.Rows = []string{"individual", "location", "phone", "timestamp", "few_words", "int", "float", "bool", "paragraph"}
+	flavors.Rows = []string{"individual", "location", "phone", "timestamp", "few_words", "int", "float", "bool", "paragraph", "email"}
 
 	termWidth, termHeight := ui.TerminalDimensions()
 	grid.SetRect(0, 0, termWidth, termHeight)
@@ -169,6 +169,10 @@ func handleEnterSelected() {
 			val = gofakeit.LastName()
 		} else if item.Flavor == "pronouns" {
 			val = flavor.Pronouns()
+		} else if item.Flavor == "email" {
+			val = gofakeit.Email()
+		} else if item.Flavor == "phone" {
+			val = gofakeit.PhoneFormatted()
 		}
 		rendered.Rows = append(rendered.Rows, val)
 	}
@@ -179,10 +183,15 @@ func handleEnterFlavors() {
 		addToSelectedItems("first_name", "first_name")
 		addToSelectedItems("last_name", "last_name")
 		addToSelectedItems("pronouns", "pronouns")
+		addToSelectedItems("phone", "phone")
+		addToSelectedItems("email", "email")
+		addToSelectedItems("int", "age")
 	} else if flavors.SelectedRow == 1 {
 		addToSelectedItems("address", "address")
 		addToSelectedItems("latitude", "latitude")
 		addToSelectedItems("longitude", "longitude")
+	} else if flavors.SelectedRow == 2 {
+		addToSelectedItems("phone", "phone")
 	} else if flavors.SelectedRow == 3 {
 		addToSelectedItems("timestamp", "something_at")
 	} else if flavors.SelectedRow == 4 {
