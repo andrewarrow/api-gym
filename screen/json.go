@@ -25,7 +25,10 @@ func ReadJson(file string) {
 	jsonString := files.ReadFile(file)
 	var m map[string]any
 	json.Unmarshal([]byte(jsonString), &m)
-	lists[0].Rows = []string{fmt.Sprintf("%d", len(m))}
+	lists[0].Rows = []string{}
+	for k, _ := range m {
+		lists[0].Rows = append(lists[0].Rows, k)
+	}
 
 	termWidth, termHeight := ui.TerminalDimensions()
 	grid.SetRect(0, 0, termWidth, termHeight)
