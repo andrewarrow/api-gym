@@ -2,6 +2,7 @@ package main
 
 import (
 	"api-gym/files"
+	"api-gym/generate"
 	"api-gym/gym"
 	"api-gym/screen"
 	"api-gym/server"
@@ -47,6 +48,8 @@ func main() {
 	} else if command == "edit" {
 		model := os.Args[2]
 		screen.EditModel(model, g)
+	} else if command == "generate" {
+		generate.Run(g)
 	} else if command == "help" {
 		PrintHelp()
 	}

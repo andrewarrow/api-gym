@@ -14,6 +14,7 @@ func PrintHelp() {
 	fmt.Println("  api-gym json [name]")
 	fmt.Println("  api-gym server run")
 	fmt.Println("")
+	fmt.Println("  api-gym generate")
 	//fmt.Println("  api-gym model [model_index] [name] [other_model]")
 	//fmt.Println("  api-gym model [model_index] [flavor_index_list]")
 	//fmt.Println("  api-gym model update-random [struct_index] [field_index] [random]")
