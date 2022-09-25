@@ -22,7 +22,7 @@ os/api-gym $ ./api-gym json user | jq .
       "pronouns": "they/them",
       "email": "yesseniakonopelski@bogisich.info",
       "phone": "208-526-0479",
-      "age": "8"
+      "age": 28
     }
   ]
 }
@@ -60,14 +60,14 @@ os/api-gym $ ./api-gym json home | jq .
     {
       "id": "69682aa4-4d04-c5d0-04c1-33baf41a43a3",
       "address": "86676 West Prairie stad, Lincoln, New Hampshire 55393 Aruba",
-      "latitude": "-88.457909",
-      "longitude": "151.268922",
+      "latitude": -88.457909,
+      "longitude": 151.268922,
       "launched_at": "2022-04-18T06:52:29.940Z",
       "name": "away front",
-      "bedrooms": "46495",
-      "square_feet": "2777",
+      "bedrooms": 15,
+      "square_feet": 12777,
       "summary": "Non vel voluptatem sequi sunt sequi voluptatem unde expedita nihil voluptatem sunt laboriosam consectetur perferendis qui est ea quae nihil odit et et ut sapiente qui cupiditate nobis consequatur nostrum culpa aut consequatur. Iusto sapiente voluptatum provident non id modi asperiores et blanditiis autem facilis consequatur explicabo illum nulla saepe saepe quia corporis sit autem et est ipsa est enim fugiat vero explicabo natus quia quisquam. Id qui fuga nobis nesciunt vitae perferendis ea in quis voluptas dolores libero velit veritatis ea modi tempora voluptatem enim officia maxime fugiat sunt deserunt architecto eos quidem excepturi ad repudiandae est laborum.",
-      "bathrooms": "22.2"
+      "bathrooms": 7.5
     }
   ]
 }
