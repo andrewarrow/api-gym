@@ -102,3 +102,53 @@ You can also add a nested single model like:
   ]
 }
 ```
+
+Or array of models:
+
+```
+{
+  "homes": [
+    {
+      "id": "569be8f2-1a0d-e308-0502-a815492671af",
+      "address": "779 Lake Locks mouth, El Paso, Nevada 55957 Zambia",
+      "latitude": "34.956466",
+      "longitude": "-151.279102",
+      "launched_at": "2022-04-18T06:52:29.940Z",
+      "name": "mine then",
+      "bedrooms": 24721,
+      "square_feet": 46175,
+      "summary": "Aperiam et ut rerum fugit labore sed explicabo rerum in repellendus voluptatem saepe aperiam ea ab aliquid rerum dolorem quam soluta sit ex distinctio perferendis quis fugiat voluptatem officiis in est commodi odit. Corrupti in pariatur voluptatum esse sit voluptatem nesciunt nihil est commodi aliquid et sed optio ut a ut perspiciatis ut mollitia quo et voluptate dolorum sint ut cum quis provident ullam voluptas sit. Aliquid eveniet suscipit et itaque voluptas minima ea omnis ea at velit odio architecto dicta rem id magnam est eaque culpa inventore reiciendis pariatur odio non sed quis minus saepe perspiciatis voluptas ipsam.",
+      "bathrooms": 20.5,
+      "created_by": {
+        "id": "36e3f11c-ae34-8e84-aa90-7c62ca26914a",
+        "first_name": "Alysson",
+        "last_name": "Morar",
+        "pronouns": "they/them",
+        "email": "lillianbeier@jaskolski.com",
+        "phone": "792-518-2692",
+        "age": 11
+      },
+      "admins": [
+        {
+          "id": "cd870417-7328-9fe6-ffea-c597aaf3549a",
+          "first_name": "Jessie",
+          "last_name": "Hagenes",
+          "pronouns": "they/them",
+          "email": "lydamorar@stracke.com",
+          "phone": "241.899.9102",
+          "age": 22
+        },
+        {
+          "id": "c29df12c-d636-33f0-05d9-6e90bec01bcd",
+          "first_name": "Jammie",
+          "last_name": "Hickle",
+          "pronouns": "he/him",
+          "email": "randallturcotte@king.net",
+          "phone": "697-138-9817",
+          "age": 60
+        }
+      ]
+    }
+  ]
+}
+```
