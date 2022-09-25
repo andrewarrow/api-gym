@@ -23,5 +23,5 @@ func NewStruct(name string) *Struct {
 }
 
 func (s *Struct) JsonContainerName() string {
-	return util.ToSnakeCase(s.Name) + "s"
+	return util.Plural(s.Name)
 }

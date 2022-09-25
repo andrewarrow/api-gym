@@ -41,7 +41,7 @@ func (g *Gym) AddFieldToStruct(model, name, flavor, extra string) {
 func (g *Gym) AddStruct(name string) {
 	g.Structs = append(g.Structs, NewStruct(name))
 	g.fillStructsByName()
-	pluralName := name + "s" // TODO handle company companies case
+	pluralName := util.Plural(name)
 	g.AddRoute("GET", fmt.Sprintf("/api/v1/%s", pluralName), name, 10)
 	g.AddRoute("GET", fmt.Sprintf("/api/v1/%s/:id", pluralName), name, 1)
 	g.Save()

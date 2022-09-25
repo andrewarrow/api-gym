@@ -26,7 +26,7 @@ func main() {
 	files.MkdirJson()
 
 	if command == "new" {
-		//g.SaveBackup()
+		g.SaveBackup()
 		g = gym.NewGym()
 		fmt.Printf("\nNew Gym Create with name: %s\n\n", g.Name)
 		g.Save()
