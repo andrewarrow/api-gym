@@ -2,6 +2,6 @@ package files
 
 import "os"
 
-func MkdirJson() {
-	os.Mkdir("json", 0755)
+func Mkdir(s string) {
+	os.Mkdir(s, 0755)
 }

@@ -21,7 +21,7 @@ func NewField(name, flavor, extra string) *Field {
 }
 
 func (f *Field) DataType() string {
-	return flavor.DataType(f.Flavor)
+	return flavor.DataType(f.Flavor, f.Extra)
 }
 func (f *Field) NameToJson() string {
 	return fmt.Sprintf("%s", util.ToSnakeCase(f.Name))

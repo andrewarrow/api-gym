@@ -1,6 +1,8 @@
 package flavor
 
-func DataType(flavor string) string {
+import "api-gym/util"
+
+func DataType(flavor, extra string) string {
 	val := ""
 	if flavor == "address" {
 		val = "string"
@@ -33,9 +35,9 @@ func DataType(flavor string) string {
 	} else if flavor == "bool" {
 		val = "bool"
 	} else if flavor == "model" {
-		val = "model"
+		val = util.ToCamelCase(extra)
 	} else if flavor == "[]model" {
-		val = "[]model"
+		val = "[]" + util.ToCamelCase(extra)
 	}
 	return val
 }

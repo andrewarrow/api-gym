@@ -1,7 +1,6 @@
 package main
 
 import (
-	"api-gym/files"
 	"api-gym/generate"
 	"api-gym/gym"
 	"api-gym/screen"
@@ -24,7 +23,6 @@ func main() {
 	}
 	command := os.Args[1]
 	g = gym.LoadGym()
-	files.MkdirJson()
 
 	if command == "new" {
 		g.SaveBackup()
