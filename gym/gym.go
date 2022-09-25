@@ -4,6 +4,7 @@ import (
 	"api-gym/files"
 	"api-gym/util"
 	"encoding/json"
+	"fmt"
 	"sort"
 	"strconv"
 )
@@ -27,8 +28,8 @@ func NewGym() *Gym {
 	g.AddFieldToStruct("user", "phone", "phone", "")
 	g.AddFieldToStruct("user", "age", "int", "max:100")
 
-	g.AddRoute("GET", "/api/v1/users/all", "user", 10)
-	g.AddRoute("GET", "/api/v1/users/me", "user", 1)
+	g.AddRoute("GET", "/api/v1/users/", "user", 10)
+	g.AddRoute("GET", "/api/v1/users/:id", "user", 1)
 	return &g
 }
 
@@ -43,6 +44,9 @@ func (g *Gym) AddFieldToStruct(model, name, flavor, extra string) {
 func (g *Gym) AddStruct(name string) {
 	g.Structs = append(g.Structs, NewStruct(name))
 	g.fillStructsByName()
+	pluralName := name + "s" // TODO handle company companies case
+	g.AddRoute("GET", fmt.Sprintf("/api/v1/%s/", pluralName), name, 10)
+	g.AddRoute("GET", fmt.Sprintf("/api/v1/%s/:id", pluralName), name, 1)
 	g.Save()
 }
 
