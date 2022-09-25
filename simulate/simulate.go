@@ -3,9 +3,12 @@ package simulate
 import (
 	"api-gym/gym"
 	"fmt"
+	"os"
 	"strconv"
 	"strings"
 )
+
+var safeCount = 0
 
 func Run(routeIndex string, g *gym.Gym) {
 	//routeIndexAsInt, _ := strconv.Atoi(routeIndex)
@@ -98,6 +101,12 @@ func makeStructJson(s *gym.Struct, g *gym.Gym, top bool) string {
 }
 
 func makeJsonBasedOnFlavor(f *gym.Field, g *gym.Gym, top bool) string {
+	safeCount++
+	if safeCount > 100 {
+		fmt.Println("Infinite loop stopped.")
+		os.Exit(1)
+		return ""
+	}
 	dt := f.DataType()
 	if dt == "string" {
 		value := f.ToFakeValue()
