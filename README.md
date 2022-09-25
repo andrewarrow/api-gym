@@ -27,3 +27,46 @@ os/api-gym $ ./api-gym json user | jq .
   ]
 }
 ```
+
+```
+os/api-gym $ ./api-gym add home
+
+┌────────────────────┐┌────────────────────┐ ┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│individual          ││id                  │ │ea8b0f11-440b-776c-a554-7577fa15ecfe                                                         │
+│location            ││address             │ │6339 Lake Highway burgh, Oakland, Nevada 98594 Guinea-Bissau                                 │
+│phone               ││latitude            │ │73.161558                                                                                    │
+│timestamp           ││longitude           │ │52.943533                                                                                    │
+│few_words           ││launched_at         │ │2022-04-18T06:52:29.940Z                                                                     │
+│int                 ││name                │ │unless but                                                                                   │
+│float               ││bedrooms            │ │26253                                                                                        │
+│bool                ││square_feet         │ │36307                                                                                        │
+│paragraph           ││summary             │ │Doloremque quia optio laudantium rem est maiores laudantium ea nihil doloribus culpa id numq…│
+│email               ││bathrooms           │ │9.4                                                                                          │
+│uuid                ││                    │ │                                                                                             │
+│model               ││                    │ │                                                                                             │
+│[]model             ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+│                    ││                    │ │                                                                                             │
+└────────────────────┘└────────────────────┘ └─────────────────────────────────────────────────────────────────────────────────────────────┘
+```
