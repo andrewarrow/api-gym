@@ -9,6 +9,7 @@ func PrintHelp() {
 	fmt.Println("")
 	fmt.Println("  api-gym new")
 	fmt.Println("  api-gym add [name]")
+	fmt.Println("  api-gym rm [name]")
 	fmt.Println("  api-gym edit [name]")
 	fmt.Println("  api-gym json [name]")
 	fmt.Println("  api-gym server run")

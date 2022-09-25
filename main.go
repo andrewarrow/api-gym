@@ -38,6 +38,9 @@ func main() {
 	} else if command == "server" {
 		router := server.Setup(g)
 		router.Run(":8080")
+	} else if command == "rm" {
+		model := os.Args[2]
+		g.RemoveStruct(model)
 	} else if command == "add" {
 		model := os.Args[2]
 		screen.AddModel(model, g)
