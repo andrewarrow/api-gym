@@ -26,6 +26,9 @@ func NewGym() *Gym {
 	g.AddFieldToStruct("user", "email", "email", "")
 	g.AddFieldToStruct("user", "phone", "phone", "")
 	g.AddFieldToStruct("user", "age", "int", "max:100")
+
+	g.AddRoute("GET", "/api/v1/users/all", "user", 10)
+	g.AddRoute("GET", "/api/v1/users/me", "user", 1)
 	return &g
 }
 
@@ -56,11 +59,10 @@ func (g *Gym) RemoveStruct(name string) {
 	g.Save()
 }
 
-func (g *Gym) AddRoute(verb, route, modelIndex string) {
-	g.Routes = append(g.Routes, NewRoute(verb, route, modelIndex))
+func (g *Gym) AddRoute(verb, route, model string, count int) {
+	g.Routes = append(g.Routes, NewRoute(verb, route, model, count))
 	g.SortRoutes()
 	g.Save()
-	g.ListRoutes()
 }
 
 func (g *Gym) RemoveRoute(index string) {
@@ -126,11 +128,11 @@ func (g *Gym) SaveBackup() {
 }
 
 func (g *Gym) AddResponseToRoute(index, response string) {
-	indexAsInt, _ := strconv.Atoi(index)
-	g.Routes[indexAsInt].Response = response
-	g.Structs = append(g.Structs, NewStruct(response))
-	g.Save()
-	g.ListRoutes()
+	//indexAsInt, _ := strconv.Atoi(index)
+	//g.Routes[indexAsInt].Response = response
+	//g.Structs = append(g.Structs, NewStruct(response))
+	//g.Save()
+	//g.ListRoutes()
 }
 
 func (g *Gym) DeleteField(modelIndex, fieldIndex int) {

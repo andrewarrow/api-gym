@@ -2,22 +2,22 @@ package gym
 
 import (
 	"fmt"
-	"strings"
 )
 
 type Route struct {
-	Verb       string `json:"verb"`
-	Route      string `json:"route"`
-	Response   string `json:"response"`
-	ModelIndex string `json:"model_index"`
-	UseFile    string `json:"use_file"`
+	Verb    string `json:"verb"`
+	Route   string `json:"route"`
+	Model   string `json:"model"`
+	Count   int    `json:"count"`
+	UseFile string `json:"use_file"`
 }
 
-func NewRoute(verb, route, modelIndex string) *Route {
+func NewRoute(verb, route, model string, count int) *Route {
 	r := Route{}
 	r.Verb = verb
 	r.Route = route
-	r.ModelIndex = modelIndex
+	r.Model = model
+	r.Count = count
 	r.UseFile = ""
 	return &r
 }
@@ -27,12 +27,13 @@ func (r *Route) String() string {
 }
 
 func (r *Route) ParseResponse() (string, string) {
-	structure := ""
-	flavor := ""
-	if strings.HasPrefix(r.Response, "[]") {
-		structure = "array"
-		flavor = r.Response[2:]
-	}
+	//structure := ""
+	//flavor := ""
+	//if strings.HasPrefix(r.Response, "[]") {
+	//	structure = "array"
+	//	flavor = r.Response[2:]
+	//}
 
-	return structure, flavor
+	//return structure, flavor
+	return "", ""
 }

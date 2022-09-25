@@ -8,12 +8,12 @@ import (
 )
 
 func Run(routeIndex string, g *gym.Gym) {
-	routeIndexAsInt, _ := strconv.Atoi(routeIndex)
-	route := g.Routes[routeIndexAsInt-1]
+	//routeIndexAsInt, _ := strconv.Atoi(routeIndex)
+	//route := g.Routes[routeIndexAsInt-1]
 
-	modelIndexAsInt, _ := strconv.Atoi(route.ModelIndex)
-	s := g.Structs[modelIndexAsInt-1]
-	PrintItemsToStdout(s, g)
+	//modelIndexAsInt, _ := strconv.Atoi(route.ModelIndex)
+	//s := g.Structs[modelIndexAsInt-1]
+	//PrintItemsToStdout(s, g)
 }
 
 func makeSingleModel(field *gym.Field, g *gym.Gym) string {

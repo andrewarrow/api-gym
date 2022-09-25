@@ -5,7 +5,6 @@ import (
 	"api-gym/gym"
 	"api-gym/simulate"
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -13,17 +12,18 @@ import (
 func Setup(g *gym.Gym) *gin.Engine {
 
 	router := gin.Default()
-
-	for _, route := range g.Routes {
-		modelIndexAsInt, _ := strconv.Atoi(route.ModelIndex)
-		s := g.Structs[modelIndexAsInt-1]
-		j := JsonRoute{s, g, route.UseFile}
-		if route.Verb == "get" {
-			router.GET(route.Route, j.JsonRunner)
-		} else if route.Verb == "post" {
-			router.POST(route.Route, j.JsonRunner)
+	/*
+		for _, route := range g.Routes {
+			modelIndexAsInt, _ := strconv.Atoi(route.ModelIndex)
+			s := g.Structs[modelIndexAsInt-1]
+			j := JsonRoute{s, g, route.UseFile}
+			if route.Verb == "get" {
+				router.GET(route.Route, j.JsonRunner)
+			} else if route.Verb == "post" {
+				router.POST(route.Route, j.JsonRunner)
+			}
 		}
-	}
+	*/
 	return router
 }
 
