@@ -32,7 +32,7 @@ func (f *Field) FlavorToStructName() string {
 	if strings.HasPrefix(f.Flavor, "[]") {
 		return f.Flavor[2:]
 	}
-	return fmt.Sprintf("%s", f.Flavor)
+	return fmt.Sprintf("%s", f.Extra)
 }
 
 func (f *Field) ToFakeValue() string {

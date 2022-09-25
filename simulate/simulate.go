@@ -16,6 +16,11 @@ func Run(routeIndex string, g *gym.Gym) {
 	PrintItemsToStdout(s, g)
 }
 
+func makeSingleModel(field *gym.Field, g *gym.Gym) string {
+	s := g.StructsByName[field.FlavorToStructName()]
+
+	return makeStructJson(s, g)
+}
 func makeArrayItems(field *gym.Field, g *gym.Gym) string {
 	s := g.StructsByName[field.FlavorToStructName()]
 
@@ -102,6 +107,8 @@ func makeJsonBasedOnFlavor(f *gym.Field, g *gym.Gym) string {
 		} else {
 			return fmt.Sprintf(`"%s": "%s"`, f.NameToJson(), value)
 		}
+	} else if dt == "model" {
+		return fmt.Sprintf(`"%s": %s`, f.NameToJson(), makeSingleModel(f, g))
 	} else if strings.HasPrefix(f.Flavor, "[]") {
 		return fmt.Sprintf(`"%s": [%s]`, f.NameToJson(), makeArrayItems(f, g))
 	} else if dt == "int" || dt == "int64" || dt == "float64" || dt == "bool" {

@@ -33,7 +33,7 @@ func DataType(flavor string) string {
 	} else if flavor == "bool" {
 		val = "bool"
 	} else if flavor == "model" {
-		val = "string"
+		val = "model"
 	}
 	return val
 }
