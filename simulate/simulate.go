@@ -106,7 +106,7 @@ func makeJsonBasedOnFlavor(f *gym.Field, g *gym.Gym, top bool) string {
 		} else {
 			return fmt.Sprintf(`"%s": "%s"`, f.NameToJson(), value)
 		}
-	} else if dt == "model" && top {
+	} else if dt == "model" {
 		return fmt.Sprintf(`"%s": %s`, f.NameToJson(), makeSingleModel(f, g))
 	} else if dt == "[]model" {
 		return fmt.Sprintf(`"%s": [%s]`, f.NameToJson(), makeArrayItems(f, g))
