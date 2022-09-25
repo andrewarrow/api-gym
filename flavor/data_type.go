@@ -34,6 +34,8 @@ func DataType(flavor string) string {
 		val = "bool"
 	} else if flavor == "model" {
 		val = "model"
+	} else if flavor == "[]model" {
+		val = "[]model"
 	}
 	return val
 }

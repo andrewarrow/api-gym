@@ -109,7 +109,7 @@ func makeJsonBasedOnFlavor(f *gym.Field, g *gym.Gym) string {
 		}
 	} else if dt == "model" {
 		return fmt.Sprintf(`"%s": %s`, f.NameToJson(), makeSingleModel(f, g))
-	} else if strings.HasPrefix(f.Flavor, "[]") {
+	} else if dt == "[]model" {
 		return fmt.Sprintf(`"%s": [%s]`, f.NameToJson(), makeArrayItems(f, g))
 	} else if dt == "int" || dt == "int64" || dt == "float64" || dt == "bool" {
 		return fmt.Sprintf(`"%s": %s`, f.NameToJson(), f.ToFakeValue())

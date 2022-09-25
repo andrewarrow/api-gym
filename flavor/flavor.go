@@ -56,6 +56,8 @@ func Generate(flavor, extra string) string {
 		val = "false"
 	} else if flavor == "model" {
 		val = extra
+	} else if flavor == "[]model" {
+		val = extra
 	}
 	return val
 }

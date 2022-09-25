@@ -208,6 +208,8 @@ func handleEnterFlavors() {
 		addToSelectedItems("uuid", "id", "")
 	} else if flavors.SelectedRow == 11 {
 		addToSelectedItems("model", "created_by", "user")
+	} else if flavors.SelectedRow == 12 {
+		addToSelectedItems("[]model", "admins", "user")
 	}
 	//selected.SelectedRow = len(selected.Rows) + 1
 }

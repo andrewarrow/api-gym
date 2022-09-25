@@ -4,7 +4,6 @@ import (
 	"api-gym/flavor"
 	"api-gym/util"
 	"fmt"
-	"strings"
 )
 
 type Field struct {
@@ -29,10 +28,7 @@ func (f *Field) NameToJson() string {
 }
 
 func (f *Field) FlavorToStructName() string {
-	if strings.HasPrefix(f.Flavor, "[]") {
-		return f.Flavor[2:]
-	}
-	return fmt.Sprintf("%s", f.Extra)
+	return f.Extra
 }
 
 func (f *Field) ToFakeValue() string {
