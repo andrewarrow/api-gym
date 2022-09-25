@@ -2,6 +2,7 @@ package gym
 
 import (
 	"fmt"
+	"strings"
 )
 
 type Route struct {
@@ -14,7 +15,7 @@ type Route struct {
 
 func NewRoute(verb, route, model string, count int) *Route {
 	r := Route{}
-	r.Verb = verb
+	r.Verb = strings.ToUpper(verb)
 	r.Route = route
 	r.Model = model
 	r.Count = count

@@ -45,7 +45,7 @@ func makeMapItems(field *gym.Field, g *gym.Gym) string {
 	return strings.Join(sub, ",")
 }
 
-func PrintItemsToString(s *gym.Struct, g *gym.Gym) string {
+func PrintItemsToString(s *gym.Struct, g *gym.Gym, count int) string {
 	buff := []string{}
 	buff = append(buff, fmt.Sprintf(`{"%s":`, s.JsonContainerName()))
 
@@ -53,8 +53,7 @@ func PrintItemsToString(s *gym.Struct, g *gym.Gym) string {
 
 		buff = append(buff, "[")
 		sub := []string{}
-		amountAsInt, _ := strconv.Atoi("1")
-		for i := 0; i < amountAsInt; i++ {
+		for i := 0; i < count; i++ {
 			sub = append(sub, makeStructJson(s, g))
 		}
 		buff = append(buff, strings.Join(sub, ","))
@@ -83,7 +82,7 @@ func PrintItemsToString(s *gym.Struct, g *gym.Gym) string {
 }
 
 func PrintItemsToStdout(s *gym.Struct, g *gym.Gym) {
-	fmt.Println(PrintItemsToString(s, g))
+	fmt.Println(PrintItemsToString(s, g, 1))
 }
 
 func makeStructJson(s *gym.Struct, g *gym.Gym) string {
