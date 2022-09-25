@@ -27,9 +27,6 @@ func NewGym() *Gym {
 	g.AddFieldToStruct("user", "email", "email", "")
 	g.AddFieldToStruct("user", "phone", "phone", "")
 	g.AddFieldToStruct("user", "age", "int", "max:100")
-
-	g.AddRoute("GET", "/api/v1/users/", "user", 10)
-	g.AddRoute("GET", "/api/v1/users/:id", "user", 1)
 	return &g
 }
 
@@ -45,7 +42,7 @@ func (g *Gym) AddStruct(name string) {
 	g.Structs = append(g.Structs, NewStruct(name))
 	g.fillStructsByName()
 	pluralName := name + "s" // TODO handle company companies case
-	g.AddRoute("GET", fmt.Sprintf("/api/v1/%s/", pluralName), name, 10)
+	g.AddRoute("GET", fmt.Sprintf("/api/v1/%s", pluralName), name, 10)
 	g.AddRoute("GET", fmt.Sprintf("/api/v1/%s/:id", pluralName), name, 1)
 	g.Save()
 }
