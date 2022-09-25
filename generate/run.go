@@ -32,4 +32,16 @@ func Run(g *gym.Gym) {
 		buff = append(buff, fmt.Sprintf(`}`))
 	}
 	files.SaveFile(base+"/network/structs.go", strings.Join(buff, "\n"))
+
+	buff = []string{"package network"}
+	buff = append(buff, `import "fmt"`)
+	for _, s := range g.Structs {
+		name := util.ToCamelCase(s.Name)
+		fmt.Println(name)
+		buff = append(buff, fmt.Sprintf(`func List%s() {`, util.Plural(name)))
+		buff = append(buff, fmt.Sprintf(`  jsonString := DoGet("/api/v1/%s")`, util.Plural(s.Name)))
+		buff = append(buff, fmt.Sprintf(`  fmt.Println(jsonString)`))
+		buff = append(buff, fmt.Sprintf(`}`))
+	}
+	files.SaveFile(base+"/network/calls.go", strings.Join(buff, "\n"))
 }
