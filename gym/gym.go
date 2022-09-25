@@ -78,27 +78,12 @@ func (g *Gym) RemoveRoute(index string) {
 	g.Routes = routes
 	g.SortRoutes()
 	g.Save()
-	g.ListRoutes()
 }
 
 func (g *Gym) SortRoutes() {
 	sort.SliceStable(g.Routes, func(i, j int) bool {
 		return g.Routes[i].String() < g.Routes[j].String()
 	})
-}
-
-func (g *Gym) ListRoutes() {
-	/*
-		for i, route := range g.Routes {
-			fmt.Printf("%2d. %-30s %s\n", i+1, route.String(), route.Response)
-		}
-		fmt.Println("")
-		for i, s := range g.Structs {
-			fmt.Printf("%2d. %-30s\n", i+1, s.Name)
-			for j, f := range s.Fields {
-				fmt.Printf("  %2d. %-20s %-26s %-16s %s\n", j+1, f.Name, f.Flavor, f.Random, f.Extra)
-			}
-		}*/
 }
 
 func LoadGym() *Gym {

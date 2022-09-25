@@ -31,7 +31,7 @@ func main() {
 		fmt.Printf("\nNew Gym Create with name: %s\n\n", g.Name)
 		g.Save()
 	} else if command == "ls" {
-		g.ListRoutes()
+		g.ListRoutesAndModels()
 	} else if command == "json" {
 		model := os.Args[2]
 		simulate.Json(model, g)
