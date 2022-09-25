@@ -72,3 +72,33 @@ os/api-gym $ ./api-gym json home | jq .
   ]
 }
 ```
+
+You can also add a nested single model like:
+
+```
+{
+  "homes": [
+    {
+      "id": "5b1ee03a-3585-0b0c-fa31-fa2329210c07",
+      "address": "7296 Port Tunnel furt, Norfolk, Wisconsin 39744 Heard Island and McDonald Islands",
+      "latitude": "4.982696",
+      "longitude": "-72.510182",
+      "launched_at": "2022-04-18T06:52:29.940Z",
+      "name": "which several",
+      "bedrooms": 62206,
+      "square_feet": 6849,
+      "summary": "Aut eaque velit quidem et tempora rerum iste a voluptas quia quasi atque unde et provident inventore molestiae veritatis officia ducimus esse non non perspiciatis soluta repellat qui corrupti rem ut vel at. Qui aliquid optio asperiores est saepe aut omnis sint voluptates deserunt harum veritatis eos tempore voluptas consequuntur ex reprehenderit voluptatem dolor delectus ad quia aut enim est aut tenetur itaque saepe ea ex. Et ea eos et pariatur itaque autem iste quaerat aut odit voluptatem occaecati quaerat unde corrupti magnam labore quibusdam voluptas quo facere aut ipsam aliquam eum esse est cumque ducimus autem sapiente iure.",
+      "bathrooms": 28.2,
+      "created_by": {
+        "id": "2ca93ee3-060a-fe70-3702-81fbf6bfe16a",
+        "first_name": "Ewell",
+        "last_name": "Batz",
+        "pronouns": "she/her",
+        "email": "kathleenkoss@hirthe.biz",
+        "phone": "779.535.5025",
+        "age": 27
+      }
+    }
+  ]
+}
+```
