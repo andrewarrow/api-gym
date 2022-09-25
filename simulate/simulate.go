@@ -19,7 +19,7 @@ func Run(routeIndex string, g *gym.Gym) {
 func makeSingleModel(field *gym.Field, g *gym.Gym) string {
 	s := g.StructsByName[field.FlavorToStructName()]
 
-	return makeStructJson(s, g)
+	return makeStructJson(s, g, false)
 }
 func makeArrayItems(field *gym.Field, g *gym.Gym) string {
 	s := g.StructsByName[field.FlavorToStructName()]
@@ -28,7 +28,7 @@ func makeArrayItems(field *gym.Field, g *gym.Gym) string {
 
 	sub := []string{}
 	for i := 0; i < amount; i++ {
-		sub = append(sub, makeStructJson(s, g))
+		sub = append(sub, makeStructJson(s, g, false))
 	}
 	return strings.Join(sub, ",")
 }
@@ -40,7 +40,7 @@ func makeMapItems(field *gym.Field, g *gym.Gym) string {
 
 	sub := []string{}
 	for i := 0; i < amount; i++ {
-		sub = append(sub, makeStructJson(s, g))
+		sub = append(sub, makeStructJson(s, g, false))
 	}
 	return strings.Join(sub, ",")
 }
@@ -54,7 +54,7 @@ func PrintItemsToString(s *gym.Struct, g *gym.Gym, count int) string {
 		buff = append(buff, "[")
 		sub := []string{}
 		for i := 0; i < count; i++ {
-			sub = append(sub, makeStructJson(s, g))
+			sub = append(sub, makeStructJson(s, g, true))
 		}
 		buff = append(buff, strings.Join(sub, ","))
 		buff = append(buff, "]")
@@ -85,19 +85,19 @@ func PrintItemsToStdout(s *gym.Struct, g *gym.Gym) {
 	fmt.Println(PrintItemsToString(s, g, 1))
 }
 
-func makeStructJson(s *gym.Struct, g *gym.Gym) string {
+func makeStructJson(s *gym.Struct, g *gym.Gym, top bool) string {
 	thing := []string{}
 	items := []string{}
 	thing = append(thing, "{")
 	for _, f := range s.Fields {
-		items = append(items, makeJsonBasedOnFlavor(f, g))
+		items = append(items, makeJsonBasedOnFlavor(f, g, top))
 	}
 	thing = append(thing, strings.Join(items, ","))
 	thing = append(thing, "}")
 	return strings.Join(thing, "")
 }
 
-func makeJsonBasedOnFlavor(f *gym.Field, g *gym.Gym) string {
+func makeJsonBasedOnFlavor(f *gym.Field, g *gym.Gym, top bool) string {
 	dt := f.DataType()
 	if dt == "string" {
 		value := f.ToFakeValue()
@@ -106,12 +106,13 @@ func makeJsonBasedOnFlavor(f *gym.Field, g *gym.Gym) string {
 		} else {
 			return fmt.Sprintf(`"%s": "%s"`, f.NameToJson(), value)
 		}
-	} else if dt == "model" {
+	} else if dt == "model" && top {
 		return fmt.Sprintf(`"%s": %s`, f.NameToJson(), makeSingleModel(f, g))
 	} else if dt == "[]model" {
 		return fmt.Sprintf(`"%s": [%s]`, f.NameToJson(), makeArrayItems(f, g))
 	} else if dt == "int" || dt == "int64" || dt == "float64" || dt == "bool" {
 		return fmt.Sprintf(`"%s": %s`, f.NameToJson(), f.ToFakeValue())
 	}
-	return fmt.Sprintf(`"%s": %s`, f.NameToJson(), makeMapItems(f, g))
+	//return fmt.Sprintf(`"%s": %s`, f.NameToJson(), makeMapItems(f, g))
+	return fmt.Sprintf(`"%s": %s`, f.NameToJson(), "null")
 }
