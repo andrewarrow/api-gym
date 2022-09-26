@@ -4,10 +4,16 @@ import (
 	"api-gym/files"
 	"api-gym/gym"
 	"api-gym/util"
+	"bytes"
 	"fmt"
 	"os/exec"
 	"strings"
+	"text/template"
 )
+
+type Menu struct {
+	Menu string
+}
 
 func Run(g *gym.Gym) {
 	base := "../" + g.Name
@@ -17,7 +23,14 @@ func Run(g *gym.Gym) {
 	http := files.ReadFile("network/http.go")
 	files.SaveFile(base+"/network/http.go", http)
 
-	files.SaveFile(base+"/main.go", files.ReadFile("generate/main.tmpl"))
+	//files.SaveFile(base+"/main.go", files.ReadFile("generate/main.tmpl"))
+	tmpl := template.New("mainMenu")
+	tmpl.Parse(files.ReadFile("generate/main.tmpl"))
+	mainMenu := Menu{}
+	mainMenu.Menu = "foo"
+	b := new(bytes.Buffer)
+	tmpl.Execute(b, mainMenu)
+	files.SaveFile(base+"/main.go", b.String())
 	files.SaveFile(base+"/go.mod", files.ReadFile("generate/go.tmpl"))
 
 	buff := []string{"package network"}
