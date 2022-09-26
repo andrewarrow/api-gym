@@ -53,7 +53,7 @@ func Run(g *gym.Gym) {
 		}
 		buff = append(buff, fmt.Sprintf(`}`))
 		buff = append(buff, fmt.Sprintf(`type %s struct {`, util.Plural(name)))
-		buff = append(buff, fmt.Sprintf("%s []%s `json:\"%s\"`", util.Plural(name), name, s.Name))
+		buff = append(buff, fmt.Sprintf("%s []%s `json:\"%s\"`", util.Plural(name), name, util.Plural(s.Name)))
 		buff = append(buff, fmt.Sprintf(`}`))
 	}
 
