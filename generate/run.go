@@ -27,13 +27,22 @@ func Run(g *gym.Gym) {
 	tmpl := template.New("mainMenu")
 	tmpl.Parse(files.ReadFile("generate/main.tmpl"))
 	mainMenu := Menu{}
-	mainMenu.Menu = "foo"
+	buff := []string{""}
+	for _, s := range g.Structs {
+		name := util.Plural(s.Name)
+		buff = append(buff, fmt.Sprintf(`} else if command == "%s" {`, name))
+		buff = append(buff, fmt.Sprintf(`var %s network.Homes`, name))
+		buff = append(buff, fmt.Sprintf(`jsonString := network.List%s()`, util.ToCamelCase(name)))
+		buff = append(buff, fmt.Sprintf(`json.Unmarshal([]byte(jsonString), &%s)`, name))
+		buff = append(buff, fmt.Sprintf(`fmt.Println(%s)`, name))
+	}
+	mainMenu.Menu = strings.Join(buff, "\n")
 	b := new(bytes.Buffer)
 	tmpl.Execute(b, mainMenu)
 	files.SaveFile(base+"/main.go", b.String())
 	files.SaveFile(base+"/go.mod", files.ReadFile("generate/go.tmpl"))
 
-	buff := []string{"package network"}
+	buff = []string{"package network"}
 	for _, s := range g.Structs {
 		name := util.ToCamelCase(s.Name)
 		fmt.Println(name)

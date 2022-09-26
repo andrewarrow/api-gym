@@ -46,7 +46,7 @@ func main() {
 	} else if command == "edit" {
 		model := os.Args[2]
 		screen.EditModel(model, g)
-	} else if command == "generate" {
+	} else if command == "generate" || command == "g" || command == "gen" {
 		generate.Run(g)
 	} else if command == "help" {
 		PrintHelp()
