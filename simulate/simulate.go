@@ -102,7 +102,7 @@ func makeStructJson(s *gym.Struct, g *gym.Gym, top bool) string {
 
 func makeJsonBasedOnFlavor(f *gym.Field, g *gym.Gym, top bool) string {
 	safeCount++
-	if safeCount > 100 {
+	if safeCount > 1000 {
 		fmt.Println("Infinite loop stopped.")
 		os.Exit(1)
 		return ""
@@ -115,13 +115,11 @@ func makeJsonBasedOnFlavor(f *gym.Field, g *gym.Gym, top bool) string {
 		} else {
 			return fmt.Sprintf(`"%s": "%s"`, f.NameToJson(), value)
 		}
-	} else if dt == "model" {
-		return fmt.Sprintf(`"%s": %s`, f.NameToJson(), makeSingleModel(f, g))
-	} else if dt == "[]model" {
+	} else if strings.HasPrefix(dt, "[]") {
 		return fmt.Sprintf(`"%s": [%s]`, f.NameToJson(), makeArrayItems(f, g))
 	} else if dt == "int" || dt == "int64" || dt == "float64" || dt == "bool" {
 		return fmt.Sprintf(`"%s": %s`, f.NameToJson(), f.ToFakeValue())
 	}
 	//return fmt.Sprintf(`"%s": %s`, f.NameToJson(), makeMapItems(f, g))
-	return fmt.Sprintf(`"%s": %s`, f.NameToJson(), "null")
+	return fmt.Sprintf(`"%s": %s`, f.NameToJson(), makeSingleModel(f, g))
 }
