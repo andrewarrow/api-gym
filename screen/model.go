@@ -112,7 +112,7 @@ func (gm *GymModel) normalEvents(e ui.Event) {
 		return
 	case "s":
 		gm.Gym.RemoveStruct(gm.Name)
-		gm.Gym.AddStruct(gm.Name)
+		gm.Gym.AddStruct(gm.Name, false)
 		for _, item := range selectedItems {
 			gm.Gym.AddFieldToStruct(gm.Name, item.Name, item.Flavor, item.Extra)
 		}

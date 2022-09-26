@@ -19,7 +19,7 @@ type Gym struct {
 func NewGym() *Gym {
 	g := Gym{}
 	g.Name = util.PseudoUuid()
-	g.AddStruct("user")
+	g.AddStruct("user", true)
 	g.AddFieldToStruct("user", "id", "uuid", "")
 	g.AddFieldToStruct("user", "first_name", "first_name", "")
 	g.AddFieldToStruct("user", "last_name", "last_name", "")
@@ -38,12 +38,14 @@ func (g *Gym) AddFieldToStruct(model, name, flavor, extra string) {
 	g.Save()
 }
 
-func (g *Gym) AddStruct(name string) {
+func (g *Gym) AddStruct(name string, addRoutes bool) {
 	g.Structs = append(g.Structs, NewStruct(name))
 	g.fillStructsByName()
 	pluralName := util.Plural(name)
-	g.AddRoute("GET", fmt.Sprintf("/api/v1/%s", pluralName), name, 10)
-	g.AddRoute("GET", fmt.Sprintf("/api/v1/%s/:id", pluralName), name, 1)
+	if addRoutes {
+		g.AddRoute("GET", fmt.Sprintf("/api/v1/%s", pluralName), name, 10)
+		g.AddRoute("GET", fmt.Sprintf("/api/v1/%s/:id", pluralName), name, 1)
+	}
 	g.Save()
 }
 
