@@ -36,7 +36,7 @@ func (j *JsonRoute) JsonRunner(c *gin.Context) {
 	if j.Route.UseFile != "" {
 		stringToSend = files.ReadFile("static/" + j.Route.UseFile)
 	} else {
-		stringToSend = simulate.PrintItemsToString(j.Struct, j.Gym, j.Route.Count)
+		stringToSend = simulate.PrintItemsToString(j.Struct, j.Gym, j.Route.Count, 0)
 	}
 	c.String(http.StatusOK, stringToSend)
 }
