@@ -34,7 +34,12 @@ func (j *JsonRoute) JsonRunner(c *gin.Context) {
 	c.Writer.Header().Set("Content-Type", "application/json")
 	stringToSend := ""
 	if j.Route.UseFile != "" {
-		stringToSend = files.ReadFile("static/" + j.Route.UseFile)
+		offset := c.DefaultQuery("offset", "0")
+		if offset == "0" {
+			stringToSend = files.ReadFile("static/" + j.Route.UseFile)
+		} else {
+			stringToSend = files.ReadFile("static/" + j.Route.UseFile + ".offset")
+		}
 	} else {
 		stringToSend = simulate.PrintItemsToString(j.Struct, j.Gym, j.Route.Count, 0)
 	}
