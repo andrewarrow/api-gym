@@ -2,7 +2,10 @@ module github.com/andrewarrow/api-gym
 
 go 1.21.0
 
-require github.com/andrewarrow/feedback v0.0.0-20240320124923-6659c7562cd8
+require (
+	github.com/andrewarrow/feedback v0.0.0-20240320124923-6659c7562cd8
+	github.com/brianvoe/gofakeit v3.18.0+incompatible
+)
 
 require (
 	cloud.google.com/go v0.112.0 // indirect

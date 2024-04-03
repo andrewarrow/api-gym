@@ -4,11 +4,16 @@ import (
 	"fmt"
 	"strings"
 	"syscall/js"
+
+	"github.com/brianvoe/gofakeit"
 )
 
-var root map[string]any = map[string]any{}
+var root map[string]any
 
 func RegisterGymEvents() {
+	site := map[string]any{"name": gofakeit.HackerPhrase()}
+	sites := []map[string]any{site}
+	root = map[string]any{"sites": sites}
 	Document.Document.Call("addEventListener", "keydown", js.FuncOf(GymKeyPress))
 }
 
@@ -19,7 +24,7 @@ func GymRender() {
 		buffer = append(buffer, fmt.Sprintf(`"%s": "%v"`, k, v))
 	}
 	s := strings.Join(buffer, ",<br/>")
-	g.Set("innerHTML", "<pre>{<br>/>"+s+"<br/>}</pre>")
+	g.Set("innerHTML", "<pre>{<br/>"+s+"<br/>}</pre>")
 }
 
 func GymKeyPress(this js.Value, p []js.Value) any {
