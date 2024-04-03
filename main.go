@@ -6,6 +6,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/andrewarrow/api-gym/app"
 	"github.com/andrewarrow/feedback/common"
 	"github.com/andrewarrow/feedback/router"
 )
