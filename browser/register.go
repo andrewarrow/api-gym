@@ -16,6 +16,3 @@ func RegisterEvents() {
 
 func RegisterLoginEvents() {
 }
-
-func RegisterGymEvents() {
-}

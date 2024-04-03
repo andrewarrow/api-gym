@@ -1,3 +1,4 @@
+make wasm
 make render
 rm api-gym
 make run
