@@ -13,8 +13,11 @@ wasm: render
 	cp main.go save && \
   cp wasm/main.go . && \
   GOOS=js GOARCH=wasm go build -ldflags="-s -w -X main.useLive=true" -o assets/other/json.wasm && \
-	rm json.wasm.gz && \
-  gzip json.wasm
+	cd assets/other && \
+	rm -f json.wasm.gz && \
+  gzip json.wasm && \
+	cd ../.. && \
+	mv save main.go
 
 render: build
 	./api-gym render
