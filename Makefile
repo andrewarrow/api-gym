@@ -1,4 +1,5 @@
 BINARY_NAME := api-gym
+DATABASE_URL := postgres://fred3:fred3@localhost/feedback?sslmode=disable
 
 build: $(BINARY_NAME)
 
@@ -11,9 +12,14 @@ assets/css/tail.min.css: assets/css/tail.components.css
 render: build
 	./api-gym render
 
+run: render
+	DATABASE_URL=$(DATABASE_URL) \
+  echo "3" && \
+  ./api-gym run 3000
+
 clean:
 	rm -f $(BINARY_NAME)
 	rm -f assets/css/tail.min.css
 
-.PHONY: build render clean
+.PHONY: build render run clean
 
