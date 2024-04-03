@@ -1,8 +1,7 @@
 package browser
 
 import (
-	"fmt"
-	"strings"
+	"encoding/json"
 	"syscall/js"
 
 	"github.com/brianvoe/gofakeit"
@@ -19,12 +18,10 @@ func RegisterGymEvents() {
 
 func GymRender() {
 	g := Document.Id("gym")
-	buffer := []string{}
-	for k, v := range root {
-		buffer = append(buffer, fmt.Sprintf(`"%s": "%v"`, k, v))
-	}
-	s := strings.Join(buffer, ",<br/>")
-	g.Set("innerHTML", "<pre>{<br/>"+s+"<br/>}</pre>")
+
+	b, _ := json.MarshalIndent(root, "", "&nbsp;&nbsp;")
+	s := string(b)
+	g.Set("innerHTML", "<pre>"+s+"</pre>")
 }
 
 func GymKeyPress(this js.Value, p []js.Value) any {
