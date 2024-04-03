@@ -31,5 +31,5 @@ clean:
 	rm -f $(BINARY_NAME)
 	rm -f assets/css/tail.min.css
 
-.PHONY: build render run clean
+.PHONY: build render run wasm clean
 
