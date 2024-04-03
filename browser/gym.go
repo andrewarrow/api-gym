@@ -16,10 +16,10 @@ func GymRender() {
 	g := Document.Id("gym")
 	buffer := []string{}
 	for k, v := range root {
-		buffer = append(buffer, fmt.Sprintf(`%s=%v`, k, v))
+		buffer = append(buffer, fmt.Sprintf(`"%s": "%v"`, k, v))
 	}
-	s := strings.Join(buffer, "<br/>")
-	g.Set("innerHTML", "<pre>"+s+"</pre>")
+	s := strings.Join(buffer, ",<br/>")
+	g.Set("innerHTML", "<pre>{<br>/>"+s+"<br/>}</pre>")
 }
 
 func GymKeyPress(this js.Value, p []js.Value) any {
@@ -33,6 +33,7 @@ func GymKeyPress(this js.Value, p []js.Value) any {
 	}
 
 	if k == "ArrowUp" {
+		root["hi2"] = "Test"
 	} else if k == "ArrowDown" {
 		root["hi"] = "Test"
 	} else if k == "ArrowRight" {
