@@ -1,6 +1,6 @@
 {
   "footer": "github.com/andrewarrow/feedback",
-  "title": "feedback",
+  "title": "api-gym",
   "routes": [{"root": "sessions", "paths": [
                      {"verb": "GET", "second": "", "third": ""},
                      {"verb": "GET", "second": "*", "third": ""},
