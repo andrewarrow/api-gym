@@ -25,6 +25,13 @@ func RegisterGymEvents() {
 	g.GymRender()
 }
 
+func (g *Gym) findLocation() map[string]any {
+	t := root["sites"].([]map[string]any)
+	fmt.Println(t, fmt.Sprintf("%T", t))
+	return nil
+	//return t[0].(map[string]any)
+}
+
 func (g *Gym) GymRender() {
 	gDoc := Document.Id("gym")
 
@@ -39,6 +46,8 @@ func (g *Gym) GymRender() {
 		}
 		buffer = append(buffer, fmt.Sprintf(`<div class="%s">%s</div>`, class, line))
 	}
+	buffer = append(buffer, fmt.Sprintf(`<div class="%s">%d</div>`, "bg-pink-600",
+		g.lineIndex))
 	gDoc.Set("innerHTML", strings.Join(buffer, "\n"))
 }
 
@@ -60,6 +69,10 @@ func (g *Gym) GymKeyPress(this js.Value, p []js.Value) any {
 		}
 		field := tokens[0]
 		flavor := tokens[1]
+		m := g.findLocation()
+		if flavor == "string" {
+			m[field] = gofakeit.HackerPhrase()
+		}
 
 		return nil
 	}

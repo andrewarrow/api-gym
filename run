@@ -1,3 +1,4 @@
+mv save main.go
 make wasm
 make render
 rm api-gym
