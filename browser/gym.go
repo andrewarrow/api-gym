@@ -51,6 +51,10 @@ func (g *Gym) GymKeyPress(this js.Value, p []js.Value) any {
 	}
 	if k == "Escape" {
 	}
+	if k == "Enter" {
+		Global.Global.Get("alert").Invoke("hi")
+		return nil
+	}
 
 	if k == "ArrowUp" {
 		g.lineIndex--
@@ -70,7 +74,6 @@ func (g *Gym) GymKeyPress(this js.Value, p []js.Value) any {
 	} else if k == "D" {
 	} else if k == "m" {
 	} else if k == "u" {
-	} else if k == "Enter" {
 	} else if k == "0" {
 	} else if k == "$" {
 	} else if k == "p" {
