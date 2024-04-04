@@ -52,7 +52,7 @@ func (g *Gym) GymKeyPress(this js.Value, p []js.Value) any {
 	if k == "Escape" {
 	}
 	if k == "Enter" {
-		Global.Global.Get("alert").Invoke("hi")
+		Global.Global.Get("prompt").Invoke("hi", "hello")
 		return nil
 	}
 
