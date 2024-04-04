@@ -2,6 +2,8 @@ package browser
 
 import (
 	"encoding/json"
+	"fmt"
+	"strings"
 	"syscall/js"
 
 	"github.com/brianvoe/gofakeit"
@@ -9,22 +11,38 @@ import (
 
 var root map[string]any
 
+type Gym struct {
+	lineIndex int
+}
+
+var g = Gym{}
+
 func RegisterGymEvents() {
 	site := map[string]any{"name": gofakeit.HackerPhrase()}
 	sites := []map[string]any{site}
 	root = map[string]any{"sites": sites}
-	Document.Document.Call("addEventListener", "keydown", js.FuncOf(GymKeyPress))
+	Document.Document.Call("addEventListener", "keydown", js.FuncOf(g.GymKeyPress))
+	g.GymRender()
 }
 
-func GymRender() {
-	g := Document.Id("gym")
+func (g *Gym) GymRender() {
+	gDoc := Document.Id("gym")
 
 	b, _ := json.MarshalIndent(root, "", "&nbsp;&nbsp;")
 	s := string(b)
-	g.Set("innerHTML", "<pre>"+s+"</pre>")
+	lines := strings.Split(s, "\n")
+	buffer := []string{}
+	for i, line := range lines {
+		class := ""
+		if i == 1 {
+			class = "bg-blue-600"
+		}
+		buffer = append(buffer, fmt.Sprintf(`<div class="%s">%s</div>`, class, line))
+	}
+	gDoc.Set("innerHTML", strings.Join(buffer, "\n"))
 }
 
-func GymKeyPress(this js.Value, p []js.Value) any {
+func (g *Gym) GymKeyPress(this js.Value, p []js.Value) any {
 	//p[0].Call("preventDefault")
 	k := p[0].Get("key").String()
 	//fmt.Println(k, vim.FullScreenMode)
@@ -35,9 +53,8 @@ func GymKeyPress(this js.Value, p []js.Value) any {
 	}
 
 	if k == "ArrowUp" {
-		root["hi2"] = "Test"
 	} else if k == "ArrowDown" {
-		root["hi"] = "Test"
+
 	} else if k == "ArrowRight" {
 	} else if k == "ArrowLeft" {
 	} else if k == "i" {
@@ -58,7 +75,7 @@ func GymKeyPress(this js.Value, p []js.Value) any {
 	} else if k == "p" {
 	}
 
-	GymRender()
+	g.GymRender()
 
 	return nil
 }
