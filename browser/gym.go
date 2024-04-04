@@ -52,7 +52,15 @@ func (g *Gym) GymKeyPress(this js.Value, p []js.Value) any {
 	if k == "Escape" {
 	}
 	if k == "Enter" {
-		Global.Global.Get("prompt").Invoke("hi", "hello")
+		prompt := Global.Global.Get("prompt").Invoke("enter command", "hello|string")
+		p := prompt.String()
+		tokens := strings.Split(p, "|")
+		if len(tokens) != 2 {
+			return nil
+		}
+		field := tokens[0]
+		flavor := tokens[1]
+
 		return nil
 	}
 
