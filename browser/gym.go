@@ -34,7 +34,7 @@ func (g *Gym) GymRender() {
 	buffer := []string{}
 	for i, line := range lines {
 		class := ""
-		if i == 1 {
+		if i == g.lineIndex {
 			class = "bg-blue-600"
 		}
 		buffer = append(buffer, fmt.Sprintf(`<div class="%s">%s</div>`, class, line))
@@ -53,8 +53,9 @@ func (g *Gym) GymKeyPress(this js.Value, p []js.Value) any {
 	}
 
 	if k == "ArrowUp" {
+		g.lineIndex--
 	} else if k == "ArrowDown" {
-
+		g.lineIndex++
 	} else if k == "ArrowRight" {
 	} else if k == "ArrowLeft" {
 	} else if k == "i" {
