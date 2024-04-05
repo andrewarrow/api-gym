@@ -18,36 +18,19 @@ div p-3
           option
             PUT
       div
-        input type=text autofocus=on text-black
-  div mt-3
-    div flex
-      div w-12
-        POST
-      div
-        /api/site
-    div flex
-      div w-12
-        GET
-      div
-        /api/site/:guid
-    div flex
-      div w-12
-        GET
-      div
-        /api/site
+        input id=route type=text autofocus=on text-black
+  div mt-3 id=routes
+    {{ $items := index . "items" }}
+    {{ range $i, $item := $items }}
+    {{ range $i, $item := $items }}
+    div cursor-pointer id=cp{{$i}}
+      div flex 
+        div w-12
+          POST
+        div
+          /api/site
+      div hidden id=r{{$i}}
+        hi
+    {{ end }}
     div bg-pink-600 h-1 rounded-md my-3
-    div flex
-      div w-12
-        POST
-      div
-        /api/pod
-    div flex
-      div w-12
-        GET
-      div
-        /api/pod/:guid
-    div flex
-      div w-12
-        GET
-      div
-        /api/pod
+    {{ end }}

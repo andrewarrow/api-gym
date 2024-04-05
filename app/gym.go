@@ -19,6 +19,7 @@ func HandleGym(c *router.Context, second, third string) {
 func handleGymIndex(c *router.Context) {
 
 	send := map[string]any{}
+	send["items"] = []string{"", ""}
 	c.SendContentInLayout("endpoints.html", send, 200)
 }
 

@@ -10,7 +10,8 @@ func RegisterEvents() {
 		RegisterLoginEvents()
 	} else if Global.Start == "gym.html" {
 		RegisterGymEvents()
-	} else if Global.Start == "space.html" {
+	} else if Global.Start == "endpoints.html" {
+		RegisterEndpoints()
 	}
 }
 
