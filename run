@@ -1,5 +1,15 @@
+./api-gym render
+cp main.go save
+cp wasm/main.go .
+GOOS=js GOARCH=wasm go build -ldflags="-s -w -X main.useLive=true" -o assets/other/json.wasm 
+cd assets/other
+rm json.wasm.gz
+gzip json.wasm
+cd ../..
+
 mv save main.go
-make wasm
-make render
-rm api-gym
-make run
+tailwindcss -i assets/css/tail.components.css -o assets/css/tail.min.css --minify
+DATABASE_URL=postgres://fred3:fred3@localhost/feedback?sslmode=disable
+uuid=$(uuidgen); go build -ldflags="-X main.buildTag=$uuid"
+echo 3
+./api-gym run 3000
