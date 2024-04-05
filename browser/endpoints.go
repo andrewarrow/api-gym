@@ -16,6 +16,11 @@ func RegisterEndpoints() {
 }
 
 func (r *Route) Click() {
+	div := Document.ByIdWrapped("routes")
+	for _, input := range div.SelectAllByClass("cursor-pointer") {
+		id := input.Id[2:]
+		Document.Id("r" + id).AddClass("hidden")
+	}
 	if r.Open == false {
 		Document.Id("r" + r.Id).RemoveClass("hidden")
 		r.Open = true
