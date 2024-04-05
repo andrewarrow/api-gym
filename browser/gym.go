@@ -32,6 +32,20 @@ func (g *Gym) findLocation() map[string]any {
 	//return t[0].(map[string]any)
 }
 
+func findPlace(at int) {
+	b, _ := json.MarshalIndent(root, "", "  ")
+	s := string(b)
+	lines := strings.Split(s, "\n")
+	// { [{} ] }
+	// { { { [ ] } } }
+	for i, line := range lines {
+		fmt.Println(line)
+		if i == at {
+			break
+		}
+	}
+}
+
 func (g *Gym) GymRender() {
 	gDoc := Document.Id("gym")
 
@@ -46,6 +60,7 @@ func (g *Gym) GymRender() {
 		}
 		buffer = append(buffer, fmt.Sprintf(`<div class="%s">%s</div>`, class, line))
 	}
+	findPlace(g.lineIndex)
 	buffer = append(buffer, fmt.Sprintf(`<div class="%s">%d</div>`, "bg-pink-600",
 		g.lineIndex))
 	gDoc.Set("innerHTML", strings.Join(buffer, "\n"))
