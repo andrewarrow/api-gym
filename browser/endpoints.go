@@ -1,6 +1,10 @@
 package browser
 
-import "fmt"
+import (
+	"encoding/json"
+
+	"github.com/andrewarrow/feedback/wasm"
+)
 
 var routeById map[string]*Route
 
@@ -24,7 +28,16 @@ func RegisterEndpoints() {
 }
 
 func UpsertRoute() {
-	fmt.Println("1")
+	go func() {
+		form := Document.Id("verb-form")
+		asString, code := wasm.DoPut("/gym/route", form.MapOfInputs())
+		var m map[string]any
+		json.Unmarshal([]byte(asString), &m)
+		if code == 200 {
+			return
+		}
+		flashThree(asString)
+	}()
 }
 
 func (r *Route) Click() {
