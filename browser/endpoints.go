@@ -16,6 +16,8 @@ func RegisterEndpoints() {
 }
 
 func (r *Route) Click() {
+	Document.Id("mode").Set("innerHTML", "Add")
+
 	div := Document.ByIdWrapped("routes")
 	for _, input := range div.SelectAllByClass("cursor-pointer") {
 		id := input.Id[2:]
@@ -24,6 +26,7 @@ func (r *Route) Click() {
 	if r.Open == false {
 		Document.Id("r" + r.Id).RemoveClass("hidden")
 		r.Open = true
+		Document.Id("mode").Set("innerHTML", "Edit")
 		return
 	}
 	Document.Id("r" + r.Id).AddClass("hidden")
