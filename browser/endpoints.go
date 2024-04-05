@@ -1,7 +1,8 @@
 package browser
 
 type Route struct {
-	Id string
+	Id   string
+	Open bool
 }
 
 func RegisterEndpoints() {
@@ -15,5 +16,11 @@ func RegisterEndpoints() {
 }
 
 func (r *Route) Click() {
-	Document.Id("r" + r.Id).RemoveClass("hidden")
+	if r.Open == false {
+		Document.Id("r" + r.Id).RemoveClass("hidden")
+		r.Open = true
+		return
+	}
+	Document.Id("r" + r.Id).AddClass("hidden")
+	r.Open = false
 }
