@@ -1,5 +1,7 @@
 package browser
 
+import "fmt"
+
 var routeById map[string]*Route
 
 type Route struct {
@@ -17,6 +19,12 @@ func RegisterEndpoints() {
 		routeById[route.Id] = &route
 		input.EventWithId(route.Click)
 	}
+
+	Global.SubmitEvent("verb-form", UpsertRoute)
+}
+
+func UpsertRoute() {
+	fmt.Println("1")
 }
 
 func (r *Route) Click() {

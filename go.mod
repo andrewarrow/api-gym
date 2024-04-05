@@ -1,5 +1,9 @@
 module github.com/andrewarrow/api-gym
 
+replace github.com/andrewarrow/feedback => /Users/aa/os/feedback
+
+replace codeberg.org/andrewarrow/roll => /Users/aa/os/roll
+
 go 1.21.0
 
 require (

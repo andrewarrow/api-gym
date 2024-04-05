@@ -13,6 +13,10 @@ func HandleGym(c *router.Context, second, third string) {
 		handleGymJson(c)
 		return
 	}
+	if second == "route" && third == "" && c.Method == "PUT" {
+		handleRouteUpsert(c)
+		return
+	}
 	c.NotFound = true
 }
 
