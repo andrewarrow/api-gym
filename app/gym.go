@@ -30,12 +30,12 @@ func HandleGym(c *router.Context, second, third string) {
 
 func handleGymIndex(c *router.Context) {
 	send := map[string]any{}
-	tops, m := getEndpoints()
+	tops, m := getEndpoints("")
 	send["items"] = tops
 	send["map"] = m
 	c.SendContentInLayout("endpoints.html", send, 200)
 }
-func getEndpoints() ([]string, map[string][]map[string]any) {
+func getEndpoints(top string) ([]string, map[string][]map[string]any) {
 
 	items := roll.Many(indexNameRoutes, "workspace.keyword", workspaceGuid)
 	m := map[string][]map[string]any{}
@@ -58,6 +58,15 @@ func getEndpoints() ([]string, map[string][]map[string]any) {
 			}
 			return r1 < r2
 		})
+	}
+	if top != "" {
+		for k, _ := range m {
+			if k == top {
+				continue
+			}
+			delete(m, k)
+		}
+		return []string{top}, m
 	}
 	sort.Strings(tops)
 	return tops, m
