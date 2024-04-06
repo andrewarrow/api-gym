@@ -12,7 +12,11 @@ var workspaceGuid = "d841754e-1c41-44d8-91d1-1db0f3bb0f70"
 func handleRouteUpsert(c *router.Context) {
 	c.ReadJsonBodyIntoParams()
 	c.Params["workspace"] = workspaceGuid
+	id, _ := c.Params["id"].(string)
 	guid := util.PseudoUuid()
+	if id != "" {
+		guid = id
+	}
 	roll.SingleUpsert(indexNameRoutes, guid, c.Params)
 
 	c.SendContentAsJsonMessage("ok", 200)

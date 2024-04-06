@@ -8,6 +8,7 @@ import (
 )
 
 var routeById map[string]*Route
+var routeSelected string
 
 type Route struct {
 	Id   string
@@ -31,7 +32,9 @@ func RegisterEndpoints() {
 func UpsertRoute() {
 	go func() {
 		form := Document.Id("verb-form")
-		asString, code := wasm.DoPut("/gym/route", form.NoClearInputs())
+		inputs := form.NoClearInputs()
+		inputs["id"] = routeSelected
+		asString, code := wasm.DoPut("/gym/route", inputs)
 		var m map[string]any
 		json.Unmarshal([]byte(asString), &m)
 		if code == 200 {
@@ -53,12 +56,14 @@ func (r *Route) Click() {
 		Document.Id("r" + id).AddClass("hidden")
 		routeById[id].Open = false
 	}
+	routeSelected = ""
 	if r.Open == false {
 		Document.Id("r" + r.Id).RemoveClass("hidden")
 		r.Open = true
 		Document.Id("mode").Set("innerHTML", "Edit")
 		rt := Document.Id("rt" + r.Id).Get("innerHTML")
 		Document.Id("route").Set("value", strings.TrimSpace(rt))
+		routeSelected = r.Id
 		return
 	}
 	Document.Id("r" + r.Id).AddClass("hidden")
