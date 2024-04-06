@@ -20,16 +20,18 @@ func RegisterEndpoints() {
 	routeById = map[string]*Route{}
 	//Document.Document.Call("addEventListener", "keydown", js.FuncOf(g.GymKeyPress))
 	div := Document.ByIdWrapped("routes")
+	setRouteClicks(div)
+	Global.SubmitEvent("verb-form", UpsertRoute)
+}
+
+func setRouteClicks(div *wasm.Wrapper) {
 	for _, input := range div.SelectAllByClass("cursor-pointer") {
 		route := Route{}
 		route.Id = input.Id[2:]
 		routeById[route.Id] = &route
 		input.EventWithId(route.Click)
 	}
-
-	Global.SubmitEvent("verb-form", UpsertRoute)
 }
-
 func UpsertRoute() {
 	go func() {
 		form := Document.Id("verb-form")
@@ -44,7 +46,8 @@ func UpsertRoute() {
 			top := items[0].(string)
 			thing := m["map"].(map[string]any)
 			list := thing[top].([]any)
-			Document.RenderToId("top-"+top, "point", list)
+			div := Document.RenderToId("top-"+top, "point", list)
+			setRouteClicks(div)
 			return
 		}
 		flashThree(asString)
