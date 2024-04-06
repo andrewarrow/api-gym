@@ -2,7 +2,6 @@ package browser
 
 import (
 	"encoding/json"
-	"fmt"
 	"strings"
 
 	"github.com/andrewarrow/feedback/wasm"
@@ -41,7 +40,11 @@ func UpsertRoute() {
 		var m map[string]any
 		json.Unmarshal([]byte(asString), &m)
 		if code == 200 {
-			fmt.Println(m)
+			refresh, _ := m["refresh"].(bool)
+			if refresh {
+				Global.Location.Set("href", "/gym")
+				return
+			}
 			items := m["items"].([]any)
 			top := items[0].(string)
 			thing := m["map"].(map[string]any)

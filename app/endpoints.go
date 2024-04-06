@@ -10,6 +10,7 @@ var indexNameRoutes = "routes"
 var workspaceGuid = "d841754e-1c41-44d8-91d1-1db0f3bb0f70"
 
 func handleRouteUpsert(c *router.Context) {
+	send := map[string]any{}
 	c.ReadJsonBodyIntoParams()
 	c.Params["workspace"] = workspaceGuid
 	c.Params["name"] = c.Params["route"]
@@ -17,15 +18,16 @@ func handleRouteUpsert(c *router.Context) {
 	if id == "" {
 		c.ValidateCreate("route")
 		c.Insert("route")
-	} else {
-		c.Update("route", "where guid=", id)
+		send["refresh"] = true
+		c.SendContentAsJson(send, 200)
+		return
 	}
+	c.Update("route", "where guid=", id)
 
 	route := c.Params["route"].(string)
 	tokens := strings.Split(route, "/")
 	top := tokens[1]
 
-	send := map[string]any{}
 	tops, m := getEndpoints(c, top)
 	send["items"] = tops
 	send["map"] = m
