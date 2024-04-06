@@ -44,6 +44,7 @@ func main() {
 		r := router.NewRouter("DATABASE_URL", embeddedFile)
 		r.Paths["/"] = app.HandleWelcome
 		r.Paths["gym"] = app.HandleGym
+		r.Paths["markup"] = app.Markup
 		r.BucketPath = "/Users/aa/bucket"
 		r.ListenAndServe(":" + os.Args[2])
 	} else if arg == "help" {
