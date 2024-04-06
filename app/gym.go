@@ -24,7 +24,8 @@ func HandleGym(c *router.Context, second, third string) {
 func handleGymIndex(c *router.Context) {
 
 	send := map[string]any{}
-	send["items"] = roll.Many(indexNameRoutes, "workspace.keyword", workspaceGuid)
+	items := roll.Many(indexNameRoutes, "workspace.keyword", workspaceGuid)
+	send["items"] = items
 	c.SendContentInLayout("endpoints.html", send, 200)
 }
 
