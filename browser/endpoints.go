@@ -62,7 +62,10 @@ func (r *Route) Click() {
 		r.Open = true
 		Document.Id("mode").Set("innerHTML", "Edit")
 		rt := Document.Id("rt" + r.Id).Get("innerHTML")
+		rv := Document.Id("rv" + r.Id).Get("innerHTML")
 		Document.Id("route").Set("value", strings.TrimSpace(rt))
+		Document.Id("verb").Set("value", strings.TrimSpace(rv))
+
 		routeSelected = r.Id
 		return
 	}

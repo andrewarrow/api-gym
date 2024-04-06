@@ -2,7 +2,7 @@
   {{ $guid := index . "id" }}
   div cursor-pointer id=cp{{$guid}}
     div flex 
-      div w-12
+      div w-12 id=rv{{$guid}}
         {{ index . "verb" }}
       div id=rt{{$guid}}
         {{ index . "route" }}
