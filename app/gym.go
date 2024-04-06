@@ -1,6 +1,7 @@
 package app
 
 import (
+	"codeberg.org/andrewarrow/roll"
 	"github.com/andrewarrow/feedback/router"
 )
 
@@ -23,7 +24,7 @@ func HandleGym(c *router.Context, second, third string) {
 func handleGymIndex(c *router.Context) {
 
 	send := map[string]any{}
-	send["items"] = []string{"", ""}
+	send["items"] = roll.Many(indexNameRoutes, "workspace.keyword", workspaceGuid)
 	c.SendContentInLayout("endpoints.html", send, 200)
 }
 
