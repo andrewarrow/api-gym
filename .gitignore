@@ -1,6 +1,7 @@
 go.sum
 views
 json.wasm.gz
+env
 api-gym
 gym.json
 static

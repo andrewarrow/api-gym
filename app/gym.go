@@ -13,6 +13,10 @@ func HandleGym(c *router.Context, second, third string) {
 		handleGymIndex(c)
 		return
 	}
+	if second == "routes" && third == "" && c.Method == "GET" {
+		handleRoutes(c)
+		return
+	}
 	if second == "json" && third == "" && c.Method == "GET" {
 		handleGymJson(c)
 		return
@@ -25,8 +29,14 @@ func HandleGym(c *router.Context, second, third string) {
 }
 
 func handleGymIndex(c *router.Context) {
-
 	send := map[string]any{}
+	tops, m := getEndpoints()
+	send["items"] = tops
+	send["map"] = m
+	c.SendContentInLayout("endpoints.html", send, 200)
+}
+func getEndpoints() ([]string, map[string][]map[string]any) {
+
 	items := roll.Many(indexNameRoutes, "workspace.keyword", workspaceGuid)
 	m := map[string][]map[string]any{}
 	tops := []string{}
@@ -50,10 +60,7 @@ func handleGymIndex(c *router.Context) {
 		})
 	}
 	sort.Strings(tops)
-	send["items"] = tops
-
-	send["map"] = m
-	c.SendContentInLayout("endpoints.html", send, 200)
+	return tops, m
 }
 
 func handleGymJson(c *router.Context) {
