@@ -30,7 +30,7 @@ func RegisterEndpoints() {
 func UpsertRoute() {
 	go func() {
 		form := Document.Id("verb-form")
-		asString, code := wasm.DoPut("/gym/route", form.MapOfInputs())
+		asString, code := wasm.DoPut("/gym/route", form.NoClearInputs())
 		var m map[string]any
 		json.Unmarshal([]byte(asString), &m)
 		if code == 200 {

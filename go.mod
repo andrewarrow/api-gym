@@ -7,6 +7,7 @@ replace codeberg.org/andrewarrow/roll => /Users/aa/os/roll
 go 1.21.0
 
 require (
+	codeberg.org/andrewarrow/roll v0.0.0-00010101000000-000000000000
 	github.com/andrewarrow/feedback v0.0.0-20240320124923-6659c7562cd8
 	github.com/brianvoe/gofakeit v3.18.0+incompatible
 )
