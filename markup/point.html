@@ -1,6 +1,6 @@
 {{ define "point" }}
   {{ range $j, $item := . }}
-    {{ $guid := index $item "id" }}
+    {{ $guid := index $item "guid" }}
     div cursor-pointer id=cp{{$guid}}
       div flex 
         div w-12 id=rv{{$guid}}

@@ -2,52 +2,38 @@ package main
 
 import (
 	"embed"
+	"fmt"
 	"math/rand"
-	"os"
 	"time"
 
-	"github.com/andrewarrow/api-gym/app"
-	"github.com/andrewarrow/feedback/common"
-	"github.com/andrewarrow/feedback/router"
+	"github.com/andrewarrow/api-gym/browser"
+	"github.com/andrewarrow/feedback/wasm"
 )
-
-//go:embed app/feedback.json
-var embeddedFile []byte
 
 //go:embed views/*.html
 var embeddedTemplates embed.FS
 
-//go:embed assets/**/*.*
-var embeddedAssets embed.FS
-
-var buildTag string
+var useLive string
+var viewList string
 
 func main() {
+	fmt.Println(viewList)
+	wasm.UseLive = useLive == "true"
+	wasm.EmbeddedTemplates = embeddedTemplates
 	rand.Seed(time.Now().UnixNano())
-	if len(os.Args) == 1 {
-		//PrintHelp()
-		return
+	fmt.Println("Go Web Assembly")
+	browser.Global, browser.Document = wasm.NewGlobal()
+
+	<-browser.Global.Ready
+	if wasm.UseLive {
+		files, _ := embeddedTemplates.ReadDir("views")
+		go func() {
+			wasm.LoadAllTemplates(files)
+			browser.RegisterEvents()
+		}()
+	} else {
+		browser.RegisterEvents()
 	}
 
-	arg := os.Args[1]
-
-	if arg == "import" {
-	} else if arg == "email" {
-	} else if arg == "render" {
-		router.RenderMarkup()
-	} else if arg == "run" {
-		router.BuildTag = buildTag
-		router.EmbeddedTemplates = embeddedTemplates
-		router.EmbeddedAssets = embeddedAssets
-		tf := common.TemplateFunctions()
-		router.CustomFuncMap = &tf
-		r := router.NewRouter("DATABASE_URL", embeddedFile)
-		r.Paths["/"] = app.HandleWelcome
-		r.Paths["gym"] = app.HandleGym
-		r.Paths["markup"] = app.Markup
-		r.BucketPath = "/Users/aa/bucket"
-		r.ListenAndServe(":" + os.Args[2])
-	} else if arg == "help" {
-	}
-
+	select {}
 }
