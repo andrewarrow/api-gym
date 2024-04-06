@@ -1,6 +1,7 @@
 package app
 
 import (
+	"sort"
 	"strings"
 
 	"codeberg.org/andrewarrow/roll"
@@ -28,13 +29,19 @@ func handleGymIndex(c *router.Context) {
 	send := map[string]any{}
 	items := roll.Many(indexNameRoutes, "workspace.keyword", workspaceGuid)
 	m := map[string][]map[string]any{}
+	tops := []string{}
 	for _, item := range items {
 		route := item["route"].(string)
 		tokens := strings.Split(route, "/")
 		topLevel := tokens[1]
 		m[topLevel] = append(m[topLevel], item)
 	}
-	send["items"] = m
+	for k, _ := range m {
+		tops = append(tops, k)
+	}
+	sort.Strings(tops)
+	send["items"] = tops
+	send["map"] = m
 	c.SendContentInLayout("endpoints.html", send, 200)
 }
 

@@ -21,8 +21,10 @@ div p-3
         input id=route type=text autofocus=on text-black
   div mt-3 id=routes
     {{ $items := index . "items" }}
-    {{ range $k, $v := $items }}
-    {{ range $i, $item := $v }}
+    {{ $m := index . "map" }}
+    {{ range $i, $k := $items }}
+    {{ $list := index $m $k }}
+    {{ range $i, $item := $list }}
     div cursor-pointer id=cp{{$i}}
       div flex 
         div w-12
