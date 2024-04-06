@@ -2,6 +2,7 @@ package browser
 
 import (
 	"encoding/json"
+	"strings"
 
 	"github.com/andrewarrow/feedback/wasm"
 )
@@ -56,6 +57,8 @@ func (r *Route) Click() {
 		Document.Id("r" + r.Id).RemoveClass("hidden")
 		r.Open = true
 		Document.Id("mode").Set("innerHTML", "Edit")
+		rt := Document.Id("rt" + r.Id).Get("innerHTML")
+		Document.Id("route").Set("value", strings.TrimSpace(rt))
 		return
 	}
 	Document.Id("r" + r.Id).AddClass("hidden")

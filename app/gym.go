@@ -36,11 +36,22 @@ func handleGymIndex(c *router.Context) {
 		topLevel := tokens[1]
 		m[topLevel] = append(m[topLevel], item)
 	}
-	for k, _ := range m {
+	for k, v := range m {
 		tops = append(tops, k)
+		sort.Slice(v, func(i, j int) bool {
+			r1 := v[i]["route"].(string)
+			r2 := v[j]["route"].(string)
+			if r1 == r2 {
+				r1 := v[i]["verb"].(string)
+				r2 := v[j]["verb"].(string)
+				return r1 < r2
+			}
+			return r1 < r2
+		})
 	}
 	sort.Strings(tops)
 	send["items"] = tops
+
 	send["map"] = m
 	c.SendContentInLayout("endpoints.html", send, 200)
 }

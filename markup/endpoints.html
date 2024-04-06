@@ -24,14 +24,15 @@ div p-3
     {{ $m := index . "map" }}
     {{ range $i, $k := $items }}
     {{ $list := index $m $k }}
-    {{ range $i, $item := $list }}
-    div cursor-pointer id=cp{{$i}}
+    {{ range $j, $item := $list }}
+    {{ $guid := index $item "id" }}
+    div cursor-pointer id=cp{{$guid}}
       div flex 
         div w-12
           {{ index $item "verb" }}
-        div
+        div id=rt{{$guid}}
           /api{{ index $item "route" }}
-      div hidden id=r{{$i}} bg-gray-600 p-3
+      div hidden id=r{{$guid}} bg-gray-600 p-3
         div
           curl -H "Content-Type: application/json" -H "Authorization: Bearer bd592b7f-eba2-0af3-c30f-5e8531bb0585" "http://localhost:3001/api/site"
         div
