@@ -42,8 +42,9 @@ func UpsertRoute() {
 			fmt.Println(m)
 			items := m["items"].([]any)
 			top := items[0].(string)
-			div := Document.Id("top-" + top)
-			div.Set("innerHTML", "fo")
+			thing := m["map"].(map[string]any)
+			list := thing[top].([]any)
+			Document.RenderToId("top-"+top, "point.html", list)
 			return
 		}
 		flashThree(asString)
