@@ -5,7 +5,7 @@ import "github.com/andrewarrow/feedback/router"
 func handleRoutes(c *router.Context) {
 	top := c.Request.URL.Query().Get("top")
 	send := map[string]any{}
-	tops, m := getEndpoints(top)
+	tops, m := getEndpoints(c, top)
 	send["items"] = tops
 	send["map"] = m
 	c.SendContentAsJson(send, 200)

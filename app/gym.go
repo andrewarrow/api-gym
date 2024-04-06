@@ -4,7 +4,6 @@ import (
 	"sort"
 	"strings"
 
-	"codeberg.org/andrewarrow/roll"
 	"github.com/andrewarrow/feedback/router"
 )
 
@@ -30,18 +29,18 @@ func HandleGym(c *router.Context, second, third string) {
 
 func handleGymIndex(c *router.Context) {
 	send := map[string]any{}
-	tops, m := getEndpoints("")
+	tops, m := getEndpoints(c, "")
 	send["items"] = tops
 	send["map"] = m
 	c.SendContentInLayout("endpoints.html", send, 200)
 }
-func getEndpoints(top string) ([]string, map[string][]map[string]any) {
+func getEndpoints(c *router.Context, top string) ([]string, map[string][]map[string]any) {
+	items := c.All("route", "order by id", "")
 
-	items := roll.Many(indexNameRoutes, "workspace.keyword", workspaceGuid)
 	m := map[string][]map[string]any{}
 	tops := []string{}
 	for _, item := range items {
-		route := item["route"].(string)
+		route := item["name"].(string)
 		tokens := strings.Split(route, "/")
 		topLevel := tokens[1]
 		m[topLevel] = append(m[topLevel], item)
@@ -49,8 +48,8 @@ func getEndpoints(top string) ([]string, map[string][]map[string]any) {
 	for k, v := range m {
 		tops = append(tops, k)
 		sort.Slice(v, func(i, j int) bool {
-			r1 := v[i]["route"].(string)
-			r2 := v[j]["route"].(string)
+			r1 := v[i]["name"].(string)
+			r2 := v[j]["name"].(string)
 			if r1 == r2 {
 				r1 := v[i]["verb"].(string)
 				r2 := v[j]["verb"].(string)

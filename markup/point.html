@@ -6,7 +6,7 @@
         div w-12 id=rv{{$guid}}
           {{ index $item "verb" }}
         div id=rt{{$guid}}
-          {{ index $item "route" }}
+          {{ index $item "name" }}
       div hidden id=r{{$guid}} bg-gray-600 p-3
         div
           curl -H "Content-Type: application/json" -H "Authorization: Bearer bd592b7f-eba2-0af3-c30f-5e8531bb0585" "http://localhost:3001/api/site"

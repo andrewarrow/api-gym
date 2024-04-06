@@ -76,18 +76,18 @@
       ]
     },
     {
-      "name": "schedule",
+      "name": "route",
       "fields": [
         {
           "name": "name",
           "flavor": "name"
         },
         {
-          "name": "flavor",
+          "name": "verb",
           "flavor": "name"
         },
         {
-          "name": "value",
+          "name": "site_id",
           "flavor": "int"
         },
         {
