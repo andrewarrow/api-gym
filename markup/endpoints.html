@@ -23,9 +23,10 @@ div p-3
     {{ $items := index . "items" }}
     {{ $m := index . "map" }}
     {{ range $i, $k := $items }}
-    {{ $list := index $m $k }}
-    {{ range $j, $item := $list }}
-      {{ template "point" $item }}
-    {{ end }}
+    div id=top-{{$k}}
+      {{ $list := index $m $k }}
+      {{ range $j, $item := $list }}
+        {{ template "point" $item }}
+      {{ end }}
     div bg-pink-600 h-1 rounded-md my-3
     {{ end }}
