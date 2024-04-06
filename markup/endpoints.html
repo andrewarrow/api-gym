@@ -21,17 +21,19 @@ div p-3
         input id=route type=text autofocus=on text-black
   div mt-3 id=routes
     {{ $items := index . "items" }}
-    {{ range $i, $item := $items }}
+    {{ range $k, $v := $items }}
+    {{ range $i, $item := $v }}
     div cursor-pointer id=cp{{$i}}
       div flex 
         div w-12
-          {{ index $item "verb" }}
+          TODO 
         div
-          /api{{ index $item "route" }}
+          /api/{{ $item }}
       div hidden id=r{{$i}} bg-gray-600 p-3
         div
           curl -H "Content-Type: application/json" -H "Authorization: Bearer bd592b7f-eba2-0af3-c30f-5e8531bb0585" "http://localhost:3001/api/site"
         div
           curl -H "Content-Type: application/json" -H "Authorization: Bearer bd592b7f-eba2-0af3-c30f-5e8531bb0585" "http://localhost:3001/api/site" -d '{"guid": "93ca88bc-ee83-60a5-9839-9d9bf885c6da", "foo": "123450000039", "name": "hi"}' 
+    {{ end }}
     div bg-pink-600 h-1 rounded-md my-3
     {{ end }}
