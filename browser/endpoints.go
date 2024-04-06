@@ -2,6 +2,7 @@ package browser
 
 import (
 	"encoding/json"
+	"fmt"
 	"strings"
 
 	"github.com/andrewarrow/feedback/wasm"
@@ -38,6 +39,11 @@ func UpsertRoute() {
 		var m map[string]any
 		json.Unmarshal([]byte(asString), &m)
 		if code == 200 {
+			fmt.Println(m)
+			items := m["items"].([]any)
+			top := items[0].(string)
+			div := Document.Id("top-" + top)
+			div.Set("innerHTML", "fo")
 			return
 		}
 		flashThree(asString)

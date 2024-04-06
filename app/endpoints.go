@@ -1,6 +1,8 @@
 package app
 
 import (
+	"strings"
+
 	"codeberg.org/andrewarrow/roll"
 	"github.com/andrewarrow/feedback/router"
 	"github.com/andrewarrow/feedback/util"
@@ -19,5 +21,13 @@ func handleRouteUpsert(c *router.Context) {
 	}
 	roll.SingleUpsert(indexNameRoutes, guid, c.Params)
 
-	c.SendContentAsJsonMessage("ok", 200)
+	route := c.Params["route"].(string)
+	tokens := strings.Split(route, "/")
+	top := tokens[1]
+
+	send := map[string]any{}
+	tops, m := getEndpoints(top)
+	send["items"] = tops
+	send["map"] = m
+	c.SendContentAsJson(send, 200)
 }
