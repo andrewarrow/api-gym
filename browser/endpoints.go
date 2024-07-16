@@ -34,7 +34,7 @@ func setRouteClicks(div *wasm.Wrapper) {
 func UpsertRoute() {
 	go func() {
 		form := Document.Id("verb-form")
-		inputs := form.NoClearInputs()
+		inputs := form.MapOfInputs(false)
 		inputs["id"] = routeSelected
 		asString, code := wasm.DoPut("/gym/route", inputs)
 		var m map[string]any

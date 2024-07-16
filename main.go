@@ -1,7 +1,9 @@
 package main
 
 import (
+	"context"
 	"embed"
+	"fmt"
 	"math/rand"
 	"os"
 	"time"
@@ -9,6 +11,8 @@ import (
 	"github.com/andrewarrow/api-gym/app"
 	"github.com/andrewarrow/feedback/common"
 	"github.com/andrewarrow/feedback/router"
+	"github.com/getkin/kin-openapi/openapi3"
+	"gopkg.in/yaml.v2"
 )
 
 //go:embed app/feedback.json
@@ -32,7 +36,18 @@ func main() {
 	arg := os.Args[1]
 
 	if arg == "import" {
-	} else if arg == "email" {
+	} else if arg == "parse" {
+		filePath := "/Users/aa/pura/dc/openapi/openapi.yaml"
+		file, _ := os.ReadFile(filePath)
+		var doc openapi3.T
+		yaml.Unmarshal(file, &doc)
+		ctx := context.Background()
+		doc.Validate(ctx)
+		//doc.Validate(openapi3.NewLoader())
+		fmt.Printf("OpenAPI Version: %s\n", doc.OpenAPI)
+		fmt.Printf("Title: %s\n", doc.Info.Title)
+		fmt.Printf("Description: %s\n", doc.Info.Description)
+		fmt.Printf("Version: %s\n", doc.Info.Version)
 	} else if arg == "render" {
 		router.RenderMarkup()
 	} else if arg == "run" {

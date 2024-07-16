@@ -7,9 +7,10 @@ replace codeberg.org/andrewarrow/roll => /Users/aa/os/roll
 go 1.21.0
 
 require (
-	codeberg.org/andrewarrow/roll v0.0.0-00010101000000-000000000000
 	github.com/andrewarrow/feedback v0.0.0-20240320124923-6659c7562cd8
 	github.com/brianvoe/gofakeit v3.18.0+incompatible
+	github.com/getkin/kin-openapi v0.126.0
+	gopkg.in/yaml.v2 v2.2.8
 )
 
 require (
@@ -42,6 +43,8 @@ require (
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-logr/logr v1.4.1 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
+	github.com/go-openapi/jsonpointer v0.21.0 // indirect
+	github.com/go-openapi/swag v0.23.0 // indirect
 	github.com/golang-jwt/jwt/v5 v5.0.0 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
@@ -50,9 +53,15 @@ require (
 	github.com/googleapis/enterprise-certificate-proxy v0.3.2 // indirect
 	github.com/googleapis/gax-go/v2 v2.12.0 // indirect
 	github.com/iancoleman/strcase v0.2.0 // indirect
+	github.com/invopop/yaml v0.3.1 // indirect
 	github.com/jmoiron/sqlx v1.3.5 // indirect
+	github.com/josharian/intern v1.0.0 // indirect
 	github.com/lib/pq v1.10.9 // indirect
 	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
+	github.com/mailru/easyjson v0.7.7 // indirect
+	github.com/mattn/go-sqlite3 v1.14.6 // indirect
+	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
+	github.com/perimeterx/marshmallow v1.1.5 // indirect
 	github.com/twpayne/go-geom v1.5.4 // indirect
 	github.com/xeonx/timeago v1.0.0-rc5 // indirect
 	go.opencensus.io v0.24.0 // indirect
@@ -75,4 +84,5 @@ require (
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240311173647-c811ad7063a7 // indirect
 	google.golang.org/grpc v1.62.1 // indirect
 	google.golang.org/protobuf v1.33.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
